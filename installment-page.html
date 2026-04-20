@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Make a Payment | SKILL KWA GROUND</title>
+    <link rel="icon" type="image/x-icon" href="Assets/skg.png">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <!-- Paystack Inline JS -->
+    <script src="https://js.paystack.co/v2/inline.js"></script>
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+        
+        :root {
+            --primary: #D90429;
+            --primary-dark: #A60321;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+        }
+        
+        .payment-container {
+            max-width: 520px;
+            width: 100%;
+        }
+        
+        .payment-card {
+            background: white;
+            border-radius: 32px;
+            padding: 40px 36px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+        
+        .logo i {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+        
+        .logo h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--gray-800);
+        }
+        
+        .logo span {
+            color: var(--primary);
+        }
+        
+        .page-title {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        
+        .page-title h3 {
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+        }
+        
+        .page-title p {
+            color: var(--gray-500);
+            font-size: 0.95rem;
+        }
+        
+        /* Amount Input - Large & Friendly */
+        .amount-section {
+            margin-bottom: 28px;
+        }
+        
+        .amount-label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            color: var(--gray-700);
+            text-align: center;
+        }
+        
+        .amount-input-wrapper {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--gray-50);
+            border: 2px solid var(--gray-200);
+            border-radius: 20px;
+            padding: 8px 16px;
+            transition: all 0.2s;
+        }
+        
+        .amount-input-wrapper:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(217, 4, 41, 0.08);
+            background: white;
+        }
+        
+        .currency-symbol {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gray-600);
+        }
+        
+        .amount-input-wrapper input {
+            width: 100%;
+            padding: 12px 8px;
+            font-size: 2.5rem;
+            font-weight: 800;
+            text-align: center;
+            border: none;
+            background: transparent;
+            font-family: inherit;
+            color: var(--gray-800);
+            outline: none;
+        }
+        
+        .amount-input-wrapper input::placeholder {
+            color: var(--gray-300);
+            font-size: 1.5rem;
+        }
+        
+        /* Quick Amount Buttons */
+        .quick-amounts {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+            margin-top: 16px;
+        }
+        
+        .quick-amount {
+            padding: 12px 8px;
+            background: var(--gray-50);
+            border: 1.5px solid var(--gray-200);
+            border-radius: 14px;
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all 0.2s;
+            text-align: center;
+        }
+        
+        .quick-amount:hover {
+            background: var(--gray-100);
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        .quick-amount.active {
+            background: var(--primary);
+            border-color: var(--primary);
+            color: white;
+        }
+        
+        /* Purpose Selection */
+        .purpose-section {
+            margin-bottom: 24px;
+        }
+        
+        .purpose-label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            color: var(--gray-700);
+        }
+        
+        .purpose-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+        
+        .purpose-option {
+            padding: 14px 12px;
+            background: var(--gray-50);
+            border: 1.5px solid var(--gray-200);
+            border-radius: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .purpose-option i {
+            font-size: 1.2rem;
+            color: var(--gray-500);
+            margin-bottom: 6px;
+            display: block;
+        }
+        
+        .purpose-option span {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--gray-600);
+        }
+        
+        .purpose-option.active {
+            border-color: var(--primary);
+            background: #fff5f5;
+        }
+        
+        .purpose-option.active i,
+        .purpose-option.active span {
+            color: var(--primary);
+        }
+        
+        .custom-purpose {
+            margin-top: 12px;
+        }
+        
+        .custom-purpose input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 14px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+        }
+        
+        .custom-purpose input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(217, 4, 41, 0.08);
+        }
+        
+        .custom-purpose input::placeholder {
+            color: var(--gray-400);
+        }
+        
+        /* Form Fields */
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            color: var(--gray-700);
+        }
+        
+        .form-group label i {
+            color: var(--primary);
+            margin-right: 6px;
+            font-size: 0.85rem;
+        }
+        
+        .input-wrapper {
+            position: relative;
+        }
+        
+        .input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            font-size: 1rem;
+        }
+        
+        .input-wrapper input,
+        .input-wrapper select,
+        .input-wrapper textarea {
+            width: 100%;
+            padding: 14px 16px 14px 46px;
+            font-size: 0.95rem;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 14px;
+            font-family: inherit;
+            transition: all 0.2s;
+            background: white;
+        }
+        
+        .input-wrapper textarea {
+            padding: 14px 16px;
+            resize: vertical;
+            min-height: 80px;
+        }
+        
+        .input-wrapper input:focus,
+        .input-wrapper select:focus,
+        .input-wrapper textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(217, 4, 41, 0.08);
+        }
+        
+        .input-wrapper input::placeholder,
+        .input-wrapper textarea::placeholder {
+            color: var(--gray-400);
+        }
+        
+        /* Payment Method */
+        .payment-methods {
+            margin-bottom: 24px;
+        }
+        
+        .payment-methods label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+            color: var(--gray-700);
+        }
+        
+        .method-options {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        
+        .method-option {
+            flex: 1;
+            min-width: 80px;
+            padding: 12px 8px;
+            background: var(--gray-50);
+            border: 1.5px solid var(--gray-200);
+            border-radius: 14px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .method-option i {
+            font-size: 1.5rem;
+            color: var(--gray-500);
+            margin-bottom: 6px;
+            display: block;
+        }
+        
+        .method-option span {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--gray-600);
+        }
+        
+        .method-option.active {
+            border-color: var(--primary);
+            background: #fff5f5;
+        }
+        
+        .method-option.active i,
+        .method-option.active span {
+            color: var(--primary);
+        }
+        
+        /* Pay Button */
+        .btn-pay {
+            width: 100%;
+            padding: 18px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s;
+            font-family: inherit;
+            margin-bottom: 16px;
+        }
+        
+        .btn-pay:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(217, 4, 41, 0.3);
+        }
+        
+        .btn-pay:disabled {
+            background: var(--gray-300);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        /* Messages */
+        .error-message {
+            background: #fef2f2;
+            color: var(--danger);
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            border: 1px solid #fecaca;
+            display: none;
+        }
+        
+        .error-message.show {
+            display: block;
+        }
+        
+        .success-message {
+            background: #ecfdf5;
+            color: #065f46;
+            padding: 12px 16px;
+            border-radius: 12px;
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            border: 1px solid #a7f3d0;
+            display: none;
+        }
+        
+        .success-message.show {
+            display: block;
+        }
+        
+        .secure-note {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            color: var(--gray-500);
+            font-size: 0.8rem;
+            margin-bottom: 16px;
+        }
+        
+        .secure-note i {
+            color: var(--success);
+            margin-right: 4px;
+        }
+        
+        .footer-links {
+            text-align: center;
+            color: white;
+            font-size: 0.85rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            margin: 0 8px;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            text-decoration: underline;
+        }
+        
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        @media (max-width: 480px) {
+            .payment-card {
+                padding: 28px 20px;
+            }
+            
+            .amount-input-wrapper input {
+                font-size: 2rem;
+            }
+            
+            .quick-amounts {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .purpose-options {
+                grid-template-columns: 1fr;
+            }
+            
+            .method-options {
+                flex-direction: row;
+            }
+            
+            .method-option {
+                min-width: 60px;
+            }
+        }
+    </style>
+</head>
+<!-- ── ANTI-COPY ── -->
+<script>
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    const kb = (e.ctrlKey || e.metaKey) && ['c','u','s','a','p','x'].includes(e.key.toLowerCase());
+    const dt = e.key === 'F12' || ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase()));
+    if (kb || dt) e.preventDefault();
+  });
+  document.addEventListener('dragstart', e => e.preventDefault());
+  document.addEventListener('selectstart', e => e.preventDefault());
+  (function devDetect() {
+    const threshold = 160;
+    setInterval(() => {
+      if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+        document.body.innerHTML = '<div style="height:100vh;display:flex;align-items:center;justify-content:center;font-family:sans-serif;font-size:0.85rem;color:#6b6560;">Please refresh the page to continue.</div>';
+      }
+    }, 1200);
+  })();
+</script>
+<body>
+
+<div class="payment-container">
+    <div class="payment-card">
+        <div class="logo">
+            <img style="height: 120px;" src="Assets/skill kwa ground logo.png" alt="SKILL KWA GROUND">
+            <!-- <i class="fas fa-bolt"></i>
+            <h2>SKILL<span>KWA</span>GROUND</h2> -->
+        </div>
+        
+        <div class="page-title">
+            <h3><i class="fas fa-hand-holding-heart" style="color: var(--primary); margin-right: 8px;"></i>Remit an Installment</h3>
+            <p>Enter any amount you wish to Remit</p>
+        </div>
+        
+        <!-- Error/Success Messages -->
+        <div class="error-message" id="errorMessage"></div>
+        <div class="success-message" id="successMessage"></div>
+        
+        <!-- Amount Input -->
+        <div class="amount-section">
+            <div class="amount-label">
+                <i class="fas fa-money-bill-wave" style="margin-right: 6px;"></i> 
+                Enter Amount (KES)
+            </div>
+            <div class="amount-input-wrapper">
+                <span class="currency-symbol">KES</span>
+                <input 
+                    type="number" 
+                    id="paymentAmount" 
+                    placeholder="0"
+                    min="1"
+                    step="1"
+                    value="1000"
+                >
+            </div>
+            
+            <!-- Quick Amount Buttons -->
+            <div class="quick-amounts">
+                <!-- <div class="quick-amount" onclick="setAmount(500)">KES 500</div> -->
+                <div class="quick-amount" onclick="setAmount(950)">KES 950</div>
+                <div class="quick-amount" onclick="setAmount(1850)">KES 1,850</div>
+                <div class="quick-amount" onclick="setAmount(4400)">KES 4,400</div>
+                <div class="quick-amount" onclick="setAmount(8700)">KES 8,700</div>
+                <!-- <div class="quick-amount" onclick="setAmount(11400)">KES 11,400</div>
+                <div class="quick-amount" onclick="setAmount(20000)">KES 20,000</div>
+                <div class="quick-amount" onclick="setAmount(50000)">KES 50,000</div> -->
+            </div>
+        </div>
+        
+        <!-- Purpose Selection -->
+        <div class="purpose-section">
+            <div class="purpose-label">
+                <i class="fas fa-tag" style="margin-right: 6px;"></i> 
+                What is this payment for?
+            </div>
+            <div class="purpose-options">
+                <div class="purpose-option active" onclick="selectPurpose('course')">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>Course Enrollment</span>
+                </div>
+                <!-- <div class="purpose-option" onclick="selectPurpose('donation')">
+                    <i class="fas fa-heart"></i>
+                    <span>Donation / Support</span>
+                </div> -->
+                <div class="purpose-option" onclick="selectPurpose('mentorship')">
+                    <i class="fas fa-chalkboard-user"></i>
+                    <span>Mentorship Fee</span>
+                </div>
+                <div class="purpose-option" onclick="selectPurpose('other')">
+                    <i class="fas fa-ellipsis"></i>
+                    <span>Other</span>
+                </div>
+            </div>
+            <div class="custom-purpose" id="customPurposeContainer" style="display: none;">
+                <input type="text" id="customPurpose" placeholder="Please specify...">
+            </div>
+        </div>
+        
+        <form id="paymentForm" onsubmit="return false;">
+            <!-- Full Name -->
+            <div class="form-group">
+                <label><i class="fas fa-user"></i> Full Name</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-user-circle"></i>
+                    <input type="text" id="fullName" placeholder="Enter your Name`" required>
+                </div>
+            </div>
+            
+            <!-- Email -->
+            <div class="form-group">
+                <label><i class="fas fa-envelope"></i> Email Address</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-at"></i>
+                    <input type="email" id="email" placeholder="Enter Email Address" required>
+                </div>
+            </div>
+            
+            <!-- Phone -->
+            <div class="form-group">
+                <label><i class="fas fa-phone"></i> Phone Number</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-mobile-alt"></i>
+                    <input type="tel" id="phone" placeholder="Enter Phone Number">
+                </div>
+            </div>
+            
+            <!-- Optional Message -->
+            <div class="form-group">
+                <label><i class="fas fa-message"></i> Message (Optional)</label>
+                <div class="input-wrapper">
+                    <i class="fas fa-pen"></i>
+                    <textarea id="message" placeholder="Any additional notes..."></textarea>
+                </div>
+            </div>
+            
+            <!-- Payment Method -->
+            <div class="payment-methods">
+                <label><i class="fas fa-credit-card"></i> Payment Method</label>
+                <div class="method-options">
+                    <div class="method-option" onclick="selectPaymentMethod('card')">
+                        <i class="fas fa-credit-card"></i>
+                        <span>Card</span>
+                    </div>
+                    <div class="method-option active" onclick="selectPaymentMethod('mobile_money')">
+                        <i class="fas fa-mobile-alt"></i>
+                        <span>M-PESA</span>
+                    </div>
+                    <div class="method-option" onclick="selectPaymentMethod('bank')">
+                        <i class="fas fa-university"></i>
+                        <span>Bank</span>
+                    </div>
+                    <div class="method-option" onclick="selectPaymentMethod('ussd')">
+                        <i class="fas fa-hashtag"></i>
+                        <span>USSD</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Pay Button -->
+            <button type="submit" class="btn-pay" id="payButton" onclick="handlePayment()">
+                <i class="fas fa-lock"></i>
+                <span id="payButtonText">Remit KES <span id="displayAmount">1,000</span></span>
+            </button>
+        </form>
+        
+        <!-- Security Badges -->
+        <div class="secure-note">
+            <span><i class="fas fa-shield-alt"></i> SSL Secure</span>
+            <span><i class="fas fa-credit-card"></i> Paystack Verified</span>
+            <span><i class="fas fa-undo-alt"></i> Secure Payment</span>
+        </div>
+    </div>
+    
+    <div class="footer-links">
+        <a href="index.html">Home</a> •
+        <a href="#">Terms</a> •
+        <a href="#">Privacy</a> •
+        <a href="#">Support</a>
+    </div>
+</div>
+
+<script>
+    // =====================================================
+    // CONFIGURATION
+    // =====================================================
+    
+    // IMPORTANT: Replace with your actual Paystack Public Key
+    const PAYSTACK_PUBLIC_KEY = 'pk_live_e166076cf9b0c001863751604bc3aa3f807ed6b1'; // ← REPLACE THIS
+    
+    // =====================================================
+    // GLOBAL VARIABLES
+    // =====================================================
+    
+    let selectedPurpose = 'course';
+    let selectedPaymentMethod = 'card';
+    let isProcessing = false;
+    
+    // =====================================================
+    // INITIALIZATION
+    // =====================================================
+    
+    document.addEventListener('DOMContentLoaded', function() {
+        // Update display amount
+        updateDisplayAmount();
+        
+        // Listen for amount changes
+        document.getElementById('paymentAmount').addEventListener('input', function() {
+            updateDisplayAmount();
+            highlightQuickAmount(this.value);
+        });
+        
+        // Set default active quick amount
+        highlightQuickAmount(1000);
+    });
+    
+    // =====================================================
+    // AMOUNT HANDLING
+    // =====================================================
+    
+    function setAmount(amount) {
+        document.getElementById('paymentAmount').value = amount;
+        updateDisplayAmount();
+        highlightQuickAmount(amount);
+    }
+    
+    function updateDisplayAmount() {
+        const amount = getPaymentAmount();
+        document.getElementById('displayAmount').textContent = amount.toLocaleString();
+    }
+    
+    function getPaymentAmount() {
+        let amount = parseFloat(document.getElementById('paymentAmount').value);
+        if (isNaN(amount) || amount < 1) {
+            amount = 1;
+            document.getElementById('paymentAmount').value = 1;
+        }
+        return Math.round(amount);
+    }
+    
+    function highlightQuickAmount(amount) {
+        document.querySelectorAll('.quick-amount').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        // Try to find and highlight matching quick amount
+        const quickAmounts = document.querySelectorAll('.quick-amount');
+        const amountNum = parseFloat(amount);
+        
+        quickAmounts.forEach(btn => {
+            const btnText = btn.textContent;
+            const btnAmount = parseFloat(btnText.replace(/[^0-9]/g, ''));
+            if (btnAmount === amountNum) {
+                btn.classList.add('active');
+            }
+        });
+    }
+    
+    // =====================================================
+    // PURPOSE SELECTION
+    // =====================================================
+    
+    function selectPurpose(purpose) {
+        selectedPurpose = purpose;
+        
+        // Update UI
+        document.querySelectorAll('.purpose-option').forEach(option => {
+            option.classList.remove('active');
+        });
+        event.target.closest('.purpose-option').classList.add('active');
+        
+        // Show/hide custom purpose input
+        const customContainer = document.getElementById('customPurposeContainer');
+        if (purpose === 'other') {
+            customContainer.style.display = 'block';
+        } else {
+            customContainer.style.display = 'none';
+        }
+    }
+    
+    function getPurposeDisplay() {
+        const purposes = {
+            'course': 'Course Enrollment',
+            'donation': 'Donation / Support',
+            'mentorship': 'Mentorship Fee',
+            'other': 'Other'
+        };
+        
+        let display = purposes[selectedPurpose] || 'Payment';
+        
+        if (selectedPurpose === 'other') {
+            const custom = document.getElementById('customPurpose').value.trim();
+            if (custom) {
+                display = custom;
+            }
+        }
+        
+        return display;
+    }
+    
+    // =====================================================
+    // PAYMENT METHOD SELECTION
+    // =====================================================
+    
+    function selectPaymentMethod(method) {
+        selectedPaymentMethod = method;
+        
+        // Update UI
+        document.querySelectorAll('.method-option').forEach(option => {
+            option.classList.remove('active');
+        });
+        event.target.closest('.method-option').classList.add('active');
+    }
+    
+    // =====================================================
+    // VALIDATION
+    // =====================================================
+    
+    function validateForm() {
+        const fullName = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const amount = getPaymentAmount();
+        
+        if (!fullName) {
+            showError('Please enter your full name');
+            return false;
+        }
+        
+        if (!email) {
+            showError('Please enter your email address');
+            return false;
+        }
+        
+        if (!isValidEmail(email)) {
+            showError('Please enter a valid email address');
+            return false;
+        }
+        
+        if (amount < 1) {
+            showError('Please enter a valid amount (minimum KES 1)');
+            return false;
+        }
+        
+        if (selectedPurpose === 'other') {
+            const customPurpose = document.getElementById('customPurpose').value.trim();
+            if (!customPurpose) {
+                showError('Please specify the purpose of your payment');
+                return false;
+            }
+        }
+        
+        return true;
+    }
+    
+    function isValidEmail(email) {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
+    
+    function showError(message) {
+        const errorEl = document.getElementById('errorMessage');
+        errorEl.textContent = message;
+        errorEl.classList.add('show');
+        
+        setTimeout(() => {
+            errorEl.classList.remove('show');
+        }, 4000);
+    }
+    
+    // =====================================================
+    // PAYMENT PROCESSING
+    // =====================================================
+    
+    async function handlePayment() {
+        // Validate form
+        if (!validateForm()) {
+            return;
+        }
+        
+        if (isProcessing) {
+            return;
+        }
+        
+        const fullName = document.getElementById('fullName').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const phone = document.getElementById('phone').value.trim();
+        const message = document.getElementById('message').value.trim();
+        const amount = getPaymentAmount();
+        const purpose = getPurposeDisplay();
+        
+        // Set processing state
+        isProcessing = true;
+        const payButton = document.getElementById('payButton');
+        const payButtonText = document.getElementById('payButtonText');
+        
+        payButton.disabled = true;
+        payButtonText.innerHTML = '<span class="loading-spinner"></span> Processing...';
+        
+        try {
+            // Generate unique transaction reference
+            const reference = `SKG-${Date.now()}-${Math.floor(Math.random() * 1000)}`;
+            
+            // Initialize Paystack Popup
+            const paystack = new PaystackPop();
+            
+            paystack.newTransaction({
+                key: PAYSTACK_PUBLIC_KEY,
+                email: email,
+                amount: amount * 100, // Convert to kobo/pesa
+                ref: reference,
+                currency: 'KES',
+                channels: [selectedPaymentMethod],
+                metadata: {
+                    custom_fields: [
+                        {
+                            display_name: 'Full Name',
+                            variable_name: 'full_name',
+                            value: fullName
+                        },
+                        {
+                            display_name: 'Phone',
+                            variable_name: 'phone',
+                            value: phone || 'Not provided'
+                        },
+                        {
+                            display_name: 'Payment Purpose',
+                            variable_name: 'purpose',
+                            value: purpose
+                        },
+                        {
+                            display_name: 'Message',
+                            variable_name: 'message',
+                            value: message || 'None'
+                        }
+                    ]
+                },
+                onSuccess: function(response) {
+                    // Payment successful
+                    console.log('Payment successful:', response);
+                    
+                    // Store transaction details
+                    const transactionData = {
+                        reference: response.reference,
+                        amount: amount,
+                        purpose: purpose,
+                        email: email,
+                        name: fullName,
+                        phone: phone,
+                        message: message,
+                        date: new Date().toISOString()
+                    };
+                    
+                    // Save to localStorage
+                    saveTransaction(transactionData);
+                    
+                    // Show success message
+                    document.getElementById('successMessage').innerHTML = `
+                        <i class="fas fa-check-circle" style="margin-right: 8px;"></i>
+                        Payment of KES ${amount.toLocaleString()} successful! Thank you for your support.
+                    `;
+                    document.getElementById('successMessage').classList.add('show');
+                    
+                    // Reset form
+                    document.getElementById('paymentForm').reset();
+                    document.getElementById('paymentAmount').value = 1000;
+                    updateDisplayAmount();
+                    
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    
+                    // Reset button
+                    isProcessing = false;
+                    payButton.disabled = false;
+                    payButtonText.innerHTML = `<i class="fas fa-lock"></i> Pay KES <span id="displayAmount">1,000</span>`;
+                    document.getElementById('displayAmount').textContent = '1,000';
+                    
+                    setTimeout(() => {
+                        document.getElementById('successMessage').classList.remove('show');
+                    }, 5000);
+                },
+                onCancel: function() {
+                    // User closed the payment modal
+                    isProcessing = false;
+                    payButton.disabled = false;
+                    payButtonText.innerHTML = `<i class="fas fa-lock"></i> Pay KES <span id="displayAmount">${amount.toLocaleString()}</span>`;
+                    
+                    showError('Payment was cancelled. Please try again when you\'re ready.');
+                },
+                onError: function(error) {
+                    // Payment error
+                    console.error('Payment error:', error);
+                    
+                    isProcessing = false;
+                    payButton.disabled = false;
+                    payButtonText.innerHTML = `<i class="fas fa-lock"></i> Pay KES <span id="displayAmount">${amount.toLocaleString()}</span>`;
+                    
+                    showError('An error occurred during payment. Please try again.');
+                }
+            });
+            
+        } catch (error) {
+            console.error('Payment initialization error:', error);
+            
+            isProcessing = false;
+            payButton.disabled = false;
+            payButtonText.innerHTML = `<i class="fas fa-lock"></i> Pay KES <span id="displayAmount">${amount.toLocaleString()}</span>`;
+            
+            showError('Could not initialize payment. Please refresh and try again.');
+        }
+    }
+    
+    // =====================================================
+    // TRANSACTION STORAGE
+    // =====================================================
+    
+    function saveTransaction(transaction) {
+        let transactions = JSON.parse(localStorage.getItem('skg_payments') || '[]');
+        transactions.push(transaction);
+        localStorage.setItem('skg_payments', JSON.stringify(transactions));
+        console.log('Payment saved:', transaction);
+    }
+    
+    // =====================================================
+    // UTILITY FUNCTIONS
+    // =====================================================
+    
+    window.getPayments = function() {
+        const payments = localStorage.getItem('skg_payments');
+        console.table(JSON.parse(payments || '[]'));
+    };
+    
+    window.clearPayments = function() {
+        localStorage.removeItem('skg_payments');
+        console.log('Payment history cleared');
+    };
+</script>
+
+</body>
+</html>

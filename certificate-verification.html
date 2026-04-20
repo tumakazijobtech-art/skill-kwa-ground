@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Certificate Verifier | SKILL KWA GROUND</title>
+    <link rel="icon" type="image/x-icon" href="Assets/skg.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* All styles remain the same as your original */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        :root {
+            --primary: #D90429;
+            --primary-dark: #A60321;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+        }
+        .verifier-container { max-width: 600px; width: 100%; }
+        .verifier-card {
+            background: white;
+            border-radius: 32px;
+            padding: 48px 40px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+        .logo i { font-size: 2rem; color: var(--primary); }
+        .logo h1 { font-size: 1.8rem; font-weight: 800; color: #1e293b; }
+        .logo span { color: var(--primary); }
+        .verifier-icon { text-align: center; margin-bottom: 24px; }
+        .verifier-icon i {
+            font-size: 4rem;
+            color: var(--primary);
+            background: #fff1f2;
+            padding: 24px;
+            border-radius: 60px;
+        }
+        h2 { font-size: 1.5rem; font-weight: 700; text-align: center; margin-bottom: 8px; color: #1e293b; }
+        .subtitle { text-align: center; color: #64748b; margin-bottom: 32px; font-size: 0.95rem; }
+        .input-group { margin-bottom: 24px; }
+        .input-group label { display: block; font-weight: 600; font-size: 0.9rem; margin-bottom: 8px; color: #334155; }
+        .input-wrapper { position: relative; }
+        .input-wrapper i {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #94a3b8;
+            font-size: 1.1rem;
+        }
+        .input-wrapper input {
+            width: 100%;
+            padding: 16px 16px 16px 48px;
+            font-size: 1rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 16px;
+            font-family: inherit;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .input-wrapper input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(217, 4, 41, 0.1);
+        }
+        .btn-verify {
+            width: 100%;
+            padding: 16px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 16px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: all 0.2s;
+            font-family: inherit;
+        }
+        .btn-verify:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(217, 4, 41, 0.3);
+        }
+        .btn-verify:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .result-card {
+            margin-top: 32px;
+            padding: 24px;
+            border-radius: 20px;
+            display: none;
+        }
+        .result-card.show { display: block; animation: slideUp 0.3s ease; }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .result-success { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 1px solid #a7f3d0; }
+        .result-error { background: linear-gradient(135deg, #fef2f2 0%, #fee2e2 100%); border: 1px solid #fecaca; }
+        .result-icon { font-size: 2.5rem; margin-bottom: 16px; }
+        .result-success .result-icon { color: var(--success); }
+        .result-error .result-icon { color: var(--danger); }
+        .result-title { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+        .result-success .result-title { color: #065f46; }
+        .result-error .result-title { color: #991b1b; }
+        .result-details { margin-top: 16px; padding-top: 16px; border-top: 1px solid rgba(0,0,0,0.1); }
+        .detail-row { display: flex; margin-bottom: 8px; }
+        .detail-label { width: 100px; font-weight: 600; color: #374151; }
+        .detail-value { color: #1e293b; font-weight: 500; }
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-top-color: white;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .example-codes { margin-top: 24px; padding: 16px; background: #f8fafc; border-radius: 16px; }
+        .example-codes p { font-size: 0.85rem; color: #64748b; margin-bottom: 8px; }
+        .example-codes code {
+            background: #e2e8f0;
+            padding: 4px 8px;
+            border-radius: 6px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            margin-right: 8px;
+            cursor: pointer;
+        }
+        .example-codes code:hover { background: var(--primary); color: white; }
+        .footer-note { text-align: center; margin-top: 24px; color: white; font-size: 0.85rem; opacity: 0.8; }
+        .footer-note a { color: white; text-decoration: underline; }
+        @media (max-width: 480px) {
+            .verifier-card { padding: 32px 24px; }
+            h2 { font-size: 1.3rem; }
+            .logo h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<!-- ── ANTI-COPY ── -->
+<script>
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    const kb = (e.ctrlKey || e.metaKey) && ['c','u','s','a','p','x'].includes(e.key.toLowerCase());
+    const dt = e.key === 'F12' || ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase()));
+    if (kb || dt) e.preventDefault();
+  });
+  document.addEventListener('dragstart', e => e.preventDefault());
+  document.addEventListener('selectstart', e => e.preventDefault());
+  (function devDetect() {
+    const threshold = 160;
+    setInterval(() => {
+      if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+        document.body.innerHTML = '<div style="height:100vh;display:flex;align-items:center;justify-content:center;font-family:sans-serif;font-size:0.85rem;color:#6b6560;">Please refresh the page to continue.</div>';
+      }
+    }, 1200);
+  })();
+</script>
+<body>
+
+<div class="verifier-container">
+    <div class="verifier-card">
+        <div class="logo">
+            
+            <!-- <i class="fas fa-bolt"></i> -->
+            <img style="height: 35px;" src="Assets/skg.png" alt="">
+            <h1>SKILL<span>KWA</span>GROUND</h1>
+        </div>
+        
+        <div class="verifier-icon">
+            <i class="fas fa-certificate"></i>
+        </div>
+        
+        <h2>Certificate Verifier</h2>
+        <p class="subtitle">Enter your certificate code to verify authenticity</p>
+        
+        <div class="input-group">
+            <label>Certificate Code</label>
+            <div class="input-wrapper">
+                <i class="fas fa-qrcode"></i>
+                <input 
+                    type="text" 
+                    id="certificateCode" 
+                    placeholder="Enter Certificate Code"
+                    maxlength="20"
+                    autocomplete="off"
+                >
+            </div>
+        </div>
+        
+        <button class="btn-verify" id="verifyBtn" onclick="verifyCertificate()">
+            <i class="fas fa-search"></i>
+            <span id="verifyBtnText">Verify Certificate</span>
+        </button>
+        
+        <!-- <div class="example-codes">
+            <p><i class="fas fa-key" style="margin-right: 6px;"></i> Try these example codes:</p>
+            <code onclick="fillCode('SKG-2025-001')">SKG-2025-001</code>
+            <code onclick="fillCode('SKG-2025-002')">SKG-2025-002</code>
+            <code onclick="fillCode('SKG-2025-003')">SKG-2025-003</code>
+        </div> -->
+        
+        <div id="resultCard" class="result-card"></div>
+    </div>
+    
+    <div class="footer-note">
+        <i class="fas fa-shield-alt"></i> Secure verification · <a href="index.html">Back to Home</a>
+    </div>
+</div>
+
+<script>
+    // =====================================================
+    // CONFIGURATION - REPLACE WITH YOUR APPS SCRIPT URL
+    // =====================================================
+    
+    const API_URL = 'https://script.google.com/macros/s/AKfycbzLt38PXqFjKTuUDXxr4hNLspSFnAqHQIILq1rOkYjp4H2OA4tj3TAQ77ox_-iEHOMYBw/exec';
+    
+    // =====================================================
+    // VERIFICATION FUNCTION
+    // =====================================================
+    
+    async function verifyCertificate() {
+        const input = document.getElementById('certificateCode');
+        const code = input.value.trim().toUpperCase();
+        const btn = document.getElementById('verifyBtn');
+        const btnText = document.getElementById('verifyBtnText');
+        const resultCard = document.getElementById('resultCard');
+        
+        if (!code) {
+            showError('Please enter a certificate code');
+            return;
+        }
+        
+        btn.disabled = true;
+        btnText.innerHTML = '<span class="loading-spinner"></span> Verifying...';
+        
+        try {
+            const response = await fetch(`${API_URL}?action=verify&code=${encodeURIComponent(code)}`);
+            const data = await response.json();
+            
+            if (data.success && data.found) {
+                showSuccess(data.certificate);
+            } else {
+                showNotFound(code);
+            }
+        } catch (error) {
+            console.error('Verification error:', error);
+            showError('Could not connect to verification service. Please try again.');
+        } finally {
+            btn.disabled = false;
+            btnText.innerHTML = '<i class="fas fa-search"></i> Verify Certificate';
+        }
+    }
+    
+    // =====================================================
+    // DISPLAY FUNCTIONS
+    // =====================================================
+    
+    function showSuccess(certificate) {
+        const resultCard = document.getElementById('resultCard');
+        resultCard.className = 'result-card result-success show';
+        resultCard.innerHTML = `
+            <div class="result-icon"><i class="fas fa-check-circle"></i></div>
+            <div class="result-title"><i class="fas fa-certificate"></i> Valid Certificate</div>
+            <p style="color: #065f46; margin-bottom: 8px;">This is an authentic SKILL KWA GROUND certificate.</p>
+            <div class="result-details">
+                <div class="detail-row"><span class="detail-label">Certificate ID:</span><span class="detail-value">${certificate.code}</span></div>
+                <div class="detail-row"><span class="detail-label">Recipient:</span><span class="detail-value">${certificate.name}</span></div>
+                <div class="detail-row"><span class="detail-label">Course:</span><span class="detail-value">${certificate.course}</span></div>
+                <div class="detail-row"><span class="detail-label">Date:</span><span class="detail-value">${certificate.date}</span></div>
+            </div>
+            <div style="margin-top: 16px; font-size: 0.85rem; color: #065f46;"><i class="fas fa-shield-alt"></i> Verified by SKILL KWA GROUND</div>
+        `;
+    }
+    
+    function showNotFound(code) {
+        const resultCard = document.getElementById('resultCard');
+        resultCard.className = 'result-card result-error show';
+        resultCard.innerHTML = `
+            <div class="result-icon"><i class="fas fa-times-circle"></i></div>
+            <div class="result-title">Certificate Not Found</div>
+            <p style="color: #991b1b; margin-bottom: 16px;">The code "${code}" does not match any certificate in our records.</p>
+            <div style="font-size: 0.9rem; color: #7f1d1d;"><i class="fas fa-info-circle"></i> Please check the code and try again.</div>
+        `;
+    }
+    
+    function showError(message) {
+        const resultCard = document.getElementById('resultCard');
+        resultCard.className = 'result-card result-error show';
+        resultCard.innerHTML = `
+            <div class="result-icon"><i class="fas fa-exclamation-triangle"></i></div>
+            <div class="result-title">Error</div>
+            <p style="color: #991b1b;">${message}</p>
+        `;
+        setTimeout(() => resultCard.classList.remove('show'), 3000);
+    }
+    
+    function fillCode(code) {
+        document.getElementById('certificateCode').value = code;
+        document.getElementById('certificateCode').focus();
+    }
+    
+    // Event listeners
+    document.addEventListener('DOMContentLoaded', function() {
+        document.getElementById('certificateCode').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') verifyCertificate();
+        });
+        document.getElementById('certificateCode').addEventListener('input', function(e) {
+            e.target.value = e.target.value.toUpperCase();
+        });
+    });
+</script>
+</body>
+</html>

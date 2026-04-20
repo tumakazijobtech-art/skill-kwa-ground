@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Automation using n8n | SKILL KWA GROUND</title>
+    <meta name="robots" content="noindex, nofollow">
+    
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            user-select: none;
+        }
+        
+        input, textarea, button {
+            user-select: text;
+        }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: #f8fafc;
+            color: #0f172a;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        :root {
+            --primary: #EA4B2C;
+            --primary-dark: #c03e1f;
+            --secondary: #1e293b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --gray-50: #f8fafc;
+            --gray-100: #f1f5f9;
+            --gray-200: #e2e8f0;
+            --gray-300: #cbd5e1;
+            --gray-400: #94a3b8;
+            --gray-500: #64748b;
+            --gray-600: #475569;
+            --gray-700: #334155;
+            --gray-800: #1e293b;
+            --sidebar-width: 360px;
+            --header-height: 72px;
+            --border-radius: 16px;
+            --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+            --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1);
+            --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+            --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1);
+        }
+        
+        .app-wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        .course-sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            border-right: 1px solid var(--gray-200);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            overflow-y: auto;
+            z-index: 100;
+        }
+        
+        .sidebar-course-header {
+            padding: 24px 20px;
+            border-bottom: 1px solid var(--gray-200);
+            background: linear-gradient(135deg, #fafafa 0%, #ffffff 100%);
+        }
+        
+        .course-badge {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 4px 12px;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 16px;
+        }
+        
+        .course-title-sidebar {
+            font-size: 1.3rem;
+            font-weight: 800;
+            line-height: 1.3;
+            margin-bottom: 12px;
+            color: var(--gray-800);
+        }
+        
+        .course-description {
+            font-size: 0.85rem;
+            color: var(--gray-600);
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+        
+        .course-instructor {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 16px;
+        }
+        
+        .instructor-avatar {
+            width: 40px;
+            height: 40px;
+            background: var(--primary);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+        }
+        
+        .instructor-info h4 {
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+        
+        .instructor-info p {
+            font-size: 0.75rem;
+            color: var(--gray-500);
+        }
+        
+        .course-stats {
+            display: flex;
+            gap: 16px;
+            font-size: 0.75rem;
+            color: var(--gray-500);
+            flex-wrap: wrap;
+        }
+        
+        .course-stats span {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        
+        .completion-target-card {
+            margin: 16px 20px;
+            padding: 20px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: var(--border-radius);
+            color: white;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .target-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+        
+        .target-header h4 {
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0.9;
+        }
+        
+        .target-icon {
+            width: 36px;
+            height: 36px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+        
+        .target-date {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 4px;
+        }
+        
+        .target-label {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin-bottom: 16px;
+        }
+        
+        .target-progress-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .target-progress-fill {
+            height: 100%;
+            background: white;
+            border-radius: 10px;
+            width: 18%;
+        }
+        
+        .days-remaining {
+            margin-top: 12px;
+            font-size: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .overall-progress {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+        }
+        
+        .progress-header span:first-child {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--gray-700);
+        }
+        
+        .progress-header span:last-child {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+        
+        .progress-bar-large {
+            height: 8px;
+            background: var(--gray-200);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .progress-fill-large {
+            height: 100%;
+            background: var(--primary);
+            border-radius: 10px;
+            width: 18%;
+        }
+        
+        .module-list-container {
+            flex: 1;
+            padding: 16px 12px;
+        }
+        
+        .module-list-title {
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--gray-500);
+            margin-bottom: 16px;
+            padding-left: 8px;
+        }
+        
+        .module-item {
+            margin-bottom: 12px;
+        }
+        
+        .module-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px;
+            background: var(--gray-50);
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all 0.2s;
+            border: 1px solid transparent;
+        }
+        
+        .module-header:hover {
+            background: white;
+            border-color: var(--gray-200);
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .module-header-left {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .module-header-left i {
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+        
+        .module-progress {
+            font-size: 0.7rem;
+            color: var(--gray-500);
+            background: var(--gray-200);
+            padding: 2px 8px;
+            border-radius: 20px;
+        }
+        
+        .chevron-icon {
+            color: var(--gray-400);
+            transition: transform 0.2s;
+            font-size: 0.8rem;
+        }
+        
+        .module-header.collapsed .chevron-icon {
+            transform: rotate(-90deg);
+        }
+        
+        .lesson-list {
+            list-style: none;
+            margin-top: 8px;
+            padding-left: 24px;
+        }
+        
+        .lesson-list.collapsed {
+            display: none;
+        }
+        
+        .lesson-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 10px 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+        
+        .lesson-item:hover {
+            background: var(--gray-50);
+        }
+        
+        .lesson-item.active {
+            background: #fef5f2;
+            color: var(--primary);
+            font-weight: 500;
+        }
+        
+        .lesson-item i {
+            width: 18px;
+            font-size: 0.9rem;
+            color: var(--gray-400);
+        }
+        
+        .lesson-item.active i {
+            color: var(--primary);
+        }
+        
+        .lesson-item.completed i {
+            color: var(--success);
+        }
+        
+        .lesson-duration {
+            margin-left: auto;
+            font-size: 0.7rem;
+            color: var(--gray-400);
+        }
+        
+        .sidebar-footer {
+            padding: 20px;
+            border-top: 1px solid var(--gray-200);
+        }
+        
+        .btn-back {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            width: 100%;
+            padding: 12px;
+            background: white;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 40px;
+            color: var(--gray-600);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            transition: all 0.2s;
+        }
+        
+        .btn-back:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #fef5f2;
+        }
+        
+        .course-main {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            min-height: 100vh;
+            background: var(--gray-50);
+        }
+        
+        .main-header {
+            height: var(--header-height);
+            background: white;
+            border-bottom: 1px solid var(--gray-200);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 32px;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            backdrop-filter: blur(8px);
+            background: rgba(255,255,255,0.95);
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .mobile-menu-toggle {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.4rem;
+            cursor: pointer;
+            color: var(--gray-700);
+            padding: 8px;
+        }
+        
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumb a {
+            color: var(--gray-500);
+            text-decoration: none;
+        }
+        
+        .breadcrumb a:hover {
+            color: var(--primary);
+        }
+        
+        .breadcrumb .current {
+            color: var(--gray-800);
+            font-weight: 600;
+        }
+        
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+            background: none;
+        }
+        
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(234, 75, 44, 0.2);
+        }
+        
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-1px);
+        }
+        
+        .btn-outline {
+            background: transparent;
+            border: 1.5px solid var(--gray-200);
+            color: var(--gray-600);
+        }
+        
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: #fef5f2;
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .player-container {
+            padding: 28px 32px;
+            max-width: 1400px;
+        }
+        
+        .video-wrapper {
+            background: var(--gray-800);
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-xl);
+            margin-bottom: 28px;
+        }
+        
+        .video-placeholder {
+            position: relative;
+            padding-bottom: 56.25%;
+            height: 0;
+            background: #0f172a;
+        }
+        
+        .video-placeholder iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .lesson-info-bar {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        
+        .lesson-title-section h2 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--gray-800);
+            margin-bottom: 8px;
+        }
+        
+        .lesson-meta {
+            display: flex;
+            gap: 20px;
+            color: var(--gray-500);
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+        }
+        
+        .lesson-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .nav-buttons {
+            display: flex;
+            gap: 12px;
+        }
+        
+        .nav-buttons .btn {
+            padding: 12px 24px;
+        }
+        
+        .content-tabs {
+            display: flex;
+            gap: 28px;
+            border-bottom: 1px solid var(--gray-200);
+            margin-bottom: 28px;
+        }
+        
+        .tab-btn {
+            padding: 14px 4px;
+            background: none;
+            border: none;
+            font-weight: 600;
+            color: var(--gray-500);
+            cursor: pointer;
+            font-size: 0.95rem;
+            border-bottom: 2px solid transparent;
+            transition: all 0.2s;
+            margin-bottom: -1px;
+        }
+        
+        .tab-btn:hover {
+            color: var(--primary);
+        }
+        
+        .tab-btn.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+        
+        .tab-content {
+            display: none;
+        }
+        
+        .tab-content.active {
+            display: block;
+        }
+        
+        .overview-content {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .overview-content h3 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+            color: var(--gray-800);
+        }
+        
+        .overview-content p {
+            color: var(--gray-600);
+            margin-bottom: 16px;
+        }
+        
+        .learning-objectives {
+            list-style: none;
+        }
+        
+        .learning-objectives li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 14px;
+            color: var(--gray-600);
+        }
+        
+        .learning-objectives li i {
+            color: var(--success);
+            margin-top: 3px;
+        }
+        
+        .resource-item {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            padding: 18px;
+            background: white;
+            border-radius: 14px;
+            margin-bottom: 12px;
+            border: 1px solid var(--gray-200);
+        }
+        
+        .resource-icon {
+            width: 52px;
+            height: 52px;
+            background: #fef5f2;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+        
+        .resource-info h4 {
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+            color: var(--gray-800);
+        }
+        
+        .resource-info p {
+            font-size: 0.8rem;
+            color: var(--gray-500);
+        }
+        
+        .resource-download {
+            margin-left: auto;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            padding: 8px 16px;
+            background: #fef5f2;
+            border-radius: 40px;
+        }
+        
+        .notes-container {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 28px;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .notes-container textarea {
+            width: 100%;
+            min-height: 220px;
+            padding: 18px;
+            border: 1.5px solid var(--gray-200);
+            border-radius: 14px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            resize: vertical;
+            margin-bottom: 18px;
+        }
+        
+        .notes-container textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+        }
+        
+        .discussion-placeholder {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 48px;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+        }
+        
+        .discussion-placeholder i {
+            font-size: 3.5rem;
+            color: var(--gray-300);
+            margin-bottom: 20px;
+        }
+        
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 99;
+        }
+        
+        @media screen and (max-width: 768px) {
+            .app-wrapper { display: block; }
+            .course-sidebar {
+                position: fixed;
+                left: -100%;
+                width: 85%;
+                max-width: 340px;
+                transition: left 0.3s;
+            }
+            .course-sidebar.open { left: 0; }
+            .sidebar-overlay.open { display: block; }
+            .course-main { margin-left: 0; }
+            .main-header { padding: 0 20px; }
+            .mobile-menu-toggle { display: block; }
+            .header-actions .btn span { display: none; }
+            .player-container { padding: 16px; }
+            .lesson-info-bar { flex-direction: column; }
+            .nav-buttons { width: 100%; }
+            .nav-buttons .btn { flex: 1; justify-content: center; }
+            .lesson-title-section h2 { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body oncontextmenu="return false;">
+<script>
+    document.addEventListener('contextmenu', e => e.preventDefault());
+    document.addEventListener('keydown', function(e) {
+        if (e.keyCode==123 || (e.ctrlKey && e.shiftKey && (e.keyCode==73||e.keyCode==74)) || (e.ctrlKey && e.keyCode==85)) e.preventDefault();
+    });
+
+    const courseData = {
+        title: 'Automation using n8n',
+        modules: [
+            {
+                id: 1,
+                title: 'Module 1: n8n Fundamentals',
+                lessons: [
+                    { title: 'What is n8n & Why Automate?', duration: '08:30', driveId: '1ABC123xyz', completed: true },
+                    { title: 'Installing n8n (Cloud & Self-hosted)', duration: '12:15', driveId: '1DEF456uvw', completed: true },
+                    { title: 'Understanding the n8n Interface', duration: '10:45', driveId: '1GHI789rst', completed: false },
+                    { title: 'Your First Workflow: Hello World', duration: '15:20', driveId: '1JKL012mno', completed: false },
+                    { title: 'Nodes, Connections & Data Flow', duration: '14:10', driveId: '1MNO345pqr', completed: false },
+                    { title: 'Module 1 Quiz', duration: '10:00', type: 'quiz', completed: false }
+                ]
+            },
+            {
+                id: 2,
+                title: 'Module 2: Core Nodes & Data',
+                lessons: [
+                    { title: 'Trigger Nodes: Starting Workflows', duration: '11:30', driveId: '1PQR678stu', completed: false },
+                    { title: 'Working with JSON & Data Transformation', duration: '18:20', driveId: '1STU901vwx', completed: false },
+                    { title: 'HTTP Request Node Masterclass', duration: '16:45', driveId: '1VWX234yza', completed: false },
+                    { title: 'IF, Switch & Merge Nodes', duration: '13:10', driveId: '1YZA567bcd', completed: false },
+                    { title: 'Looping with Split In Batches', duration: '14:30', driveId: '1BCD890efg', completed: false },
+                    { title: 'Error Handling & Debugging', duration: '12:15', driveId: '1EFG123hij', completed: false },
+                    { title: 'Module 2 Quiz', duration: '10:00', type: 'quiz', completed: false }
+                ]
+            }
+        ]
+    };
+
+    let currentModuleIndex = 0;
+    let currentLessonIndex = 2;
+
+    function toggleSidebar() {
+        document.getElementById('courseSidebar').classList.toggle('open');
+        document.getElementById('sidebarOverlay').classList.toggle('open');
+    }
+
+    function toggleModule(index) {
+        const headers = document.querySelectorAll('.module-header');
+        const lists = document.querySelectorAll('.lesson-list');
+        if (headers[index] && lists[index]) {
+            headers[index].classList.toggle('collapsed');
+            lists[index].classList.toggle('collapsed');
+        }
+    }
+
+    function switchTab(tabId) {
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        event.target.closest('.tab-btn').classList.add('active');
+        document.getElementById(tabId + 'Tab').classList.add('active');
+    }
+
+    function toggleFullscreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen();
+        } else {
+            document.exitFullscreen();
+        }
+    }
+
+    function markLessonComplete() {
+        const module = courseData.modules[currentModuleIndex];
+        const lesson = module.lessons[currentLessonIndex];
+        lesson.completed = true;
+        renderSidebar();
+        updateProgress();
+        alert('✅ Lesson marked as complete!');
+    }
+
+    function navigateLesson(direction) {
+        const totalModules = courseData.modules.length;
+        let newModuleIndex = currentModuleIndex;
+        let newLessonIndex = currentLessonIndex + direction;
+
+        if (newLessonIndex < 0) {
+            if (currentModuleIndex > 0) {
+                newModuleIndex = currentModuleIndex - 1;
+                newLessonIndex = courseData.modules[newModuleIndex].lessons.length - 1;
+            } else { return; }
+        } else if (newLessonIndex >= courseData.modules[currentModuleIndex].lessons.length) {
+            if (currentModuleIndex < totalModules - 1) {
+                newModuleIndex = currentModuleIndex + 1;
+                newLessonIndex = 0;
+            } else { return; }
+        }
+
+        currentModuleIndex = newModuleIndex;
+        currentLessonIndex = newLessonIndex;
+        selectLesson(currentModuleIndex, currentLessonIndex);
+    }
+
+    function selectLesson(moduleIdx, lessonIdx) {
+        currentModuleIndex = moduleIdx;
+        currentLessonIndex = lessonIdx;
+        
+        const module = courseData.modules[moduleIdx];
+        const lesson = module.lessons[lessonIdx];
+        
+        document.getElementById('currentLessonTitle').textContent = lesson.title;
+        document.getElementById('lessonDuration').textContent = lesson.duration;
+        document.querySelector('.breadcrumb .current').textContent = module.title;
+        
+        // Update Google Drive embed
+        const container = document.getElementById('driveEmbedContainer');
+        if (lesson.driveId) {
+            container.innerHTML = `<iframe src="https://drive.google.com/file/d/${lesson.driveId}/preview" allow="autoplay" allowfullscreen></iframe>`;
+        } else if (lesson.type === 'quiz') {
+            container.innerHTML = `<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:white;text-align:center;"><i class="fas fa-pencil-alt" style="font-size:3rem;margin-bottom:16px;color:var(--primary);"></i><h3 style="color:white;">Quiz: ${lesson.title}</h3><p style="color:#94a3b8;">Complete the quiz to test your knowledge.</p></div>`;
+        } else {
+            container.innerHTML = `<div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:white;text-align:center;"><i class="fas fa-video" style="font-size:3rem;margin-bottom:16px;color:var(--primary);"></i><h3 style="color:white;">${lesson.title}</h3><p style="color:#94a3b8;">Video content - Embed your Google Drive file ID</p></div>`;
+        }
+        
+        renderSidebar();
+        if (window.innerWidth <= 768) toggleSidebar();
+    }
+
+    function renderSidebar() {
+        const container = document.getElementById('moduleList');
+        let html = '';
+        
+        courseData.modules.forEach((module, mIdx) => {
+            const completedCount = module.lessons.filter(l => l.completed).length;
+            const totalCount = module.lessons.length;
+            const collapsedClass = mIdx === 0 ? '' : 'collapsed';
+            
+            html += `<div class="module-item">`;
+            html += `<div class="module-header" onclick="toggleModule(${mIdx})">`;
+            html += `<div class="module-header-left"><i class="fas fa-folder"></i><span>${module.title}</span></div>`;
+            html += `<div style="display:flex;align-items:center;gap:8px;"><span class="module-progress">${completedCount}/${totalCount}</span><i class="fas fa-chevron-down chevron-icon"></i></div>`;
+            html += `</div><ul class="lesson-list ${collapsedClass}" id="module-${mIdx}">`;
+            
+            module.lessons.forEach((lesson, lIdx) => {
+                const isActive = (mIdx === currentModuleIndex && lIdx === currentLessonIndex);
+                const isCompleted = lesson.completed;
+                let icon = 'fa-play-circle';
+                if (isCompleted) icon = 'fa-check-circle';
+                else if (lesson.type === 'quiz') icon = 'fa-pencil-alt';
+                
+                html += `<li class="lesson-item ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}" onclick="selectLesson(${mIdx}, ${lIdx})">`;
+                html += `<i class="fas ${icon}"></i><span>${lesson.title}</span><span class="lesson-duration">${lesson.duration}</span></li>`;
+            });
+            html += `</ul></div>`;
+        });
+        container.innerHTML = html;
+        updateProgress();
+    }
+
+    function updateProgress() {
+        let total = 0, completed = 0;
+        courseData.modules.forEach(m => m.lessons.forEach(l => { total++; if (l.completed) completed++; }));
+        const percent = Math.round((completed / total) * 100);
+        document.getElementById('overallProgressPercent').textContent = percent + '%';
+        document.querySelector('.progress-fill-large').style.width = percent + '%';
+        document.querySelector('.target-progress-fill').style.width = percent + '%';
+    }
+
+    window.onload = function() {
+        renderSidebar();
+        selectLesson(0, 2);
+    };
+</script>
+
+<div class="app-wrapper">
+    <div class="sidebar-overlay" id="sidebarOverlay" onclick="toggleSidebar()"></div>
+    
+    <aside class="course-sidebar" id="courseSidebar">
+        <div class="sidebar-course-header">
+            <span class="course-badge"><i class="fas fa-robot" style="margin-right:4px;"></i> AUTOMATION MASTERY</span>
+            <h2 class="course-title-sidebar">Automation using n8n: From Zero to Workflow Hero</h2>
+            <p class="course-description">Master n8n, the powerful open-source automation tool. Learn to connect apps, automate repetitive tasks, build complex workflows, and save hours every week. No coding required.</p>
+            <div class="course-instructor">
+                <div class="instructor-avatar">CM</div>
+                <div class="instructor-info"><h4>Chris Mwangi</h4><p>Automation Expert · n8n Ambassador</p></div>
+            </div>
+            <div class="course-stats">
+                <span><i class="fas fa-users"></i> 890 students</span>
+                <span><i class="fas fa-star" style="color:#fbbf24;"></i> 4.9 (124 reviews)</span>
+                <span><i class="fas fa-clock"></i> 28 hours</span>
+            </div>
+        </div>
+        
+        <div class="completion-target-card">
+            <div class="target-header"><h4>COMPLETION TARGET</h4><div class="target-icon"><i class="fas fa-flag-checkered"></i></div></div>
+            <div class="target-date">May 28, 2026</div>
+            <div class="target-label">Target completion date</div>
+            <div class="target-progress-bar"><div class="target-progress-fill" style="width:18%;"></div></div>
+            <div class="days-remaining"><i class="fas fa-calendar-alt"></i><span>39 days remaining</span></div>
+        </div>
+        
+        <div class="overall-progress">
+            <div class="progress-header"><span>Overall Course Progress</span><span id="overallProgressPercent">18%</span></div>
+            <div class="progress-bar-large"><div class="progress-fill-large" style="width:18%;"></div></div>
+        </div>
+        
+        <div class="module-list-container">
+            <div class="module-list-title"><i class="fas fa-list-ul" style="margin-right:8px;"></i> Course Content</div>
+            <div id="moduleList"></div>
+        </div>
+        
+        <div class="sidebar-footer">
+            <a href="/dashboard" class="btn-back"><i class="fas fa-arrow-left"></i> Back to Dashboard</a>
+        </div>
+    </aside>
+    
+    <main class="course-main">
+        <header class="main-header">
+            <div class="header-left">
+                <button class="mobile-menu-toggle" onclick="toggleSidebar()"><i class="fas fa-bars"></i></button>
+                <div class="breadcrumb">
+                    <a href="/dashboard"><i class="fas fa-home"></i> Dashboard</a>
+                    <i class="fas fa-chevron-right" style="font-size:0.7rem;color:var(--gray-400);"></i>
+                    <a href="/my-courses">My Courses</a>
+                    <i class="fas fa-chevron-right" style="font-size:0.7rem;color:var(--gray-400);"></i>
+                    <span class="current">Automation using n8n</span>
+                </div>
+            </div>
+            <div class="header-actions">
+                <button class="btn btn-outline" onclick="toggleFullscreen()"><i class="fas fa-expand"></i> <span>Fullscreen</span></button>
+                <button class="btn btn-success" onclick="markLessonComplete()"><i class="fas fa-check-circle"></i> <span>Mark Complete</span></button>
+            </div>
+        </header>
+        
+        <div class="player-container">
+            <div class="video-wrapper">
+                <div class="video-placeholder" id="videoContainer">
+                    <div id="driveEmbedContainer"></div>
+                </div>
+            </div>
+            
+            <div class="lesson-info-bar">
+                <div class="lesson-title-section">
+                    <h2 id="currentLessonTitle">Understanding the n8n Interface</h2>
+                    <div class="lesson-meta">
+                        <span><i class="fas fa-clock"></i> <span id="lessonDuration">10:45</span></span>
+                        <span><i class="fas fa-layer-group"></i> Module 1 · Lesson 3 of 6</span>
+                        <span><i class="fas fa-check-circle" style="color:var(--success);"></i> In Progress</span>
+                    </div>
+                </div>
+                <div class="nav-buttons">
+                    <button class="btn btn-outline" onclick="navigateLesson(-1)"><i class="fas fa-chevron-left"></i> Previous</button>
+                    <button class="btn btn-primary" onclick="navigateLesson(1)">Next <i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+            
+            <div class="content-tabs">
+                <button class="tab-btn active" onclick="switchTab('overview')"><i class="fas fa-info-circle" style="margin-right:6px;"></i> Overview</button>
+                <button class="tab-btn" onclick="switchTab('resources')"><i class="fas fa-download" style="margin-right:6px;"></i> Resources</button>
+                <button class="tab-btn" onclick="switchTab('notes')"><i class="fas fa-pencil-alt" style="margin-right:6px;"></i> My Notes</button>
+                <button class="tab-btn" onclick="switchTab('discussion')"><i class="fas fa-comments" style="margin-right:6px;"></i> Discussion</button>
+            </div>
+            
+            <div id="overviewTab" class="tab-content active">
+                <div class="overview-content">
+                    <h3>About this lesson</h3>
+                    <p>In this lesson, you'll get familiar with the n8n interface. Learn where everything is located, how to navigate the canvas, and understand the key panels you'll use to build powerful automations.</p>
+                    <h4 style="margin:24px 0 16px;">What you'll learn</h4>
+                    <ul class="learning-objectives">
+                        <li><i class="fas fa-check-circle"></i> Navigate the n8n canvas and main menu</li>
+                        <li><i class="fas fa-check-circle"></i> Understand the Nodes Panel and how to add nodes</li>
+                        <li><i class="fas fa-check-circle"></i> Use the Executions Panel to monitor workflow runs</li>
+                        <li><i class="fas fa-check-circle"></i> Customize your workspace settings</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div id="resourcesTab" class="tab-content">
+                <div style="background:white;border-radius:16px;padding:28px;">
+                    <div class="resource-item">
+                        <div class="resource-icon"><i class="fas fa-file-pdf"></i></div>
+                        <div class="resource-info"><h4>n8n Interface Cheat Sheet</h4><p>PDF · 1.2 MB</p></div>
+                        <a href="#" class="resource-download"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                    <div class="resource-item">
+                        <div class="resource-icon"><i class="fas fa-file-code"></i></div>
+                        <div class="resource-info"><h4>Sample Workflow JSON</h4><p>JSON · 8 KB</p></div>
+                        <a href="#" class="resource-download"><i class="fas fa-download"></i> Download</a>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="notesTab" class="tab-content">
+                <div class="notes-container">
+                    <textarea placeholder="Take notes during this lesson... Your notes are saved locally."></textarea>
+                    <button class="btn btn-primary" onclick="alert('Notes saved!')"><i class="fas fa-save"></i> Save Notes</button>
+                </div>
+            </div>
+            
+            <div id="discussionTab" class="tab-content">
+                <div class="discussion-placeholder">
+                    <i class="fas fa-comments"></i>
+                    <h3>Discussion</h3>
+                    <p>Ask questions and interact with other students.</p>
+                    <button class="btn btn-primary" onclick="alert('Discussion feature coming soon!')"><i class="fas fa-plus"></i> New Discussion</button>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>
