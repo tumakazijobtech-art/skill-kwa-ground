@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Course Introductions | SKILL KWA GROUND</title>
+  <link rel="icon" type="image/x-icon" href="Assets/skg.png">
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #F8FAFC;
+      color: #1E293B;
+      line-height: 1.5;
+    }
+    :root {
+      --primary: #D90429;
+      --primary-dark: #A60321;
+      --accent: #F59E0B;
+      --success: #10B981;
+      --gray-50: #F8FAFC;
+      --gray-100: #F1F5F9;
+      --gray-200: #E2E8F0;
+      --gray-600: #475569;
+      --gray-800: #1E293B;
+      --shadow-card: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+      --shadow-hover: 0 20px 25px -5px rgba(0,0,0,0.1), 0 10px 10px -5px rgba(0,0,0,0.02);
+      --radius-lg: 24px;
+      --radius-md: 16px;
+    }
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    /* Header */
+    .header {
+      background: white;
+      border-bottom: 1px solid var(--gray-200);
+      padding: 20px 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      background: var(--primary);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .logo-text {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: var(--gray-800);
+    }
+    .logo-text span { color: var(--primary); }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--gray-600);
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .btn {
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(217,4,41,0.2);
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+    /* Hero (minimal, just to introduce the page) */
+    .page-intro {
+      padding: 40px 0 20px;
+      text-align: center;
+    }
+    .page-intro h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      color: var(--gray-800);
+      margin-bottom: 12px;
+    }
+    .page-intro p {
+      font-size: 1.1rem;
+      color: var(--gray-600);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    /* Course Grid */
+    .section {
+      padding: 40px 0 80px;
+    }
+    .course-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 30px;
+    }
+    .course-card {
+      background: white;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-card);
+      transition: all 0.3s;
+      border: 1px solid var(--gray-200);
+      display: flex;
+      flex-direction: column;
+    }
+    .course-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary);
+    }
+    .video-wrapper {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      background: #0F172A;
+    }
+    .video-wrapper iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+    .card-content {
+      padding: 24px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+    .course-category {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+    .course-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--gray-800);
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+    .course-desc {
+      font-size: 0.9rem;
+      color: var(--gray-600);
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .course-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: auto;
+      padding-top: 16px;
+      border-top: 1px solid var(--gray-200);
+    }
+    .course-price {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--gray-800);
+    }
+    .course-price small {
+      font-size: 0.85rem;
+      font-weight: 400;
+      color: var(--gray-600);
+    }
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--gray-300);
+      color: var(--gray-600);
+      padding: 8px 16px;
+    }
+    .btn-outline:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      background: #FFF1F2;
+    }
+    /* Bottom‑left Nudge */
+    .nudge-popup {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      background: var(--gray-800);
+      color: white;
+      padding: 16px 24px;
+      border-radius: 60px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+      z-index: 1500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 350px;
+      animation: slideIn 0.3s ease;
+      border-left: 4px solid var(--accent);
+    }
+    .nudge-popup i { color: var(--accent); font-size: 1.5rem; }
+    .nudge-popup.fade-out { opacity: 0; transition: opacity 0.5s; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* CTA */
+    .cta-section {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: white;
+      padding: 80px 0;
+      text-align: center;
+      border-radius: var(--radius-lg);
+      margin: 0 0 60px;
+    }
+    .cta-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.5rem;
+      margin-bottom: 16px;
+    }
+    .cta-sub {
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 32px;
+      font-size: 1.1rem;
+    }
+    .btn-light {
+      background: white;
+      color: var(--primary);
+      padding: 14px 32px;
+      font-size: 1rem;
+    }
+    .btn-light:hover { background: #f1f1f1; }
+    /* Footer */
+    footer {
+      background: white;
+      border-top: 1px solid var(--gray-200);
+      padding: 32px 0;
+      color: var(--gray-600);
+    }
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .header-content { flex-direction: column; gap: 16px; }
+      .footer-content { flex-direction: column; gap: 16px; text-align: center; }
+      .page-intro h1 { font-size: 2.2rem; }
+    }
+  </style>
+</head>
+
+<body>
+<!-- ── ANTI-COPY ── -->
+<script>
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    const kb = (e.ctrlKey || e.metaKey) && ['c','u','s','a','p','x'].includes(e.key.toLowerCase());
+    const dt = e.key === 'F12' || ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase()));
+    if (kb || dt) e.preventDefault();
+  });
+  document.addEventListener('dragstart', e => e.preventDefault());
+  document.addEventListener('selectstart', e => e.preventDefault());
+  (function devDetect() {
+    const threshold = 160;
+    setInterval(() => {
+      if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+        document.body.innerHTML = '<div style="height:100vh;display:flex;align-items:center;justify-content:center;font-family:sans-serif;font-size:0.85rem;color:#6b6560;">Please refresh the page to continue.</div>';
+      }
+    }, 1200);
+  })();
+</script>
+<!-- Header -->
+<header class="header">
+  <div class="container header-content">
+    <div class="logo">
+         <div style="border-radius: 7px;"><img style="height: 35px; border-radius: 6px;" src="Assets/skg.png" alt=""></div>
+       <!--<div class="logo-icon"><i class="fas fa-bolt"></i></div>-->
+      <div class="logo-text">SKILL<span>KWA</span>GROUND</div> 
+    </div>
+    <div class="nav-links">
+      <a href="index.html" target="_blank">Home</a>
+      <a href="index.html#offer" target="_blank">Our Offer</a>
+      <a href="index.html#faq">FAQs</a>
+      <a href="index.html#eoi" style="color: white;" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> Express Interest</a>
+    </div>
+  </div>
+</header>
+
+<!-- Page Intro (minimal) -->
+<section class="page-intro">
+  <div class="container">
+    <h1>Preview Our Courses</h1>
+    <p>Watch free introductions from industry experts. Learn what you'll build and how you'll transform your career.</p>
+  </div>
+</section>
+
+<!-- Course Grid -->
+<section class="section">
+  <div class="container">
+    <div class="course-grid" id="courseGrid"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="container">
+  <div class="cta-section">
+    <h2 class="cta-title">Ready to gain practical skills?</h2>
+    <p class="cta-sub">Enroll in a full course and join thousands of Kenyan professionals.</p>
+    <a href="index.html#eoi" class="btn btn-light"><i class="fas fa-rocket"></i> Request for Training</a>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container footer-content">
+    <div>&copy; 2026 SKILL KWA GROUND. All rights reserved.</div>
+    <div style="display: flex; gap: 24px;">
+      <a href="#" style="color: var(--gray-600); text-decoration: none;">Privacy</a>
+      <a href="#" style="color: var(--gray-600); text-decoration: none;">Terms</a>
+      <a href="#" style="color: var(--gray-600); text-decoration: none;">Contact</a>
+    </div>
+  </div>
+</footer>
+
+<!-- Bottom‑left Nudge Container -->
+<div id="nudgeContainer"></div>
+
+<script>
+  // Sample course data (no enrollment stats in UI, only course info)
+  const courses = [
+    {
+      id: 1,
+      title: "Automation using n8n",
+      category: "No‑Code Automation",
+      description: "Build powerful workflows without writing code. Connect apps, automate tasks and save 10+ hours a week.",
+      videoType: "wistia",
+      videoId: "jj517z68fy", // Example Wistia media ID
+      price: "Price is"
+    },
+    {
+      id: 2,
+      title: "GIS & Remote Sensing Mastery",
+      category: "Geospatial Analysis",
+      description: "Learn QGIS, satellite imagery and spatial data for land freelance mapping projects.",
+      videoType: "wistia",
+      videoId: "hymfukpe0p",
+      price: "Price is"
+    },
+    {
+      id: 3,
+      title: "Digital Marketing + AI",
+      category: "Marketing & Automation",
+      description: "Master SEO, social media and AI tools tailored for Kenyan MSMEs. Grow your brand online.",
+      videoType: "wistia",
+      videoId: "7eapknszt2", // Replace with actual Google Drive file ID
+      price: "Price is"
+    }
+    //     {
+    //   id: 2,
+    //   title: "GIS & Remote Sensing Mastery",
+    //   category: "Geospatial Analysis",
+    //   description: "Learn QGIS, satellite imagery, and spatial data to land freelance mapping projects.",
+    //   videoType: "youtube",
+    //   videoId: "dQw4w9WgXcQ",
+    //   price: "Price is"
+    // },
+    // {
+    //   id: 3,
+    //   title: "Digital Marketing + AI",
+    //   category: "Marketing & Automation",
+    //   description: "Master SEO, social media, and AI tools tailored for Kenyan MSMEs. Grow your brand online.",
+    //   videoType: "googledrive",
+    //   videoId: "1ABC123xyz", // Replace with actual Google Drive file ID
+    //   price: "Price is"
+    // },
+    // {
+    //   id: 4,
+    //   title: "React Web Mastery",
+    //   category: "Frontend Development",
+    //   description: "Build modern, responsive web apps with React hooks, routing, and deployment.",
+    //   videoType: "youtube",
+    //   videoId: "Ke90Tje7VS0",
+    //   price: "Price is"
+    // },
+    // {
+    //   id: 5,
+    //   title: "Python Programming Bootcamp",
+    //   category: "Programming",
+    //   description: "From basics to automation and data analysis. Perfect for beginners and career switchers.",
+    //   videoType: "wistia",
+    //   videoId: "e4a27b971d",
+    //   price: "Price is"
+    // },
+    // {
+    //   id: 6,
+    //   title: "Laptop Technician Certification",
+    //   category: "Hardware Repair",
+    //   description: "Guided practicals to diagnose and repair laptops. Start your own repair business.",
+    //   videoType: "googledrive",
+    //   videoId: "1DEF456uvw",
+    //   price: "Price is"
+    // }
+  ];
+
+  function getEmbedUrl(type, id) {
+    switch(type) {
+      case 'wistia': return `https://fast.wistia.net/embed/iframe/${id}?videoFoam=true`;
+      case 'youtube': return `https://www.youtube.com/embed/${id}?controls=1&rel=0&showinfo=0`;
+      case 'googledrive': return `https://drive.google.com/file/d/${id}/preview`;
+      default: return '';
+    }
+  }
+
+  function renderCourses() {
+    const grid = document.getElementById('courseGrid');
+    grid.innerHTML = courses.map(course => {
+      const embedUrl = getEmbedUrl(course.videoType, course.videoId);
+      return `
+        <div class="course-card">
+          <div class="video-wrapper">
+            <iframe src="${embedUrl}" allowfullscreen loading="lazy" title="${course.title}"></iframe>
+          </div>
+          <div class="card-content">
+            <div class="course-category">${course.category}</div>
+            <h3 class="course-title">${course.title}</h3>
+            <p class="course-desc">${course.description}</p>
+            <div class="course-footer">
+              <div class="course-price">${course.price} <small>Budget-Based</small></div>
+              <button class="btn btn-outline" onclick="enrollCourse('${course.id}')"><i class="fas fa-play"></i> Preview</button>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  
+
+  function enrollCourse(courseId) {
+    alert(`Preview for course ${courseId}. Redirect to full course page.`);
+  }
+
+  // Bottom‑left nudges (industry stats)
+  const nudges = [
+    { icon: 'fa-chart-line', text: 'Automation skills increase earning potential by 32% (McKinsey).' },
+    { icon: 'fa-globe', text: 'GIS professionals are in high demand across agriculture, urban planning, and logistics.' },
+    { icon: 'fa-code', text: 'Web developers who know React earn 40% more than average front‑end roles.' },
+    { icon: 'fa-robot', text: 'No‑code automation is the fastest‑growing tech skill in Africa.' },
+    { icon: 'fa-laptop', text: 'Laptop repair businesses have a 94% success rate in Kenya.' }
+  ];
+  let nudgeIdx = 0;
+  function showNudge() {
+    const n = nudges[nudgeIdx];
+    const pop = document.createElement('div');
+    pop.className = 'nudge-popup';
+    pop.innerHTML = `<i class="fas ${n.icon}"></i><span>${n.text}</span>`;
+    document.getElementById('nudgeContainer').appendChild(pop);
+    setTimeout(() => { pop.classList.add('fade-out'); setTimeout(() => pop.remove(), 500); }, 5000);
+    nudgeIdx = (nudgeIdx + 1) % nudges.length;
+  }
+  setInterval(showNudge, 18000); // every 18 seconds
+  setTimeout(showNudge, 2000);    // first nudge after 2 sec
+
+  // Initialize
+  document.addEventListener('DOMContentLoaded', renderCourses);
+</script>
+</body>
+</html>

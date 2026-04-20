@@ -660,11 +660,11 @@
             <div class="payment-methods">
                 <label><i class="fas fa-credit-card"></i> Payment Method</label>
                 <div class="method-options">
-                    <div class="method-option" onclick="selectPaymentMethod('card')">
+                    <div class="method-option active" onclick="selectPaymentMethod('card')">
                         <i class="fas fa-credit-card"></i>
                         <span>Card</span>
                     </div>
-                    <div class="method-option active" onclick="selectPaymentMethod('mobile_money')">
+                    <div class="method-option" onclick="selectPaymentMethod('mobile_money')">
                         <i class="fas fa-mobile-alt"></i>
                         <span>M-PESA</span>
                     </div>
@@ -858,8 +858,8 @@
             return false;
         }
         
-        if (amount < 1) {
-            showError('Please enter a valid amount (minimum KES 1)');
+        if (amount < 950) {
+            showError('Please enter a valid amount (minimum KES 950)');
             return false;
         }
         
