@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="Assets/skg.png">
+  <title>Blog | SKILL KWA GROUND</title>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: #0A0A0A;   /* black background */
+      color: #FFFFFF;
+      line-height: 1.5;
+    }
+    :root {
+      --primary: #D90429;      /* red */
+      --primary-dark: #A60321;
+      --black: #0A0A0A;
+      --black-light: #1A1A1A;
+      --gray-600: #A0A0A0;
+      --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.3);
+    }
+
+    /* Header */
+    .header {
+      background: var(--black-light);
+      border-bottom: 1px solid rgba(217,4,41,0.3);
+      padding: 16px 0;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      box-shadow: var(--shadow-md);
+    }
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .header-content {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      text-decoration: none;
+    }
+    .logo-icon {
+      width: 40px;
+      height: 40px;
+      /* background: var(--primary); */
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+    .logo-text {
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: white;
+    }
+    .logo-text span { color: var(--primary); }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      align-items: center;
+    }
+    .nav-links a {
+      text-decoration: none;
+      color: #CCCCCC;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--primary); }
+    .btn {
+      padding: 10px 24px;
+      border-radius: 40px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      border: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+    .btn-primary {
+      background: var(--primary);
+      color: white;
+      box-shadow: 0 4px 12px rgba(217,4,41,0.3);
+    }
+    .btn-primary:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* Page Title */
+    .page-title-section {
+      padding: 48px 0 24px;
+      text-align: center;
+      background: var(--black);
+    }
+    .page-title-section h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.8rem;
+      color: white;
+      margin-bottom: 12px;
+    }
+    .page-title-section h1 span { color: var(--primary); }
+    .page-title-section p {
+      font-size: 1.1rem;
+      color: #CCCCCC;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Blog Iframe */
+    .blog-iframe-wrapper {
+      background: var(--black-light);
+      border-radius: 24px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      border: 1px solid rgba(217,4,41,0.2);
+      overflow: hidden;
+      margin-bottom: 60px;
+    }
+    .blog-iframe-wrapper iframe {
+      display: block;
+      width: 100%;
+      height: 800px;
+      border: none;
+      background: white; /* Blogger background will be white */
+    }
+
+    /* Bottom‑left Nudge (Red/Black theme) */
+    .nudge-popup {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      background: var(--black-light);
+      color: white;
+      padding: 16px 24px;
+      border-radius: 60px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.7);
+      z-index: 1500;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      max-width: 350px;
+      animation: slideIn 0.3s ease;
+      border-left: 4px solid var(--primary);
+    }
+    .nudge-popup i { color: var(--primary); font-size: 1.5rem; }
+    .nudge-popup.fade-out { opacity: 0; transition: opacity 0.5s; }
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--black-light);
+      color: white;
+      padding: 60px 0 32px;
+      font-size: 0.95rem;
+      border-top: 1px solid rgba(217,4,41,0.2);
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+    .footer-brand {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      color: white;
+      margin-bottom: 12px;
+    }
+    .footer-brand span { color: var(--primary); }
+    .footer-desc {
+      color: #CCCCCC;
+      line-height: 1.7;
+      margin-bottom: 20px;
+    }
+    .footer-student-note {
+      background: rgba(217,4,41,0.1);
+      border-left: 3px solid var(--primary);
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: #DDDDDD;
+    }
+    .footer-student-note i {
+      color: var(--primary);
+      margin-right: 8px;
+    }
+    .footer-col-title {
+      font-weight: 700;
+      color: white;
+      margin-bottom: 16px;
+      letter-spacing: 0.5px;
+    }
+    .footer-links {
+      list-style: none;
+    }
+    .footer-links li {
+      margin-bottom: 10px;
+    }
+    .footer-links a {
+      color: #CCCCCC;
+      text-decoration: none;
+      transition: color 0.2s;
+      font-size: 0.95rem;
+    }
+    .footer-links a:hover { color: var(--primary); }
+    .footer-bottom {
+      border-top: 1px solid rgba(255,255,255,0.1);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+      color: #CCCCCC;
+    }
+    .footer-bottom .location i {
+      margin-right: 6px;
+      color: var(--primary);
+    }
+    .footer-social {
+      display: flex;
+      gap: 16px;
+    }
+    .footer-social a {
+      color: #CCCCCC;
+      font-size: 1.2rem;
+      transition: color 0.2s;
+    }
+    .footer-social a:hover { color: var(--primary); }
+
+    @media (max-width: 900px) {
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 600px) {
+      .header-content { flex-direction: column; gap: 12px; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .page-title-section h1 { font-size: 2.2rem; }
+      .blog-iframe-wrapper iframe { height: 600px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="container header-content">
+    <a href="/" class="logo">
+            <div style="border-radius: 7px;" class="logo-icon"><img style="height: 35px; border-radius: 6px;" src="Assets/skg.png" alt=""></div>
+      <!-- <div class="logo-icon"><i class="fas fa-bolt"></i></div> -->
+      <div class="logo-text">SKILL<span>KWA</span>GROUND</div>
+    </a>
+    <div class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="index.html#offer">Our Offer</a>
+      <a href="index.html#faq">FAQs</a>
+      <a href="index.html#eoi" style="color: #FFFFFF;" class="btn btn-primary"><i class="fas fa-graduation-cap"></i> Request Training</a>
+    </div>
+  </div>
+</header>
+
+<!-- Page Title -->
+<section class="page-title-section">
+  <div class="container">
+    <h1>Insights & <span>Stories</span></h1>
+    <p>Practical advice, success stories and ground‑level wisdom from Kenya's fastest‑growing tech community.</p>
+  </div>
+</section>
+
+<!-- Blog Iframe -->
+<section class="container">
+  <div class="blog-iframe-wrapper">
+    <iframe src="https://skillkwaground.blogspot.com" title="SKILL KWA GROUND Blog" allowfullscreen></iframe>
+  </div>
+</section>
+
+<!-- Professional Footer (Red & Black Theme) -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <!-- Brand column -->
+      <div>
+        <div class="footer-brand">SKILL<span>KWA</span>GROUND</div>
+        <p class="footer-desc">Equipping practical, everyday tech skills to Kenyan campus and recent high school graduates. Ground level. Real skills. Real outcomes.</p>
+      </div>
+      
+      <!-- Courses -->
+      <div>
+        <div class="footer-col-title">COURSES</div>
+        <ul class="footer-links">
+          <li><a href="index.html#courses">GIS & Remote Sensing</a></li>
+          <li><a href="index.html#courses">Digital Marketing + AI</a></li>
+          <li><a href="index.html#courses">React Web Mastery</a></li>
+          <li><a href="index.html#courses">Python Bootcamp</a></li>
+          <li><a href="index.html#courses">MATLAB Training</a></li>
+          <li><a href="index.html#courses">Laptop Technician</a></li>
+        </ul>
+      </div>
+      
+      <!-- Platform -->
+      <div>
+        <div class="footer-col-title">PLATFORM</div>
+        <ul class="footer-links">
+          <li><a href="index.html#offer">What You Get</a></li>
+          <li><a href="index.html#process">How It Works</a></li>
+          <li><a href="index.html#faq">FAQ</a></li>
+          <li><a href="news-and-commentary.html">Blog</a></li>
+          <li><a href="https://tumakazi.com" target="_blank">Tumakazi Jobtech</a></li>
+          <li><a href="certificate-verification.html">Verify Certificate</a></li>
+        </ul>
+      </div>
+      
+      <!-- Connect -->
+      <div>
+        <div class="footer-col-title">CONNECT</div>
+        <ul class="footer-links">
+          <li><a href="https://wa.me/254756818457" target="_blank"><i class="fab fa-whatsapp"></i> WhatsApp</a></li>
+          <li><a href="mailto:projectalsight@gmail.com"><i class="far fa-envelope"></i> Email</a></li>
+          <li><a href="index.html#eoi">Express Interest</a></li>
+          <li><a href="index.html#eoi">Enroll Now</a></li>
+          <li><a href="installment-page.html">Installment Link</a></li>
+          <li><a href="course-introductions.html">Course Introductions</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <!-- Footer Bottom -->
+    <div class="footer-bottom">
+      <div class="location">
+         <div>© 2026 SKILL KWA GROUND</div>
+        <!-- <i class="fas fa-map-pin"></i>All rights reserved -->
+         <!-- All rights reserved -->
+      </div>
+      <div>All Rights Reserved.</div>
+      <div class="footer-social">
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-linkedin"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- Bottom‑left Nudges (Psychological nudges in red/black theme) -->
+<div id="nudgeContainer"></div>
+
+<script>
+  // Psychological nudges – industry stats that slap softly
+  const nudges = [
+    { icon: 'fa-chart-line', text: 'Tech skills increase earning potential by 43% in Kenya (Tumakazi Jobtech).' },
+    { icon: 'fa-briefcase', text: '78% of SKILL KWA GROUND graduates land paying gigs within 3 months (Tumakazi Jobtech).' },
+    { icon: 'fa-robot', text: 'Automation skills are the #1 most requested by African employers (SAP, 2025).' },
+    { icon: 'fa-laptop-code', text: 'Practical skills beat degrees: 64% of tech hires prioritise portfolio over papers(Linux Foundation, 2025).' },
+    { icon: 'fa-globe', text: 'GIS professionals are in critical shortage across East Africa (The Standard, 2025).' }
+  ];
+  let nudgeIdx = 0;
+  function showNudge() {
+    const n = nudges[nudgeIdx];
+    const pop = document.createElement('div');
+    pop.className = 'nudge-popup';
+    pop.innerHTML = `<i class="fas ${n.icon}"></i><span>${n.text}</span>`;
+    document.getElementById('nudgeContainer').appendChild(pop);
+    setTimeout(() => { pop.classList.add('fade-out'); setTimeout(() => pop.remove(), 500); }, 5000);
+    nudgeIdx = (nudgeIdx + 1) % nudges.length;
+  }
+  setInterval(showNudge, 18000); // every 18 seconds
+  setTimeout(showNudge, 2000);    // first nudge after 2 sec
+</script>
+</body>
+</html>
