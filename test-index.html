@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SKILL KWA GROUND – Practical AI‑Powered Skills for Kenya</title>
+  <link rel="icon" type="image/x-icon" href="Assets/skg.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Warm, human fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Caveat:wght@500;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
+
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #fff9f5;
+      color: #1a1a1a;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    :root {
+      --red: #D90429; --red-dark: #a3031f; --gold: #e6b422;
+      --cream: #fff9f5; --charcoal: #2d2d2d;
+      --border-radius: 2rem;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+    /* Intentional imperfection: squiggly underline, slightly rotated cards */
+    .squiggle-underline {
+      display: inline-block; position: relative;
+    }
+    .squiggle-underline::after {
+      content: '';
+      position: absolute; left: 0; bottom: -0.2em; width: 100%; height: 0.5em;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0,5 Q10,2 20,5 T40,5 T60,5 T80,5 T100,5' stroke='%23D90429' stroke-width='2' fill='none'/%3E%3C/svg%3E") repeat-x bottom;
+      background-size: 40px 10px; pointer-events: none;
+    }
+
+    /* Header */
+    header {
+      display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 0;
+    }
+    .logo {
+      font-size: 1.8rem; font-weight: 700; color: var(--charcoal); text-decoration: none; letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--red); font-family: 'Caveat', cursive; font-size: 2.2rem; margin-left: 3px; }
+    .btn {
+      display: inline-block; padding: 0.75rem 2rem; border-radius: 3rem; font-weight: 600; font-size: 1rem;
+      text-decoration: none; transition: 0.2s; cursor: pointer;
+    }
+    .btn-outline { border: 2px solid var(--red); color: var(--red); background: transparent; }
+    .btn-outline:hover { background: var(--red); color: white; }
+    .btn-primary { background: var(--red); color: white; box-shadow: 0 8px 20px rgba(217,4,41,0.2); }
+    .btn-primary:hover { background: var(--red-dark); }
+
+    /* Hero */
+    .hero {
+      text-align: center; padding: 4rem 0 3rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 8vw, 4rem); font-weight: 700; line-height: 1.2; color: var(--charcoal); margin-bottom: 0.5rem;
+    }
+    .hero h1 span.mark { color: var(--red); position: relative; }
+    .hero h1 span.mark::after {
+      content: ''; position: absolute; left: -5%; bottom: 0.1em; width: 110%; height: 0.3em;
+      background: var(--gold); opacity: 0.5; z-index: -1; transform: rotate(-1deg);
+    }
+    .hero p { font-size: 1.2rem; color: #444; max-width: 600px; margin: 0 auto 2rem; }
+    .hero .btn-primary { padding: 1rem 2.5rem; font-size: 1.1rem; transform: rotate(-0.5deg); transition: transform 0.2s ease; }
+    .hero .btn-primary:hover { transform: rotate(0) scale(1.05); }
+    .hero-arrow { display: block; margin: 1rem auto 0; font-family: 'Caveat', cursive; font-size: 1.2rem; color: var(--red); transform: rotate(2deg); text-align: center; }
+
+    /* Section titles */
+    .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 2rem; text-align: center; color: var(--charcoal); }
+    .section-title .squiggle-underline { font-style: italic; }
+
+    /* Video embed */
+    .video-wrapper { margin: 3rem auto 4rem; max-width: 800px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+    .video-wrapper iframe { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
+
+    /* Steps card */
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin: 2rem 0 4rem; }
+    .step-card {
+      background: white; padding: 2rem 1.5rem; border-radius: var(--border-radius);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.03); border: 1px solid #f0e8e5;
+      position: relative; transition: transform 0.2s; transform: rotate(0.2deg);
+    }
+    .step-card:nth-child(2) { transform: rotate(-0.3deg); }
+    .step-card:nth-child(3) { transform: rotate(0.4deg); }
+    .step-card:hover { transform: rotate(0) scale(1.02); box-shadow: 0 15px 30px rgba(0,0,0,0.06); }
+    .step-number { font-family: 'Caveat', cursive; font-size: 3rem; color: var(--red); line-height: 1; margin-bottom: 0.5rem; opacity: 0.7; }
+    .step-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--charcoal); }
+    .step-card p { font-size: 0.95rem; color: #555; }
+
+    /* Google Reviews */
+    .reviews-section { background: #f9f3ef; border-radius: var(--border-radius); padding: 3rem 2rem; margin: 4rem 0; position: relative; transform: rotate(-0.2deg); }
+    .review-header { font-family: 'Caveat', cursive; font-size: 1.8rem; color: var(--red); margin-bottom: 1.5rem; text-align: center; }
+    .google-reviews { background: white; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); min-height: 200px; display: flex; align-items: center; justify-content: center; color: #888; font-size: 0.9rem; border: 1px dashed #ccc; text-align: center; }
+    .google-reviews iframe { width: 100%; height: 300px; border: none; }
+
+    /* Pricing Calculator */
+    .calc-section { padding: 4rem 0; }
+    .calc-frame { width: 100%; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    iframe.calculator { width: 100%; height: 700px; border: none; }
+
+    /* Blog section */
+    .blog-section { padding: 4rem 0; }
+    .blog-frame { width: 100%; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    iframe.blog-embed { width: 100%; height: 600px; border: none; }
+
+    /* Certificate verifier */
+    .cert-section { background: #f9f3ef; padding: 3rem 1.5rem; margin: 4rem 0; border-radius: var(--border-radius); text-align: center; }
+    .cert-input-group { display: flex; max-width: 500px; margin: 1.5rem auto 0; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+    .cert-input { flex: 1; min-width: 200px; padding: 0.85rem 1rem; border: 2px solid #ddd; border-radius: 3rem; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none; }
+    .cert-input:focus { border-color: var(--red); }
+    .cert-result { margin-top: 1rem; font-size: 0.9rem; font-weight: 500; min-height: 1.5rem; }
+
+    /* Newsletter */
+    .newsletter-section { padding: 4rem 1.5rem; text-align: center; max-width: 600px; margin: 0 auto; }
+    .newsletter-form { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; text-align: left; }
+    .newsletter-form label { font-size: 0.85rem; font-weight: 600; color: var(--charcoal); }
+    .newsletter-form input, .newsletter-form select { padding: 0.75rem 1rem; border: 1.5px solid #ddd; border-radius: 3rem; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none; }
+    .newsletter-form input:focus, .newsletter-form select:focus { border-color: var(--red); }
+    .newsletter-form .checkbox-group { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; }
+    .newsletter-form .btn { width: fit-content; margin: 0 auto; }
+
+    /* Schedule a call */
+    .schedule-call { text-align: center; margin: 3rem 0; }
+    .btn-white-red { background: white; color: var(--red); border: 2px solid var(--red); padding: 1rem 2.5rem; border-radius: 3rem; font-weight: 700; font-size: 1rem; text-decoration: none; display: inline-block; transition: 0.2s; }
+    .btn-white-red:hover { background: var(--red); color: white; }
+
+    /* Final CTA */
+    .final-cta { text-align: center; padding: 4rem 0; }
+    .btn-large { background: var(--red); color: white; padding: 1.2rem 3rem; font-size: 1.2rem; border-radius: 3rem; text-decoration: none; font-weight: 700; display: inline-block; box-shadow: 0 10px 25px rgba(217,4,41,0.25); transform: rotate(-0.3deg); transition: 0.3s; }
+    .btn-large:hover { transform: rotate(0) scale(1.04); background: var(--red-dark); }
+
+    footer { border-top: 1px solid #e0d7d3; padding: 2rem 0; display: flex; justify-content: space-between; color: #666; font-size: 0.9rem; flex-wrap: wrap; gap: 1rem; }
+    footer a { color: var(--red); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2rem; }
+      .steps-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+    <!-- ── ANTI-COPY ── -->
+<script>
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    const kb = (e.ctrlKey || e.metaKey) && ['c','u','s','a','p','x'].includes(e.key.toLowerCase());
+    const dt = e.key === 'F12' || ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase()));
+    if (kb || dt) e.preventDefault();
+  });
+  document.addEventListener('dragstart', e => e.preventDefault());
+  document.addEventListener('selectstart', e => e.preventDefault());
+  (function devDetect() {
+    const threshold = 160;
+    setInterval(() => {
+      if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+        document.body.innerHTML = '<div style="height:100vh;display:flex;align-items:center;justify-content:center;font-family:sans-serif;font-size:0.85rem;color:#6b6560;">Please refresh the page to continue.</div>';
+      }
+    }, 1200);
+  })();
+</script>
+  <div class="container">
+    <!-- HEADER -->
+    <header>
+      <a href="#" class="logo">SKILL<span>KWA</span>GROUND</a>
+      <a href="#cta" class="btn btn-outline">Enroll</a>
+    </header>
+
+    <!-- HERO (one‑blink test) -->
+    <section class="hero">
+      <h1>Get <span class="mark">practical AI‑powered skills</span><br>that will build your career.</h1>
+      <p>In-Depth Business Strategy, Content Marketing & AI Automation hands‑on training for Kenyan students & recent grads.</p>
+      <a href="#cta" class="btn btn-primary">Start your journey today</a>
+      <div class="hero-arrow">↳ free 2‑min enrollment</div>
+    </section>
+
+    <!-- SCHEDULE A CALL -->
+    <div class="schedule-call">
+      <a href="https://calendly.com/your-link" target="_blank" class="btn-white-red">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="vertical-align: middle; margin-right: 8px;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Schedule a Free Discovery Call
+      </a>
+      <p style="margin-top:0.5rem; font-size:0.9rem; color:#555;">We also deliver <strong>custom courses</strong> according to your specific requirements.</p>
+    </div>
+
+    <!-- VIDEO SALES LETTER (Wistia embed) -->
+    <div class="video-wrapper">
+      <!-- Replace src with your actual Wistia embed URL -->
+      <iframe src="https://fast.wistia.net/embed/iframe/mf6nx7h62x" allow="autoplay; fullscreen" loading="lazy" title="SKILL KWA GROUND overview"></iframe>
+    </div>
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works">
+      <h2 class="section-title"><span class="squiggle-underline">How it works</span></h2>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1.</div>
+          <h3>Pick your path</h3>
+          <p>Choose a course in AI automation, business strategy, or content marketing without jargon.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2.</div>
+          <h3>Learn by doing</h3>
+          <p>60 days of guided projects + 1 month free mentorship with Real deliverables instead of the "tutorial hell".</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3.</div>
+          <h3>Land work</h3>
+          <p>We revamp your CV, connect you to Tumakazi gigs and help find your first client.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- WHAT YOU GET (minimal) -->
+    <section>
+      <h2 class="section-title">What you get</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin: 2rem 0 4rem; text-align: center;">
+        <div><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><h4 style="font-weight:700; margin:0.5rem 0 0.2rem;">Zero‑cost CV revamp</h4><p style="font-size:0.85rem; color:#555;">Professional tools redo your CV</p></div>
+        <div><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><h4 style="font-weight:700; margin:0.5rem 0 0.2rem;">Real mentorship</h4><p style="font-size:0.85rem; color:#555;">1 month free after bootcamp</p></div>
+        <div><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><h4 style="font-weight:700; margin:0.5rem 0 0.2rem;">Learn in Sheng</h4><p style="font-size:0.85rem; color:#555;">Flexible modules, simple delivery</p></div>
+        <div><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg><h4 style="font-weight:700; margin:0.5rem 0 0.2rem;">Client lead gen</h4><p style="font-size:0.85rem; color:#555;">40% off subsidised assistance</p></div>
+        <div><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><h4 style="font-weight:700; margin:0.5rem 0 0.2rem;">Beshte bonus</h4><p style="font-size:0.85rem; color:#555;">KSh 450 per referral (max 2)</p></div>
+        <div><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><h4 style="font-weight:700; margin:0.5rem 0 0.2rem;">100 learning points</h4><p style="font-size:0.85rem; color:#555;">50 enrollment + 50 registration</p></div>
+      </div>
+    </section>
+
+    <!-- GOOGLE REVIEWS -->
+    <section class="reviews-section">
+      <div class="review-header">Trusted by students</div>
+      <div class="google-reviews" id="google-reviews">
+        <!-- Replace with your real Google Reviews embed -->
+         <div id="google-reviews"></div>
+        <!--<span>Loading real Google Reviews…<br><small>(embed your Google My Business reviews iframe here)</small></span>-->
+      </div>
+    </section>
+
+    <!-- PRICING CALCULATOR (connected to Google Sheets) -->
+    <section class="calc-section" id="pricing">
+      <h2 class="section-title">Estimate your course cost</h2>
+      <div class="calc-frame">
+        <iframe class="calculator" src="https://script.google.com/macros/s/YOUR_DEPLOYED_SCRIPT_ID/exec" title="Pricing Calculator"></iframe>
+      </div>
+      <p style="text-align:center; margin-top:1rem; font-size:0.9rem; color:#666;">
+        <small>Prices shown are starting estimates. Actual course fee may vary.</small>
+      </p>
+    </section>
+
+    <!-- BLOG FROM BLOGGER -->
+    <section class="blog-section" id="blog">
+      <h2 class="section-title">Insights & stories</h2>
+      <div class="blog-frame">
+        <iframe class="blog-embed" src="https://skillkwaground.blogspot.com" title="SKG Blog"></iframe>
+      </div>
+    </section>
+
+    <!-- CERTIFICATE VERIFIER -->
+    <section class="cert-section" id="cert-verify">
+      <h2 class="section-title">Verify a certificate</h2>
+      <p style="max-width:500px; margin:0 auto 1rem; color:#555;">Enter the code printed on any SKILL KWA GROUND certificate.</p>
+      <div class="cert-input-group">
+        <input id="certCode" class="cert-input" type="text" placeholder="e.g. SKG-2025-001">
+        <button class="btn btn-primary" onclick="verifyCert()">Verify</button>
+      </div>
+      <div id="certResult" class="cert-result"></div>
+    </section>
+
+    <!-- NEWSLETTER SIGN-UP -->
+    <section class="newsletter-section" id="newsletter">
+      <h2 class="section-title">Stay in the loop</h2>
+      <p style="color:#555; margin-bottom:1rem;">Get course updates, career tips and early access to new cohorts.</p>
+      <div class="newsletter-form" id="newsletterForm">
+        <label for="nl-name">Full Name *</label>
+        <input type="text" id="nl-name" required placeholder="Enter your Phone Number">
+        <label for="nl-email">Email Address *</label>
+        <input type="email" id="nl-email" required placeholder="Enter your Email Address">
+        <label for="nl-phone">Phone Number</label>
+        <input type="tel" id="nl-phone" placeholder="Enter your Phone Number">
+        <label for="nl-course">Which course interests you?</label>
+        <select id="nl-course">
+          <option value="">Select a course…</option>
+          <option>AI Automation & Workflows</option>
+          <option>Business Strategy</option>
+          <option>Content Marketing</option>
+          <option>GIS & Remote Sensing</option>
+          <option>Digital Marketing + AI</option>
+          <option>React Web Mastery</option>
+          <option>Python Bootcamp</option>
+          <option>MATLAB</option>
+          <option>Laptop Technician</option>
+          <option>Other / Custom Course</option>
+        </select>
+        <div class="checkbox-group">
+          <input type="checkbox" id="nl-privacy" required>
+          <label for="nl-privacy">I agree to the <a href="privacy-policy.html" style="color:var(--red);">Privacy Policy</a> *</label>
+        </div>
+        <button class="btn btn-primary" onclick="submitNewsletter()">Subscribe</button>
+        <div id="nl-message" style="font-size:0.85rem; margin-top:0.5rem; min-height:1.5rem;"></div>
+      </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-cta" id="cta">
+      <h2 class="section-title" style="margin-bottom:0.5rem;">Ready to level up?</h2>
+      <p style="margin-bottom:2rem; font-size:1.1rem;">Join other focused students already building real careers.</p>
+      <a href="https://your-enrollment-form.link" class="btn-large">Enroll Now – KES 12,000</a>
+      <p style="margin-top:1rem; font-size:0.9rem; color:#555;">Or <a href="#how-it-works" style="color:var(--red);">see how it works</a> first.</p>
+    </section>
+
+    <footer>
+      <div>&copy; 2026 SKILL KWA GROUND</div>
+      <div><a href="terms-and-conditions.html">Terms</a> · <a href="privacy-policy.html">Privacy</a></div>
+    </footer>
+  </div>
+
+  <script>
+    // --- Certificate verifier (demo data – replace with your real Google Apps Script endpoint) ---
+    const validCodes = {
+      'SKG-2025-001': 'Joshua M. – GIS & Remote Sensing – Completed January 2025',
+      'SKG-2025-002': 'Amina K. – Digital Marketing + AI – Completed March 2025',
+      'SKG-2025-003': 'Brian O. – React Web Mastery – Completed April 2025',
+      'SKG-2025-004': 'Faith W. – Python Bootcamp – Completed February 2025'
+    };
+    function verifyCert() {
+      const code = document.getElementById('certCode').value.trim().toUpperCase();
+      const res = document.getElementById('certResult');
+      if (!code) { res.textContent = ''; return; }
+      if (validCodes[code]) {
+        res.innerHTML = '<span style="color:green;">✔ Verified:</span> ' + validCodes[code];
+      } else {
+        res.innerHTML = '<span style="color:var(--red);">✘ Not found.</span> Check the code or contact us.';
+      }
+    }
+
+    // --- Newsletter submit (simulated; replace with google.script.run or fetch to Apps Script) ---
+    function submitNewsletter() {
+      const name = document.getElementById('nl-name').value.trim();
+      const email = document.getElementById('nl-email').value.trim();
+      const phone = document.getElementById('nl-phone').value.trim();
+      const course = document.getElementById('nl-course').value;
+      const privacy = document.getElementById('nl-privacy').checked;
+      const msg = document.getElementById('nl-message');
+
+      if (!name || !email || !privacy) {
+        msg.style.color = 'var(--red)'; msg.textContent = 'Please fill in all required fields and accept the privacy policy.';
+        return;
+      }
+      // In production, replace with your actual API call
+      console.log('Newsletter subscription:', { name, email, phone, course });
+      msg.style.color = 'green'; msg.textContent = 'Subscribed! Check your email for confirmation.';
+      // Clear form
+      document.getElementById('nl-name').value = '';
+      document.getElementById('nl-email').value = '';
+      document.getElementById('nl-phone').value = '';
+      document.getElementById('nl-course').value = '';
+      document.getElementById('nl-privacy').checked = false;
+    }
+  </script>
+
+  <!-- Include the required files -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/google-maps-reviews@1.3.0/src/google-maps-reviews.css">
+<script src="https://cdn.jsdelivr.net/npm/google-maps-reviews@1.3.0/src/google-maps-reviews.js"></script>
+  <script>
+  // ⚠️ Replace with your actual Place ID and API key
+  const placeId  = 'YOUR_PLACE_ID';   // e.g. ChIJN1t_tDeuEmsRUsoyG83frY4
+  const apiKey  = 'YOUR_API_KEY';     // e.g. AIzaSyA... (get from Google Cloud Console)
+
+  const reviewsEl = document.getElementById('google-reviews');
+
+  // Fetch reviews using the Google Places API
+  fetch(`https://maps.googleapis.com/maps/api/place/details/json?placeid=${placeId}&key=${apiKey}&language=en`)
+    .then(res => res.json())
+    .then(data => {
+      const reviews = data.result.reviews || [];
+
+      if (!reviews.length) {
+        reviewsEl.innerHTML = '<p>No reviews yet. Be the first!</p>';
+        return;
+      }
+
+      // Render reviews as simple cards
+      reviewsEl.innerHTML = reviews.slice(0, 5).map(r => `
+        <div style="background:#fff; padding:1rem; border-radius:12px; margin-bottom:1rem; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+          <div style="display:flex; align-items:center; gap:0.5rem; margin-bottom:0.5rem;">
+            <strong>${r.author_name}</strong>
+            <span style="color:#f59e0b;">${'★'.repeat(r.rating)}${'☆'.repeat(5 - r.rating)}</span>
+          </div>
+          <p style="font-size:0.9rem; color:#555;">${r.text}</p>
+          <small style="color:#999;">${new Date(r.time * 1000).toLocaleDateString()}</small>
+        </div>
+      `).join('');
+    })
+    .catch(err => {
+      reviewsEl.innerHTML = '<p>Could not load reviews right now.</p>';
+      console.error(err);
+    });
+</script>
+</body>
+</html>
