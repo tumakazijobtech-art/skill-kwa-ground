@@ -1,229 +1,143 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<meta name="trustpilot-one-time-domain-verification-id" content="15b5ad8c-7f5a-44c3-aa02-0f58e85e5963"/>
-<link rel="icon" type="image/x-icon" href="Assets/skg.png">
-<title>Skill Kwa Ground — Practical Tech Skills for Kenyan Students</title>
-<meta name="description" content="Skill Kwa Ground equips Kenyan campus and high school graduates with practical, employable tech skills."/>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SKILL KWA GROUND – Practical AI‑Powered Skills for Kenya</title>
+  <link rel="icon" type="image/x-icon" href="Assets/skg.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Warm, human fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Caveat:wght@500;700&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700&display=swap" rel="stylesheet">
 
-<style>
-*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --red:#d42b2b;--red-dk:#a81f1f;--red-lt:#f04444;--red-bg:rgba(212,43,43,0.08);
-  --ink:#141412;--ink2:#2e2c2a;--ink3:#6b6966;--ink4:#aeaba6;
-  --bg:#f9f8f5;--surface:#fff;--line:rgba(20,20,18,0.09);
-  --ease:cubic-bezier(0.22,1,0.36,1);
-}
-html{scroll-behavior:smooth}
-body{font-family:'Outfit',sans-serif;background:var(--bg);color:var(--ink);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--red)}
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: #fff9f5;
+      color: #1a1a1a;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    :root {
+      --red: #D90429; --red-dark: #a3031f; --gold: #e6b422;
+      --cream: #fff9f5; --charcoal: #2d2d2d;
+      --border-radius: 2rem;
+    }
+    .container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
 
-/* --- ANIMATIONS --- */
-@keyframes fadeUp{from{opacity:0;transform:translateY(22px)}to{opacity:1;transform:translateY(0)}}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.65)}}
-@keyframes tickMove{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@keyframes shimmer{0%{background-position:200% center}100%{background-position:-200% center}}
-@keyframes bounce{0%,100%{transform:scale(1)}50%{transform:scale(1.07)}}
+    /* Intentional imperfection: squiggly underline, slightly rotated cards */
+    .squiggle-underline {
+      display: inline-block; position: relative;
+    }
+    .squiggle-underline::after {
+      content: '';
+      position: absolute; left: 0; bottom: -0.2em; width: 100%; height: 0.5em;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 10' preserveAspectRatio='none'%3E%3Cpath d='M0,5 Q10,2 20,5 T40,5 T60,5 T80,5 T100,5' stroke='%23D90429' stroke-width='2' fill='none'/%3E%3C/svg%3E") repeat-x bottom;
+      background-size: 40px 10px; pointer-events: none;
+    }
 
-.au{animation:fadeUp .8s var(--ease) both}
-.au1{animation-delay:.1s}.au2{animation-delay:.2s}.au3{animation-delay:.3s}.au4{animation-delay:.4s}.au5{animation-delay:.5s}
+    /* Header */
+    header {
+      display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 0;
+    }
+    .logo {
+      font-size: 1.8rem; font-weight: 700; color: var(--charcoal); text-decoration: none; letter-spacing: -0.5px;
+    }
+    .logo span { color: var(--red); font-family: 'Caveat', cursive; font-size: 2.2rem; margin-left: 3px; }
+    .btn {
+      display: inline-block; padding: 0.75rem 2rem; border-radius: 3rem; font-weight: 600; font-size: 1rem;
+      text-decoration: none; transition: 0.2s; cursor: pointer;
+    }
+    .btn-outline { border: 2px solid var(--red); color: var(--red); background: transparent; }
+    .btn-outline:hover { background: var(--red); color: white; }
+    .btn-primary { background: var(--red); color: white; box-shadow: 0 8px 20px rgba(217,4,41,0.2); }
+    .btn-primary:hover { background: var(--red-dark); }
 
-/* scroll reveal */
-.rev{transition:opacity .7s var(--ease),transform .7s var(--ease)}
-.rev.hide{opacity:0;transform:translateY(28px)}
-.rev.show{opacity:1!important;transform:translateY(0)!important}
-.d1{transition-delay:.07s}.d2{transition-delay:.14s}.d3{transition-delay:.21s}.d4{transition-delay:.28s}.d5{transition-delay:.35s}
+    /* Hero */
+    .hero {
+      text-align: center; padding: 4rem 0 3rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 8vw, 4rem); font-weight: 700; line-height: 1.2; color: var(--charcoal); margin-bottom: 0.5rem;
+    }
+    .hero h1 span.mark { color: var(--red); position: relative; }
+    .hero h1 span.mark::after {
+      content: ''; position: absolute; left: -5%; bottom: 0.1em; width: 110%; height: 0.3em;
+      background: var(--gold); opacity: 0.5; z-index: -1; transform: rotate(-1deg);
+    }
+    .hero p { font-size: 1.2rem; color: #444; max-width: 600px; margin: 0 auto 2rem; }
+    .hero .btn-primary { padding: 1rem 2.5rem; font-size: 1.1rem; transform: rotate(-0.5deg); transition: transform 0.2s ease; }
+    .hero .btn-primary:hover { transform: rotate(0) scale(1.05); }
+    .hero-arrow { display: block; margin: 1rem auto 0; font-family: 'Caveat', cursive; font-size: 1.2rem; color: var(--red); transform: rotate(2deg); text-align: center; }
 
-/* --- BUTTONS --- */
-.btn-red{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;background:var(--red);color:#fff;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border-radius:2px;border:none;cursor:pointer;transition:background .2s,transform .15s}
-.btn-red:hover{background:var(--red-dk);transform:translateY(-1px)}
-.btn-outline{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;border:2px solid var(--red);color:var(--red);font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border-radius:2px;background:transparent;transition:background .2s,color .2s}
-.btn-outline:hover{background:var(--red);color:#fff}
-.btn-dark{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;background:var(--ink);color:#fff;font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border-radius:2px;border:none;cursor:pointer;transition:background .2s}
-.btn-dark:hover{background:var(--red)}
-.btn-white{display:inline-flex;align-items:center;gap:.5rem;padding:.9rem 2rem;background:#fff;color:var(--red);font-family:'Outfit',sans-serif;font-size:.8rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;border-radius:2px;border:2px solid rgba(255,255,255,.2);cursor:pointer;transition:background .2s,color .2s}
-.btn-white:hover{background:var(--red);color:#fff;border-color:var(--red)}
-.btn-shimmer{background:linear-gradient(90deg,var(--red) 0%,var(--red-lt) 35%,#ff7a7a 50%,var(--red-lt) 65%,var(--red) 100%);background-size:200% auto;animation:shimmer 2.5s linear infinite}
+    /* Section titles */
+    .section-title { font-size: 2rem; font-weight: 700; margin-bottom: 2rem; text-align: center; color: var(--charcoal); }
+    .section-title .squiggle-underline { font-style: italic; }
 
-/* --- URGENCY BAR --- */
-.urgency-bar{background:var(--red);padding:.45rem 1rem;text-align:center;position:relative;z-index:400}
-.urgency-bar p{font-size:.74rem;font-weight:700;letter-spacing:.05em;color:#fff;display:flex;align-items:center;justify-content:center;gap:.65rem;flex-wrap:wrap}
-.urgency-bar strong{background:rgba(0,0,0,.22);padding:2px 10px;border-radius:50px}
-#cdisplay{font-weight:800;letter-spacing:.12em;background:rgba(0,0,0,.28);padding:2px 12px;border-radius:50px;animation:bounce 1s ease infinite;font-family:'Outfit',sans-serif}
+    /* Video embed */
+    .video-wrapper { margin: 3rem auto 4rem; max-width: 800px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0,0,0,0.08); }
+    .video-wrapper iframe { width: 100%; aspect-ratio: 16/9; border: none; display: block; }
 
-/* --- NAV --- */
-nav{position:sticky;top:0;z-index:300;display:flex;align-items:center;justify-content:space-between;padding:1rem 3.5rem;background:var(--ink);border-bottom:2px solid var(--red);transition:padding .3s var(--ease)}
-nav.sm{padding:.65rem 3.5rem}
-.nav-logo{display:flex;align-items:center;gap:.75rem;text-decoration:none}
-.nav-logo-mark{width:36px;height:36px;background:var(--red);border-radius:2px;display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',Impact,sans-serif;font-size:1.1rem;color:#fff}
-.nav-logo-text{font-family:'Bebas Neue',Impact,sans-serif;font-size:1.2rem;color:#fff;letter-spacing:.08em;line-height:1}
-.nav-logo-text b{color:var(--red);font-weight:400}
-.nav-links{display:flex;align-items:center;gap:1.75rem;list-style:none}
-.nav-links a{font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.5);text-decoration:none;font-weight:600;transition:color .2s}
-.nav-links a:hover{color:#fff}
-.nav-cta{padding:.5rem 1.4rem;background:var(--red);color:#fff!important;border-radius:2px;font-weight:700!important;transition:background .2s!important}
-.nav-cta:hover{background:var(--red-lt)!important}
-.burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
-.burger span{display:block;width:22px;height:2px;background:#fff;transition:transform .3s,opacity .3s}
-.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.burger.open span:nth-child(2){opacity:0}
-.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
-.mob-nav{display:none;position:fixed;inset:0;z-index:280;background:var(--ink);flex-direction:column;align-items:center;justify-content:center;gap:2rem}
-.mob-nav.open{display:flex}
-.mob-nav a{font-family:'Bebas Neue',Impact,sans-serif;font-size:2.5rem;color:#fff;text-decoration:none;letter-spacing:.05em;transition:color .2s}
-.mob-nav a:hover{color:var(--red)}
+    /* Steps card */
+    .steps-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 2rem; margin: 2rem 0 4rem; }
+    .step-card {
+      background: white; padding: 2rem 1.5rem; border-radius: var(--border-radius);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.03); border: 1px solid #f0e8e5;
+      position: relative; transition: transform 0.2s; transform: rotate(0.2deg);
+    }
+    .step-card:nth-child(2) { transform: rotate(-0.3deg); }
+    .step-card:nth-child(3) { transform: rotate(0.4deg); }
+    .step-card:hover { transform: rotate(0) scale(1.02); box-shadow: 0 15px 30px rgba(0,0,0,0.06); }
+    .step-number { font-family: 'Caveat', cursive; font-size: 3rem; color: var(--red); line-height: 1; margin-bottom: 0.5rem; opacity: 0.7; }
+    .step-card h3 { font-size: 1.3rem; margin-bottom: 0.5rem; color: var(--charcoal); }
+    .step-card p { font-size: 0.95rem; color: #555; }
 
-/* --- HERO --- */
-.hero{background:var(--ink);padding:5rem 3.5rem 4rem;border-bottom:3px solid var(--red);position:relative;overflow:hidden}
-.hero::before{content:'SKG';font-family:'Bebas Neue',Impact,sans-serif;position:absolute;right:-1rem;top:0;font-size:22rem;color:rgba(212,43,43,.05);line-height:1;pointer-events:none}
-.hero-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:6fr 5fr;gap:4rem;align-items:start}
-.hero-tag{display:inline-flex;align-items:center;gap:8px;margin-bottom:1.5rem;padding:5px 14px;background:var(--red-bg);border:1px solid rgba(212,43,43,.3);border-radius:50px}
-.htag-dot{width:7px;height:7px;border-radius:50%;background:var(--red);animation:pulse 2s ease infinite;flex-shrink:0}
-.hero-tag span{font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
-.hero-h1{font-family:'Bebas Neue',Impact,sans-serif;font-size:clamp(4rem,8vw,7rem);line-height:.93;letter-spacing:.02em;color:#fff;margin-bottom:1.25rem}
-.hero-h1 b{color:var(--red);font-weight:400}
-.hero-sub{font-size:.97rem;color:rgba(255,255,255,.5);line-height:1.8;font-weight:300;max-width:46ch;margin-bottom:2rem}
-.hero-sub strong{color:rgba(255,255,255,.85);font-weight:600}
-.hero-btns{display:flex;gap:.75rem;flex-wrap:wrap;margin-bottom:2.5rem}
-.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.07);border-radius:4px;overflow:hidden}
-.hs{padding:1.1rem 1rem;background:rgba(255,255,255,.03)}
-.hs-n{font-family:'Bebas Neue',Impact,sans-serif;font-size:2rem;color:var(--red);line-height:1}
-.hs-l{font-size:.62rem;color:rgba(255,255,255,.35);text-transform:uppercase;letter-spacing:.1em;font-weight:600;margin-top:3px}
-.hero-right{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);border-radius:6px;padding:1.25rem}
-.hr-label{font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.25);margin-bottom:1rem;display:block}
-.cbadge{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:4px;padding:.85rem 1rem;margin-bottom:.6rem;display:flex;align-items:center;gap:.85rem;transition:border-color .2s,background .2s}
-.cbadge:hover{border-color:rgba(212,43,43,.4);background:rgba(212,43,43,.06)}
-.cbadge:last-child{margin-bottom:0}
-.cbi{width:32px;height:32px;background:var(--red);border-radius:3px;flex-shrink:0;display:flex;align-items:center;justify-content:center}
-.cb-name{font-size:.82rem;font-weight:600;color:rgba(255,255,255,.85);margin-bottom:1px}
-.cb-meta{font-size:.65rem;color:rgba(255,255,255,.3)}
-.cb-price{margin-left:auto;text-align:right;flex-shrink:0}
-.p-orig{font-size:.62rem;color:rgba(255,255,255,.2);text-decoration:line-through;display:block}
-.p-now{font-size:.88rem;font-weight:700;color:var(--red)}
+    /* Google Reviews */
+    .reviews-section { background: #f9f3ef; border-radius: var(--border-radius); padding: 3rem 2rem; margin: 4rem 0; position: relative; transform: rotate(-0.2deg); }
+    .review-header { font-family: 'Caveat', cursive; font-size: 1.8rem; color: var(--red); margin-bottom: 1.5rem; text-align: center; }
+    .google-reviews { background: white; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); min-height: 200px; display: flex; align-items: center; justify-content: center; color: #888; font-size: 0.9rem; border: 1px dashed #ccc; text-align: center; }
+    .google-reviews iframe { width: 100%; height: 300px; border: none; }
 
-/* --- TICKER --- */
-.ticker{padding:.8rem 0;background:var(--red);overflow:hidden;white-space:nowrap}
-.ticker-track{display:inline-flex;gap:3rem;animation:tickMove 32s linear infinite}
-.ticker-track:hover{animation-play-state:paused}
-.ti{font-size:.62rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.75);flex-shrink:0}
-.td{color:rgba(255,255,255,.35)}
+    /* Pricing Calculator */
+    .calc-section { padding: 4rem 0; }
+    .calc-frame { width: 100%; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    iframe.calculator { width: 100%; height: 700px; border: none; }
 
-/* --- PROOF STRIP --- */
-.proof{background:var(--surface);border-bottom:1px solid var(--line);padding:1.75rem 3.5rem}
-.proof-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
-.pi2{display:flex;align-items:center;gap:.75rem}
-.pi2-icon{width:36px;height:36px;background:var(--red-bg);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.pi2-num{font-family:'Bebas Neue',Impact,sans-serif;font-size:1.5rem;color:var(--red);line-height:1}
-.pi2-lbl{font-size:.63rem;color:var(--ink3);text-transform:uppercase;letter-spacing:.08em;font-weight:600}
-.psep{width:1px;height:40px;background:var(--line);flex-shrink:0}
-.npulse{width:8px;height:8px;border-radius:50%;background:#2d9e5f;animation:pulse 1.5s ease infinite}
+    /* Blog section */
+    .blog-section { padding: 4rem 0; }
+    .blog-frame { width: 100%; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 30px rgba(0,0,0,0.08); }
+    iframe.blog-embed { width: 100%; height: 600px; border: none; }
 
-/* --- SECTION SCAFFOLD --- */
-.sec{padding:5.5rem 3.5rem;border-bottom:1px solid var(--line)}
-.sec.alt{background:var(--surface)}
-.sec.dark{background:var(--ink)}
-.sw{max-width:1100px;margin:0 auto}
-.slbl{display:block;font-size:.63rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:.75rem}
-.slbl.lt{color:rgba(212,43,43,.7)}
-.stitle{font-family:'Bebas Neue',Impact,sans-serif;font-size:clamp(2rem,4vw,3.2rem);letter-spacing:.02em;line-height:1;margin-bottom:1rem;color:var(--ink)}
-.stitle.lt{color:#fff}
-.stitle b{color:var(--red);font-weight:400}
-.sbody{font-size:.88rem;color:var(--ink3);line-height:1.85;font-weight:300}
-.sbody.lt{color:rgba(255,255,255,.42)}
-.g2{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
-.g55{display:grid;grid-template-columns:5fr 7fr;gap:5rem;align-items:start}
+    /* Certificate verifier */
+    .cert-section { background: #f9f3ef; padding: 3rem 1.5rem; margin: 4rem 0; border-radius: var(--border-radius); text-align: center; }
+    .cert-input-group { display: flex; max-width: 500px; margin: 1.5rem auto 0; gap: 0.5rem; flex-wrap: wrap; justify-content: center; }
+    .cert-input { flex: 1; min-width: 200px; padding: 0.85rem 1rem; border: 2px solid #ddd; border-radius: 3rem; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none; }
+    .cert-input:focus { border-color: var(--red); }
+    .cert-result { margin-top: 1rem; font-size: 0.9rem; font-weight: 500; min-height: 1.5rem; }
 
-/* --- VIDEO --- */
-.vsec{background:var(--ink);padding:5rem 3.5rem;border-bottom:3px solid var(--red)}
-.vsec-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:5fr 7fr;gap:4rem;align-items:center}
-.vframe{position:relative;padding-top:56.25%;background:#0a0a09;border-radius:4px;overflow:hidden;border:2px solid rgba(212,43,43,.3)}
-.vframe iframe{position:absolute;inset:0;width:100%;height:100%;border:none}
-.vph{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;text-align:center;padding:2rem;background:#0d0d0b}
-.vph-play{width:64px;height:64px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .2s,background .2s}
-.vph-play:hover{transform:scale(1.08);background:var(--red-lt)}
-.vph p{font-size:.8rem;color:rgba(255,255,255,.3);max-width:26ch;line-height:1.6}
-.vcta{margin-top:1.5rem;padding:1.25rem;background:rgba(212,43,43,.1);border:1px solid rgba(212,43,43,.22);border-radius:4px;display:flex;align-items:center;gap:1.5rem;flex-wrap:wrap}
-.vcta strong{display:block;font-size:.88rem;color:#fff;font-weight:700;margin-bottom:.15rem}
-.vcta span{font-size:.76rem;color:rgba(255,255,255,.38)}
+    /* Newsletter */
+    .newsletter-section { padding: 4rem 1.5rem; text-align: center; max-width: 600px; margin: 0 auto; }
+    .newsletter-form { display: flex; flex-direction: column; gap: 1rem; margin-top: 2rem; text-align: left; }
+    .newsletter-form label { font-size: 0.85rem; font-weight: 600; color: var(--charcoal); }
+    .newsletter-form input, .newsletter-form select { padding: 0.75rem 1rem; border: 1.5px solid #ddd; border-radius: 3rem; font-family: 'DM Sans', sans-serif; font-size: 0.95rem; outline: none; }
+    .newsletter-form input:focus, .newsletter-form select:focus { border-color: var(--red); }
+    .newsletter-form .checkbox-group { display: flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; }
+    .newsletter-form .btn { width: fit-content; margin: 0 auto; }
 
-/* --- PROBLEM --- */
-.pain-list{list-style:none;margin-top:1.75rem}
-.pin{display:flex;align-items:flex-start;gap:1rem;padding:1rem 0;border-bottom:1px solid var(--line);font-size:.85rem;color:var(--ink3);line-height:1.6;font-weight:300}
-.pin:first-child{border-top:1px solid var(--line)}
-.pin-x{width:20px;height:20px;border-radius:50%;background:var(--red-bg);border:1.5px solid rgba(212,43,43,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
-.sols{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden}
-.sol{background:var(--surface);padding:1.5rem 1.75rem;display:flex;align-items:flex-start;gap:1.25rem;position:relative;transition:background .2s}
-.sol::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:transparent;transition:background .25s}
-.sol:hover{background:var(--bg)}.sol:hover::before{background:var(--red)}
-.sol-n{font-family:'Bebas Neue',Impact,sans-serif;font-size:2rem;color:var(--red);opacity:.18;line-height:1;flex-shrink:0;width:2.5rem;text-align:right}
-.sol-t{font-size:.88rem;font-weight:700;color:var(--ink);margin-bottom:.35rem}
-.sol-d{font-size:.77rem;color:var(--ink3);line-height:1.7;font-weight:300}
+    /* Schedule a call */
+    .schedule-call { text-align: center; margin: 3rem 0; }
+    .btn-white-red { background: white; color: var(--red); border: 2px solid var(--red); padding: 1rem 2.5rem; border-radius: 3rem; font-weight: 700; font-size: 1rem; text-decoration: none; display: inline-block; transition: 0.2s; }
+    .btn-white-red:hover { background: var(--red); color: white; }
 
-/* --- NUDGE RIBBON --- */
-.nudge{background:var(--ink);border-top:1px solid rgba(212,43,43,.25);border-bottom:1px solid rgba(212,43,43,.25);padding:1.25rem 3.5rem}
-.nudge-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap}
-.ni{display:flex;align-items:center;gap:.75rem}
-.ni-icon{width:32px;height:32px;background:rgba(212,43,43,.12);border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.ni strong{display:block;font-size:.78rem;color:#fff;font-weight:700}
-.ni span{font-size:.68rem;color:rgba(255,255,255,.35)}
+    /* Final CTA */
+    .final-cta { text-align: center; padding: 4rem 0; }
+    .btn-large { background: var(--red); color: white; padding: 1.2rem 3rem; font-size: 1.2rem; border-radius: 3rem; text-decoration: none; font-weight: 700; display: inline-block; box-shadow: 0 10px 25px rgba(217,4,41,0.25); transform: rotate(-0.3deg); transition: 0.3s; }
+    .btn-large:hover { transform: rotate(0) scale(1.04); background: var(--red-dark); }
 
-/* --- AUDIO --- */
-.agrid{display:grid;grid-template-columns:1fr 1fr;gap:2rem}
-.acard{background:var(--surface);border:1px solid var(--line);border-radius:4px;overflow:hidden}
-.acard-hdr{padding:1.25rem 1.5rem;border-bottom:1px solid var(--line);display:flex;align-items:flex-start;gap:1rem}
-.a-icon{width:40px;height:40px;border-radius:3px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.a-type{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;margin-bottom:.2rem}
-.a-title{font-size:.88rem;font-weight:700;color:var(--ink);line-height:1.3}
-.a-desc{font-size:.73rem;color:var(--ink3);margin-top:.3rem;line-height:1.55;font-weight:300}
-.abody{padding:1.25rem 1.5rem;background:var(--bg)}
-.pbph{background:var(--ink);border-radius:4px;padding:1.25rem;display:flex;align-items:center;gap:1rem}
-.pb-play{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.pb-lbl{font-size:.63rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.3);margin-bottom:3px}
-.pb-name{font-size:.8rem;font-weight:600;color:#fff}
-.pb-hint{font-size:.62rem;color:rgba(255,255,255,.22);margin-top:3px;font-style:italic}
-
-/* --- OFFER GRID --- */
-.ogrid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:4px;overflow:hidden}
-.oc{background:var(--surface);padding:1.5rem;position:relative;transition:background .2s;display:flex;flex-direction:column;gap:.6rem}
-.oc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:transparent;transition:background .3s}
-.oc:hover{background:var(--bg)}.oc:hover::before{background:var(--red)}
-.oc-n{font-family:'Bebas Neue',Impact,sans-serif;font-size:2.2rem;color:var(--red);opacity:.14;line-height:1}
-.oc-t{font-size:.85rem;font-weight:700;color:var(--ink);line-height:1.35}
-.oc-d{font-size:.74rem;color:var(--ink3);line-height:1.6;font-weight:300}
-.obadge{display:inline-block;font-size:.6rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:50px;background:var(--red-bg);color:var(--red);border:1px solid rgba(212,43,43,.2);width:fit-content}
-
-/* --- COURSES --- */
-.cgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
-.ccard{background:var(--surface);border:1px solid var(--line);border-radius:4px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,border-color .2s}
-.ccard:hover{box-shadow:0 8px 32px rgba(212,43,43,.1);border-color:rgba(212,43,43,.28)}
-.cimg{width:100%;height:140px;background:var(--ink2);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center}
-.cimg-bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--ink) 0%,#2a2826 100%)}
-.ctag{position:absolute;top:.75rem;left:.75rem;z-index:2;font-size:.58rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:2px;background:var(--red);color:#fff}
-.ctag.new{background:#1a7a48}.ctag.crash{background:var(--ink)}
-.cbody{padding:1.1rem;flex:1;display:flex;flex-direction:column;gap:.45rem}
-.ccat{font-size:.6rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--ink4)}
-.ctitle{font-size:.88rem;font-weight:700;color:var(--ink);line-height:1.35;flex:1}
-.cfoot{display:flex;align-items:center;justify-content:space-between;padding-top:.7rem;border-top:1px solid var(--line);margin-top:auto}
-.cdur{font-size:.68rem;color:var(--ink3);display:flex;align-items:center;gap:4px}
-.cprice-w{text-align:right}
-.cprice-orig{font-size:.62rem;color:var(--ink4);text-decoration:line-through;display:block}
-.cprice{font-size:.95rem;font-weight:700;color:var(--red)}
-.cprice.enq{color:#1a7a48}
-
-/* --- EOI --- */
-.eoi-sec{background:var(--ink);padding:5.5rem 3.5rem;border-bottom:3px solid var(--red)}
-.eoi-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:5fr 7fr;gap:4rem;align-items:start}
-.eoi-frame{background:#fff;border-radius:4px;overflow:hidden;border:2px solid rgba(212,43,43,.25)}
-.eoi-frame iframe{display:block;width:100%;border:none}
-.eoi-note{margin-top:1.5rem;padding:1.25rem;background:rgba(212,43,43,.1);border:1px solid rgba(212,43,43,.25);border-radius:4px}
-.eoi-note p{font-size:.78rem;color:rgba(255,255,255,.6);line-height:1.65;font-weight:300}
-.eoi-note strong{color:var(--red-lt)}
-
-/* --- CERT --- */
+    footer { border-top: 1px solid #e0d7d3; padding: 2rem 0; display: flex; justify-content: space-between; color: #666; font-size: 0.9rem; flex-wrap: wrap; gap: 1rem; }
+    footer a { color: var(--red); text-decoration: none; }
+    /* --- CERT --- */
 .cert-sec{background:var(--surface);padding:4rem 3.5rem;border-bottom:1px solid var(--line)}
 .cert-inner{max-width:700px;margin:0 auto;text-align:center}
 .cert-form{display:flex;gap:.5rem;margin-top:1.5rem;flex-wrap:wrap;justify-content:center}
@@ -234,114 +148,109 @@ nav.sm{padding:.65rem 3.5rem}
 .cert-res.ok{background:rgba(26,122,72,.08);border:1px solid rgba(26,122,72,.25);color:#1a7a48}
 .cert-res.fail{background:var(--red-bg);border:1px solid rgba(212,43,43,.2);color:var(--red-dk)}
 
-/* --- PROCESS --- */
-.steps{display:grid;grid-template-columns:repeat(4,1fr)}
-.step{padding:0 2.5rem 0 0;margin-right:2.5rem;border-right:1px solid var(--line)}
-.step:last-child{border-right:none;margin-right:0;padding-right:0}
-.step-n{font-family:'Bebas Neue',Impact,sans-serif;font-size:3.5rem;color:var(--red);opacity:.12;line-height:1;margin-bottom:1rem}
-.step-t{font-size:.88rem;font-weight:700;color:var(--ink);margin-bottom:.45rem}
-.step-d{font-size:.75rem;color:var(--ink3);line-height:1.75;font-weight:300}
+.slbl{display:block;font-size:.63rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--red);margin-bottom:.75rem}
+.slbl.lt{color:rgba(212,43,43,.7)}
+.stitle{font-family:'Bebas Neue',Impact,sans-serif;font-size:clamp(2rem,4vw,3.2rem);letter-spacing:.02em;line-height:1;margin-bottom:1rem;color:var(--ink)}
+.stitle.lt{color:#fff}
+.stitle b{color:var(--red);font-weight:400}
+.sbody{font-size:.88rem;color:var(--ink3);line-height:1.85;font-weight:300}
+.sbody.lt{color:rgba(255,255,255,.42)}
 
-/* --- GUARANTEE --- */
-.guar{display:grid;grid-template-columns:repeat(3,1fr);background:var(--red)}
-.gi{padding:2.5rem;border-right:1px solid rgba(255,255,255,.14)}
-.gi:last-child{border-right:none}
-.gi-icon{width:36px;height:36px;background:rgba(255,255,255,.12);border-radius:3px;display:flex;align-items:center;justify-content:center;margin-bottom:1rem}
-.gi-t{font-family:'Bebas Neue',Impact,sans-serif;font-size:1.3rem;letter-spacing:.04em;color:#fff;margin-bottom:.45rem}
-.gi-d{font-size:.76rem;color:rgba(255,255,255,.65);line-height:1.75;font-weight:300}
-
-/* --- FAQ --- */
-.faq-list{display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line);border-radius:3px;overflow:hidden}
-.faq-item{background:var(--surface)}
-.faq-q{padding:1.1rem 1.5rem;font-size:.87rem;font-weight:700;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:1rem;transition:background .2s;user-select:none}
-.faq-q:hover{background:var(--bg)}
-.faq-arr{width:22px;height:22px;border-radius:50%;background:var(--red-bg);border:1px solid rgba(212,43,43,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.faq-arr svg{transition:transform .3s}
-.faq-item.open .faq-arr svg{transform:rotate(45deg)}
-.faq-a{display:none;padding:.9rem 1.5rem 1.1rem;font-size:.79rem;color:var(--ink3);line-height:1.75;font-weight:300;border-top:1px solid var(--line)}
-.faq-item.open .faq-a{display:block}
-
-/* --- BLOG --- */
-.bgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
-.bcard{background:var(--surface);border:1px solid var(--line);border-radius:4px;overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .2s,border-color .2s}
-.bcard:hover{box-shadow:0 6px 24px rgba(212,43,43,.1);border-color:rgba(212,43,43,.22)}
-.bthumb{width:100%;height:140px;background:linear-gradient(135deg,var(--ink) 0%,#2a2826 100%);position:relative;display:flex;align-items:center;justify-content:center}
-.bthumb-txt{font-family:'Bebas Neue',Impact,sans-serif;font-size:3rem;color:rgba(212,43,43,.18);letter-spacing:.05em}
-.bcat{position:absolute;top:.75rem;left:.75rem;font-size:.57rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:2px 8px;border-radius:50px;background:var(--red);color:#fff}
-.bbody{padding:1.25rem;flex:1;display:flex;flex-direction:column;gap:.45rem}
-.bdate{font-size:.63rem;color:var(--ink4);font-weight:500}
-.btitle{font-size:.9rem;font-weight:700;color:var(--ink);line-height:1.35;flex:1}
-.bexc{font-size:.74rem;color:var(--ink3);line-height:1.65;font-weight:300}
-.bread{font-size:.68rem;font-weight:700;color:var(--red);text-decoration:none;letter-spacing:.06em;text-transform:uppercase;margin-top:.5rem;display:inline-flex;align-items:center;gap:4px}
-.bread:hover{text-decoration:underline}
-.badd{border:2px dashed var(--line);border-radius:4px;min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;color:var(--ink4);font-size:.78rem;text-align:center;padding:2rem;transition:border-color .2s,color .2s;cursor:pointer}
-.badd:hover{border-color:var(--red);color:var(--red)}
-
-/* --- CTA BAND --- */
-.cta-band{background:var(--ink);padding:5rem 3.5rem;border-top:3px solid var(--red);text-align:center}
-.cta-band h2{font-family:'Bebas Neue',Impact,sans-serif;font-size:clamp(3rem,6vw,5rem);color:#fff;letter-spacing:.03em;line-height:1;margin-bottom:.75rem}
-.cta-band h2 b{color:var(--red);font-weight:400}
-.cta-band p{font-size:.92rem;color:rgba(255,255,255,.42);max-width:52ch;margin:0 auto 2rem;font-weight:300;line-height:1.8}
-.cta-btns{display:flex;align-items:center;justify-content:center;gap:1rem;flex-wrap:wrap}
-
-/* --- LIVE TOAST --- */
-.live-toast{position:fixed;bottom:2rem;left:2rem;z-index:200;background:var(--ink);border:1px solid rgba(212,43,43,.3);border-left:3px solid var(--red);border-radius:4px;padding:.85rem 1.1rem;display:flex;align-items:center;gap:.75rem;opacity:0;transform:translateY(20px);transition:opacity .5s,transform .5s;pointer-events:none;max-width:290px}
-.live-toast.show{opacity:1;transform:translateY(0)}
-.lt-dot{width:8px;height:8px;border-radius:50%;background:#2d9e5f;animation:pulse 1.5s ease infinite;flex-shrink:0}
-.lt-text strong{display:block;font-size:.78rem;color:#fff;font-weight:700}
-.lt-text span{font-size:.67rem;color:rgba(255,255,255,.35)}
-
-/* --- FOOTER --- */
-footer{background:#0a0a09;padding:3rem 3.5rem 2rem}
-.foot-inner{max-width:1100px;margin:0 auto}
-.foot-top{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;padding-bottom:2.5rem;border-bottom:1px solid rgba(255,255,255,.05);margin-bottom:2rem}
-.foot-logo{font-family:'Bebas Neue',Impact,sans-serif;font-size:1.5rem;color:#fff;letter-spacing:.08em;margin-bottom:.75rem}
-.foot-logo b{color:var(--red);font-weight:400}
-.foot-tag{font-size:.78rem;color:rgba(255,255,255,.28);line-height:1.65;font-weight:300;max-width:28ch;margin-bottom:1.25rem}
-.foot-soc{display:flex;gap:.5rem}
-.fsoc{width:32px;height:32px;background:rgba(255,255,255,.05);border-radius:3px;display:flex;align-items:center;justify-content:center;transition:background .2s;text-decoration:none}
-.fsoc:hover{background:var(--red)}
-.foot-col h5{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.28);margin-bottom:1rem}
-.foot-col a{display:block;font-size:.78rem;color:rgba(255,255,255,.42);text-decoration:none;margin-bottom:.5rem;transition:color .2s}
-.foot-col a:hover{color:var(--red)}
-.foot-bot{display:flex;align-items:center;justify-content:space-between;font-size:.65rem;color:rgba(255,255,255,.18)}
-
-/* --- SCROLL TOP --- */
-.stt{position:fixed;bottom:2rem;right:2rem;z-index:150;width:42px;height:42px;background:var(--red);display:flex;align-items:center;justify-content:center;border-radius:2px;cursor:pointer;opacity:0;transition:opacity .3s,transform .2s;text-decoration:none}
-.stt.vis{opacity:1}.stt:hover{transform:translateY(-2px)}
-
-/* --- DIVIDER LINE --- */
-.div-line{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem}
-.div-line span{font-size:.62rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);flex-shrink:0}
-.div-line-bar{flex:1;height:1px;background:var(--line)}
-
-/* --- RESPONSIVE --- */
-@media(max-width:1024px){nav{padding:1rem 1.5rem}nav.sm{padding:.65rem 1.5rem}.nav-links{display:none}.burger{display:flex}}
-@media(max-width:860px){
-  .hero{padding:4rem 1.5rem}.hero-inner{grid-template-columns:1fr;gap:2.5rem}.hero-right{display:none}
-  .vsec{padding:4rem 1.5rem}.vsec-inner{grid-template-columns:1fr;gap:2.5rem}
-  .sec{padding:4rem 1.5rem}
-  .g2,.g55{grid-template-columns:1fr;gap:3rem}
-  .ogrid{grid-template-columns:1fr 1fr}
-  .cgrid{grid-template-columns:1fr 1fr}
-  .agrid{grid-template-columns:1fr}
-  .steps{grid-template-columns:1fr 1fr;gap:2rem}
-  .step{border-right:none;margin-right:0;padding-right:0;padding-bottom:1.5rem;border-bottom:1px solid var(--line)}
-  .step:nth-child(3),.step:last-child{border-bottom:none}
-  .guar{grid-template-columns:1fr}
-  .gi{border-right:none;border-bottom:1px solid rgba(255,255,255,.1)}.gi:last-child{border-bottom:none}
-  .bgrid{grid-template-columns:1fr}
-  .cta-band,.eoi-sec{padding:4rem 1.5rem}
-  .eoi-inner{grid-template-columns:1fr;gap:3rem}
-  .cert-sec{padding:3rem 1.5rem}
-  .nudge{padding:1.25rem 1.5rem}.nudge-inner{gap:1.25rem}
-  footer{padding:3rem 1.5rem 1.5rem}
-  .foot-top{grid-template-columns:1fr 1fr;gap:2rem}
-  .foot-bot{flex-direction:column;gap:.5rem;text-align:center}
-  .proof{padding:1.5rem}.proof-inner{justify-content:center;gap:1.25rem}.psep{display:none}
+.centered-wrapper {
+  display: flex;
+  justify-content: center;  /* horizontal centering */
+  width: 100%;
 }
-@media(max-width:580px){.ogrid{grid-template-columns:1fr}.cgrid{grid-template-columns:1fr}.foot-top{grid-template-columns:1fr}.urgency-bar p{font-size:.68rem;gap:.4rem}}
-</style>
+    @media (max-width: 600px) {
+      .hero h1 { font-size: 2rem; }
+      .steps-grid { grid-template-columns: 1fr; }
+    }
+/* 1. Keep your flicker animation (as before) */
+@keyframes flicker {
+  0%   { opacity: 1; }
+  50%  { opacity: 0.7; text-shadow: 0 0 1px rgba(0,0,0,0.1); }
+  51%  { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+.flicker {
+  animation: flicker 0.55s infinite alternate;
+}
+@media (prefers-reduced-motion: reduce) {
+  .flicker, .btn-psyche { animation: none; }
+}
+
+/* 2. Psychological button animation */
+.btn-psyche {
+  display: inline-block;
+  background: linear-gradient(135deg, #ff6a00, #ee2a7b);
+  background-size: 120% 120%;
+  color: white;
+  padding: 14px 32px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 60px;
+  font-size: 1.2rem;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  box-shadow: 0 5px 15px rgba(238, 42, 123, 0.3);
+  animation: psychePulse 2s infinite ease-in-out;   /* subtle invitation */
+}
+
+.btn-psyche-hero {
+    display: inline-block;
+  transition: all 0.2s ease;
+  animation: psychePulse 2s infinite ease-in-out;   /* subtle invitation */
+}
+
+/* Slow pulse that feels like a heartbeat + gentle grow/shrink */
+@keyframes psychePulse {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 5px 15px rgba(238, 42, 123, 0.3);
+  }
+  50% {
+    transform: scale(1.02);
+    box-shadow: 0 8px 25px rgba(238, 42, 123, 0.5);
+    background-position: right center;   /* slight gradient slide */
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 5px 15px rgba(238, 42, 123, 0.3);
+    background-position: left center;
+  }
+}
+
+/* Hover intensifies the psychological call-to-action (reward) */
+.btn-psyche:hover {
+  transform: scale(1.05);
+  background: linear-gradient(135deg, #ff8c2e, #ff477e);
+  box-shadow: 0 12px 28px rgba(238, 42, 123, 0.6);
+  transition: 0.15s;
+  cursor: pointer;
+  animation: none;   /* pause pulse on hover for crisp interaction */
+}
+
+/* Professional status icons */
+.status-icon {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 8px;
+}
+.loading-spinner {
+  width: 20px; height: 20px;
+  border: 2px solid #ddd;
+  border-top-color: #e74c3c;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.success-check, .error-icon {
+  width: 20px; height: 20px;
+}
+.success-check { color: #2ecc71; }
+.error-icon { color: #e74c3c; }
+
+  </style>
 </head>
 <body>
 <!-- ── ANTI-COPY ── -->
@@ -363,520 +272,264 @@ footer{background:#0a0a09;padding:3rem 3.5rem 2rem}
     }, 1200);
   })();
 </script>
-<!-- LIVE TOAST -->
-<div class="live-toast" id="live-toast">
-  <div class="lt-dot"></div>
-  <div class="lt-text">
-    <strong id="toast-msg">Brian.M enrolled in GIS Skills</strong>
-    <span>This year</span>
-  </div>
-</div>
 
-<!-- MOBILE NAV -->
-<div class="mob-nav" id="mob-nav">
-  <a href="#problem" onclick="closeNav()">Why SKG</a>
-  <a href="#courses" onclick="closeNav()">Courses</a>
-  <a href="#offer" onclick="closeNav()">What You Get</a>
-  <a href="#eoi" onclick="closeNav()">Express Interest</a>
-  <a href="#blog" onclick="closeNav()">Blog</a>
-  <a href="#enroll" onclick="closeNav()" style="color:var(--red)">Enroll Now</a>
-</div>
+  <div class="container">
+    <!-- HEADER -->
+    <header style="display: flex; justify-content: center; align-items: center; text-align: center;">
+      <a href="#" class="logo">SKILL<span>KWA</span>GROUND</a>
+      <!-- <a href="#cta" class="btn btn-outline">Get Started Today</a> -->
+    </header>
 
-<!-- URGENCY BAR -->
-<div class="urgency-bar">
-  <p>
-    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-    Next cohort closes in <span id="cdisplay">48:00:00</span>
-    &mdash; <strong>Code ANNIVERSARY = 16% off</strong> &mdash; Limited slots remaining
-  </p>
-</div>
 
-<!-- NAV -->
-<nav id="nav">
-  <a href="#top" class="nav-logo">
-    <div style="border-radius: 7px;" class="nav-logo-mark"><img style="height: 35px; border-radius: 6px;" src="Assets/skg.png" alt=""></div>
-    <div class="nav-logo-text">SKILL KWA <b>GROUND</b></div>
-  </a>
-  <ul class="nav-links">
-    <li><a href="#problem">Why SKG</a></li>
-    <li><a href="#courses">Courses</a></li>
-    <li><a href="#offer">What You Get</a></li>
-    <li><a href="#audio">Listen</a></li>
-    <li><a href="#blog">Blog</a></li>
-    <li><a href="#enroll" class="nav-cta">Enroll Now &rarr;</a></li>
-  </ul>
-  <button class="burger" id="burger" onclick="toggleNav()"><span></span><span></span><span></span></button>
-</nav>
+    <!-- VIDEO SALES LETTER (Wistia embed) -->
+    <div class="video-wrapper">
+      <!-- Replace src with your actual Wistia embed URL -->
+      <iframe src="https://fast.wistia.net/embed/iframe/mf6nx7h62x" allow="autoplay; fullscreen" loading="lazy" title="SKILL KWA GROUND overview"></iframe>
+    </div>
 
-<!-- HERO -->
-<section class="hero" id="top">
-  <div class="hero-inner">
-    <div>
-      <div class="hero-tag au au1"><div class="htag-dot"></div><span>Accepting New Trainees Now</span></div>
-      <h1 class="hero-h1 au au2">SKILL<br/><b>KWA</b><br/>GROUND</h1>
-      <p class="hero-sub au au3">Practical. Employable. Real-world tech skills built for <strong>Kenyan campus students and recent high school graduates</strong> who want to earn through ground-level skills that pay.</p>
-      <div class="hero-btns au au4">
-        <a href="#video" class="btn-red">Watch How It Works &darr;</a>
-        <a href="#courses" class="btn-outline">Browse Courses</a>
+        <!-- HERO (one‑blink test) -->
+    <section class="hero">
+      <h1>Get <span class="mark">practical AI‑powered skills</span><br>that build Real careers.</h1>
+      <p>Delivered by Experienced Business Strategists, Content Marketers & AI Automation Specialists through hands‑on training.</p>
+                  <!-- SCHEDULE A CALL -->
+    <div class="schedule-call">
+      <!-- <div class="review-header">Or</div> -->
+      <a href="schedule-call.html" class="btn-white-red btn-psyche-hero">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="vertical-align: middle; margin-right: 8px;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        Get Started Today
+      </a>
+            <div class="hero-arrow">↳ through a Free 30 min Discovery Call</div>
+      <!-- <p style="margin-top:0.5rem; font-size:0.9rem; color:#555;">PS: We also deliver <strong>custom courses</strong> according to your specific requirements.</p> -->
+    </div>
+      <!-- <a href="#cta" class="btn btn-primary">Start your journey today</a>
+      <div class="hero-arrow">↳ with a free 2‑min enrollment</div> -->
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section id="how-it-works">
+      <h2 class="section-title"><span class="review-header">How it works</span></h2>
+      <div class="steps-grid">
+        <div class="step-card">
+          <div class="step-number">1.</div>
+          <h3>Pick your path</h3>
+          <p>By Choosing a course in AI automation, business strategy or content marketing. </p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">2.</div>
+          <h3>Learn by doing</h3>
+          <p>through 60 days of guided projects + 1 month free mentorship with Real deliverables instead of going through the "tutorial hell".</p>
+        </div>
+        <div class="step-card">
+          <div class="step-number">3.</div>
+          <h3>Land work</h3>
+          <p>by getting our help in CV revamp, connection to <a style="text-decoration: none; color: rgb(4, 88, 88); font-weight: 700;" href="https://tumakazi.com" target="_blank">Tumakazi gigs</a> and subsidized assistance in signing your first client.</p>
+        </div>
       </div>
-      <div class="hero-stats au au5">
-        <div class="hs"><div class="hs-n">20+</div><div class="hs-l">Individuals Empowered per Month</div></div>
-        <div class="hs"><div class="hs-n">15+</div><div class="hs-l">Courses Available</div></div>
-        <div class="hs"><div class="hs-n">KES 0</div><div class="hs-l">Mentorship Cost</div></div>
+    </section>
+
+    <!-- WHAT YOU GET (minimal) -->
+    <section>
+      <h2 class="section-title"> <span class="review-header">What you get</span></h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1.5rem; margin: 2rem 0 4rem; text-align: center;">
+        <div><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg><h4 style="font-weight:700; margin:0.5rem 0 0.2rem;">Zero‑cost CV revamp</h4><p style="font-size:0.85rem; color:#555;">Through Professional Tumakazi tools</p></div>
+        <div><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg><h4 style="font-weight:700; margin:0.5rem 0 0.2rem;">Real mentorship</h4><p style="font-size:0.85rem; color:#555;">1 month free after bootcamp</p></div>
+        <div><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg><h4 style="font-weight:700; margin:0.5rem 0 0.2rem;">Learn in Sheng</h4><p style="font-size:0.85rem; color:#555;">Flexible modules with simple delivery</p></div>
+        <div><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg><h4 style="font-weight:700; margin:0.5rem 0 0.2rem;">Client lead gen</h4><p style="font-size:0.85rem; color:#555;">40% off subsidised assistance</p></div>
+        <div><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg><h4 style="font-weight:700; margin:0.5rem 0 0.2rem;">Beshte bonus</h4><p style="font-size:0.85rem; color:#555;">4.5% off per referral <br>(max. of 2)</p></div>
+        <div><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><h4 style="font-weight:700; margin:0.5rem 0 0.2rem;">100 learning points</h4><p style="font-size:0.85rem; color:#555;">for use in future training offers</p></div>
       </div>
-    </div>
-    <div class="hero-right au au3">
-      <span class="hr-label">Popular Courses &mdash; Next Cohort Open</span>
-      <div class="cbadge"><div class="cbi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M13 8h3"/><path d="M13 12h3"/></svg></div><div><div class="cb-name">GIS &amp; Remote Sensing</div><div class="cb-meta">Full Course &middot; 2 Months + Mentorship</div></div><div class="cb-price"><span style="color: #2d9e5f;" class="p-now">Budget-Based</span></div></div>
-      <!-- <div class="cbadge"><div class="cbi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><div class="cb-name">Digital Marketing + AI</div><div class="cb-meta">Full Course &middot; 2 Months + Mentorship</div></div><div class="cb-price"><span class="p-orig">KES 12,000</span><span class="p-now">KES 10,000</span></div></div> -->
-      <div class="cbadge"><div class="cbi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div><div><div class="cb-name">Full Stack Web Dev (HI + AI)</div><div class="cb-meta">Full Course &middot; 2 Months + 1 Month Mentorship</div></div><div class="cb-price"><span style="color: #2d9e5f;" class="p-now">Budget-Based</span></div></div>
-         <!-- <div class="cbadge"><div class="cbi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/></svg></div><div><div class="cb-name">Digital Marketing &amp; n8n Automation</div><div class="cb-meta">Crash Course &middot; 2 Months</div></div><div class="cb-price"><span class="p-now" style="color:#2d9e5f">Budget-Based</span></div></div> -->
-         <div class="cbadge"><div class="cbi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div><div class="cb-name">Digital Marketing + n8n Automation or Content Creation Track (Adobe Suite)</div><div class="cb-meta">Full Course &middot; 2 Months + Mentorship</div></div><div class="cb-price"><span style="color: #2d9e5f;" class="p-now">Budget-Based</span></div></div>
-      <div class="cbadge"><div class="cbi"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/></svg></div><div><div class="cb-name">MATLAB &amp; Data Analysis</div><div class="cb-meta">Full Course &middot; 2 Months</div></div><div class="cb-price"><span class="p-now" style="color:#2d9e5f">Budget-Based</span></div></div>
-      <div class="cbadge" style="border-color:rgba(212,43,43,.35);background:rgba(212,43,43,.06)"><div class="cbi" style="background:rgba(255,255,255,.1)"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><div class="cb-name" style="color:var(--red)">Code: ANNIVERSARY</div><div class="cb-meta">16% off &mdash; KES 2,000 Gift Card Value</div></div><div class="cb-price"><span class="p-now">Save Now</span></div></div>
-    </div>
-  </div>
-</section>
+    </section>
 
-<!-- TICKER -->
-<div class="ticker"><div class="ticker-track">
-  <span class="ti">GIS Skills</span><span class="td">&middot;</span><span class="ti">Digital Marketing</span><span class="td">&middot;</span><span class="ti">Web Development</span><span class="td">&middot;</span><span class="ti">Data Analytics</span><span class="td">&middot;</span><span class="ti">MATLAB</span><span class="td">&middot;</span><span class="ti">Python Programming</span><span class="td">&middot;</span><span class="ti">3D Design &amp; Animation</span><span class="td">&middot;</span><span class="ti">Laptop Repair</span><span class="td">&middot;</span><span class="ti">AI Automation</span><span class="td">&middot;</span><span class="ti">React &amp; Django</span><span class="td">&middot;</span><span class="ti">Content Creation</span><span class="td">&middot;</span><span class="ti">ARCHICAD BIM</span><span class="td">&middot;</span>
-  <span class="ti">GIS Skills</span><span class="td">&middot;</span><span class="ti">Digital Marketing</span><span class="td">&middot;</span><span class="ti">Web Development</span><span class="td">&middot;</span><span class="ti">Data Analytics</span><span class="td">&middot;</span><span class="ti">MATLAB</span><span class="td">&middot;</span><span class="ti">Python Programming</span><span class="td">&middot;</span><span class="ti">3D Design &amp; Animation</span><span class="td">&middot;</span><span class="ti">Laptop Repair</span><span class="td">&middot;</span><span class="ti">AI Automation</span><span class="td">&middot;</span><span class="ti">React &amp; Django</span><span class="td">&middot;</span><span class="ti">Content Creation</span><span class="td">&middot;</span><span class="ti">ARCHICAD BIM</span><span class="td">&middot;</span>
-</div></div>
+    
+    <!-- BLOG FROM BLOGGER -->
+    <section class="blog-section" id="blog">
+      <h2 class="section-title"><span class="review-header">Some Top Insights & stories</span></h2>
+      <div class="blog-frame">
+        <iframe class="blog-embed" src="https://skillkwaground.blogspot.com" title="SKG Blog"></iframe>
+      </div>
+    </section>
 
-<!-- PROOF STRIP -->
-<div class="proof">
-  <div class="proof-inner">
-    <div class="pi2"><div class="pi2-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div><div class="pi2-num">20+</div><div class="pi2-lbl">Empowered Per Month</div></div></div>
-    <div class="psep"></div>
-    <div class="pi2"><div class="pi2-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div><div><div class="pi2-num">15+</div><div class="pi2-lbl">Active Courses</div></div></div>
-    <div class="psep"></div>
-    <div class="pi2"><div class="pi2-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div><div class="pi2-num">KES 0</div><div class="pi2-lbl">Mentorship Cost</div></div></div>
-    <div class="psep"></div>
-    <div class="pi2"><div class="pi2-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><div class="pi2-num">7 days</div><div class="pi2-lbl">Time to First Skill</div></div></div>
-    <div class="psep"></div>
-    <div class="pi2"><div class="npulse" style="margin-right:4px"></div><div><div class="pi2-num" style="font-size:1rem;color:#2d9e5f">LIVE</div><div class="pi2-lbl">Accepting Enrollments</div></div></div>
-  </div>
-</div>
+    <!-- CERTIFICATE VERIFIER -->
+    <!-- <section class="cert-section" id="cert-verify">
+      <h2 class="section-title">Verify a certificate</h2>
+      <p style="max-width:500px; margin:0 auto 1rem; color:#555;">Enter the code printed on any SKILL KWA GROUND certificate to confirm its authenticity instantly.</p>
+      <div class="cert-input-group"> -->
+        <!-- <input id="certCode" class="cert-input" type="text" placeholder="e.g. SKG-2025-001"> -->
+        <!-- <a href="certificate-verification.html"><button class="btn btn-primary">Verify</button></a>
+      </div>
+      <div id="certResult" class="cert-result"></div>
+    </section> -->
 
-<!-- VIDEO SECTION -->
-<section class="vsec" id="video">
-  <div class="vsec-inner">
-    <div>
-      <span class="slbl lt rev">Platform Overview</span>
-      <h2 class="stitle lt rev" style="margin-bottom:.75rem">Watch this <b>before you decide.</b></h2>
-      <p class="sbody lt rev d1" style="margin-bottom:1.5rem">This 3-minute video explains exactly what Skill Kwa Ground is, who it is for, how the training works and what happens after you complete a course. Watch it so that you can enroll with full confidence.</p>
-      <ul style="list-style:none;margin-bottom:1.75rem" class="rev d2">
-        <li style="display:flex;align-items:flex-start;gap:.7rem;font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:.6rem;font-weight:300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round" style="flex-shrink:0;margin-top:2px"><polyline points="20 6 9 17 4 12"/></svg>What makes SKG different from campus education</li>
-        <li style="display:flex;align-items:flex-start;gap:.7rem;font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:.6rem;font-weight:300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round" style="flex-shrink:0;margin-top:2px"><polyline points="20 6 9 17 4 12"/></svg>How the cohort-based learning model works week by week</li>
-        <li style="display:flex;align-items:flex-start;gap:.7rem;font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:.6rem;font-weight:300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round" style="flex-shrink:0;margin-top:2px"><polyline points="20 6 9 17 4 12"/></svg>Post-training support and gig placement via Tumakazi</li>
-        <li style="display:flex;align-items:flex-start;gap:.7rem;font-size:.8rem;color:rgba(255,255,255,.5);font-weight:300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round" style="flex-shrink:0;margin-top:2px"><polyline points="20 6 9 17 4 12"/></svg>How to use the ANNIVERSARY coupon to save KES 2,000</li>
-      </ul>
-      <div class="vcta rev d3"><div><strong>Ready to enroll?</strong><span>Next cohort fills fast — secure your place today</span></div><a href="#eoi" class="btn-red" style="flex-shrink:0">Express Interest &rarr;</a></div>
-    </div>
-    <div class="rev d1">
-      <div class="vframe">
+    <!-- GOOGLE REVIEWS -->
+    <section class="reviews-section">
+      <div class="review-header">Trusted by</div>
+      <div class="google-reviews" id="google-reviews">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63835.211159247876!2d36.95270125!3d-0.4399548!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x648c4255b23eda65%3A0x592e12e4657c4937!2sSKILL%20KWA%20GROUND!5e0!3m2!1sen!2ske!4v1777712677213!5m2!1sen!2ske" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+        <!-- Replace with your real Google Reviews embed -->
+<!-- <div class="famewall-embed" data-src="skg" data-format="slider" style="width:100%;min-height:300px;"></div>
+<script type="text/javascript" src="https://embed.famewall.io/frame.js" defer></script> -->
+        <!--<span>Loading real Google Reviews…<br><small>(embed your Google My Business reviews iframe here)</small></span>-->
+      </div>
+      <div class="centered-wrapper" style="margin-top: 25px;">
+                <a href="https://wall.famewall.io/skill-kwa-ground-famewall" target="_blank"><img style="height: 45px;" src="Assets/famewall.webp" alt="FAMEWALL"></a>
+      </div>
+
+    </section>
+
+            <!-- PRICING CALCULATOR (connected to Google Sheets) -->
+    <section class="calc-section" id="pricing">
+      <h2 class="section-title"><span class="review-header">Our Offers are Transparent.</span> </h2>
+      <div class="calc-frame">
         <iframe 
-          src="https://fast.wistia.net/embed/iframe/mf6nx7h62x" 
-          title="Wistia video player" 
-          allow="autoplay; fullscreen" 
-          allowfullscreen 
-          frameborder="0" 
-          scrolling="no" 
-          class="wistia_embed" 
-          name="wistia_embed" 
-          width="640" 
-          height="360">
+          src="https://script.google.com/macros/s/AKfycbzK68QLrAaMDL4xPd4rMyJ3NgRJQyFfdpIR-_clddCRmy1nNdHzd5VlxgQnI0LJlCUDdw/exec" 
+          width="100%" 
+          height="480" 
+          style="border:none; border-radius:12px; box-shadow:0 4px 20px rgba(0,0,0,0.08);" 
+          title="Project Pricing Calculator">
         </iframe>
-        <!--
-          REPLACE THIS with your actual video embed:
-          YouTube: <iframe src="https://www.youtube.com/embed/YOUR_VIDEO_ID" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          Google Drive: <iframe src="https://drive.google.com/file/d/YOUR_FILE_ID/preview" allow="autoplay"></iframe>
-        -->
-        <!-- <div class="vph">
-          <div class="vph-play"><svg width="20" height="20" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div>
-          <p>Paste your YouTube or Google Drive iframe inside .vframe to show your platform video here</p>
-        </div> -->
+
+        <!-- <iframe class="calculator" src="https://script.google.com/macros/s/YOUR_DEPLOYED_SCRIPT_ID/exec" title="Pricing Calculator"></iframe> -->
       </div>
-      <div style="margin-top:1rem">
-        <a href="#courses" class="btn-shimmer btn-red" style="width:100%;justify-content:center">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-          Browse All Courses &amp; Enroll Today
-        </a>
-      </div>
+      <p style="text-align:center; margin-top:1rem; font-size:0.9rem; color:#666;">
+        <small>Prices shown are starting estimates. Actual course fee may vary.</small>
+      </p>
+    </section>
+
+    
+    <!-- FINAL CTA -->
+<section class="final-cta" id="cta">
+  <h2 class="section-title" style="margin-bottom:0.5rem; color: #15120a;">
+    Ready to <span class="mark">level up?</span>
+  </h2>
+  <p style="margin-bottom:2rem; font-size:1.1rem;">
+    Join other <a style="text-decoration: none; color: rgb(111, 106, 3);" href="https://wall.famewall.io/skill-kwa-ground-famewall" target="_blank"><strong>focused students & freelancers</strong></a> already building real careers.
+  </p>
+  <a href="schedule-call.html" class="btn-large btn-psyche">TALK TO US TODAY</a>
+  <p style="margin-top:1rem; font-size:0.9rem; color:#555;">
+    <!-- Or <a href="#newsletter" style="color:var(--red);">stay in the loop</a> for first-hand industry updates. -->
+     <!-- It only takes <strong style="color: black; text-decoration: underline;">5 minutes </strong>to do so. -->
+      <strong style="font-size: 15px;" class="section-title flicker">We are Here to Listen.</strong> 
+  </p>
+</section>
+
+
+
+</section>
+
+
+<!-- NEWSLETTER SIGN-UP SECTION -->
+<section class="newsletter-section" id="newsletter">
+  <h2 class="section-title"><span class="review-header">Oh & BTW, <br></span><span>We have a Newsletter</span></h2>
+  <p style="color:#555; margin-bottom:1rem;">for sharing weekly training updates, career tips and early access to new cohorts.</p>
+
+  <div class="newsletter-form">
+    <label for="nl-name">Full Name *</label>
+    <input type="text" id="nl-name" required placeholder="Enter your Full Name">
+
+    <label for="nl-email">Email Address *</label>
+    <input type="email" id="nl-email" required placeholder="Enter your Email Address">
+
+    <label for="nl-phone">Phone Number *</label>
+    <input type="tel" id="nl-phone" required placeholder="Enter your Phone Number">
+
+    <label for="nl-course">Which Training might interest you? *</label>
+    <select id="nl-course">
+      <option value="">Select a training…</option>
+      <option>AI Automation & Workflows</option>
+      <option>Business Strategy</option>
+      <option>Content Marketing</option>
+      <option>Other / Custom Course</option>
+    </select>
+
+    <div class="checkbox-group">
+      <input type="checkbox" id="nl-privacy" required>
+      <label for="nl-privacy">I agree to the <a href="privacy-policy.html" target="_blank" style="color:var(--red);">Privacy Policy</a> *</label>
     </div>
+
+    <button class="btn btn-primary" id="newsletterBtn">Stay in the Loop</button>
+    <div id="nl-message" style="font-size:0.85rem; margin-top:0.5rem; min-height:1.5rem;"></div>
   </div>
 </section>
 
-<!-- PROBLEM -->
-<section class="sec" id="problem">
-  <div class="sw g55">
-    <div>
-      <span class="slbl rev">The Problem</span>
-      <h2 class="stitle rev">Campus taught you <b>theory.</b><br/>The job market wants <b>skills.</b></h2>
-      <p class="sbody rev d1">Thousands of Kenyan graduates leave university every year with a certificate and no practical skill that earns. The gap between classroom and career is real.</p>
-      <ul class="pain-list">
-        <li class="pin rev d1"><span class="pin-x"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>You studied for 4 years but cannot build, code, analyse data, or market a product.</li>
-        <li class="pin rev d2"><span class="pin-x"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>Internships require experience you do not have yet which is a cruel cycle blocking fresh graduates.</li>
-        <li class="pin rev d3"><span class="pin-x"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>Online courses from the West cost USD and teach for a market that does not match Kenya.</li>
-        <li class="pin rev d4"><span class="pin-x"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></span>The gig economy is open but nobody showed you how to position, find clients, or price your work.</li>
-      </ul>
-    </div>
-    <div>
-      <span class="slbl rev" style="margin-bottom:1.25rem">How Skill Kwa Ground Fixes It</span>
-      <div class="sols">
-        <div class="sol rev"><div class="sol-n">01</div><div><div class="sol-t">Practical-first. You build from Day 1.</div><div class="sol-d">Every lesson is hands-on. You leave each session having produced something you can show a client or employer. Skills you can demonstrate are skills that pay.</div></div></div>
-        <div class="sol rev d1"><div class="sol-n">02</div><div><div class="sol-t">Kenyan market context. Built for how business works here.</div><div class="sol-d">From M-Pesa integrations to local client acquisition, everything we teach is adapted to the Kenyan economy. Western frameworks that do not translate are not on our curriculum.</div></div></div>
-        <div class="sol rev d2"><div class="sol-n">03</div><div><div class="sol-t">Post-training support. We help you land your first gig.</div><div class="sol-d">We onboard graduates to Tumakazi Jobtech, provide CV revamp services, lead generation assistance and 1-month zero-cost mentorship so your first client is not a solo mission.</div></div></div>
-      </div>
-    </div>
+
+    <footer style="color: #444;">
+      <div style="color: #444;"><a style="color: #444;" href="terms-and-conditions.html">Terms</a> · <a style="color: #444;" href="privacy-policy.html">Privacy</a> . <a style="color: #444;" href="express-intrest.html">Interest Expression</a> . <a style="color: #444;" href="certificate-verification.html">Certificate Verification</a> . <a style="color: #444;" href="https://wall.famewall.io/skill-kwa-ground-famewall" target="_blank">Famewall</a> . <a style="color: #444;" href="leave-a-review.html" target="_blank">Share Testimonial</a></div>
+      <div>&copy; 2026 SKILL KWA GROUND</div>
+    </footer>
   </div>
-</section>
 
-<!-- NUDGE RIBBON -->
-<div class="nudge">
-  <div class="nudge-inner">
-    <div class="ni"><div class="ni-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><div><strong>Next cohort closes soon</strong><span>Reserve your slot before it fills</span></div></div>
-    <div class="ni"><div class="ni-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div><div><strong><span id="vcnt">14</span> people viewing right now</strong><span>Slots go fast</span></div></div>
-    <div class="ni"><div class="ni-icon"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div><strong>Satisfaction guaranteed</strong><span>Practical outcomes or your money back</span></div></div>
-    <div class="ni"><div class="npulse" style="margin-right:4px;flex-shrink:0"></div><div><strong>Enrollments open</strong><span>M-Pesa accepted &mdash; instant confirmation</span></div></div>
-  </div>
-</div>
 
-<!-- AUDIO -->
-<section class="sec alt" id="audio">
-  <div class="sw">
-    <span class="slbl rev">Listen First</span>
-    <h2 class="stitle rev" style="margin-bottom:.75rem">Hear it straight. <b>No sales pitch.</b></h2>
-    <p class="sbody rev d1" style="max-width:58ch;margin-bottom:2.5rem">Two short audio recordings — one explaining why this platform exists, the other a real student sharing what GIS training at SKG actually did for their career.</p>
-    <div class="agrid">
-      <div class="acard rev">
-        <div class="acard-hdr">
-          <div class="a-icon" style="background:var(--red)"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/></svg></div>
-          <div><div class="a-type" style="color:var(--red)">Platform Story &middot; Episode 01</div><div class="a-title">Why Skill Kwa Ground Exists</div><div class="a-desc">A direct conversation about the gap between campus education and practical employment — and why we built SKG to close it for Kenyan youth.</div></div>
-        </div>
-        <div class="abody">
-          <iframe title="Welcome Message" allowtransparency="true" height="150" width="100%" style="border: none; min-width: min(100%, 430px);height:150px;" scrolling="no" data-name="pb-iframe-player" src="https://www.podbean.com/player-v2/?i=a8rdt-1a7e1f4-pb&from=pb6admin&share=1&download=1&rtl=0&fonts=Arial&skin=c73a3a&font-color=auto&logo_link=episode_page&btn-skin=956f46" loading="lazy"></iframe>
-          <!-- PODBEAN EP1: Delete pbph div below and paste your Podbean iframe here -->
-          <!-- <div class="pbph"><div class="pb-play" style="background:var(--red)"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div><div class="pb-lbl">Episode 01</div><div class="pb-name">Why We Built Skill Kwa Ground</div><div class="pb-hint">Replace with your Podbean iframe embed code</div></div></div> -->
-        </div>
-      </div>
-      <div class="acard rev d1">
-        <div class="acard-hdr">
-          <div class="a-icon" style="background:#1a7a48"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
-          <div><div class="a-type" style="color:#1a7a48">Student Testimonial &middot; GIS Graduate</div><div class="a-title">From Campus Grad to GIS Professional</div><div class="a-desc">A graduate of the GIS course shares what training was like, what they built, and how it changed their career in their own words.</div></div>
-        </div>
-        <div class="abody">
-          <iframe title="Brian Macharia SKG Testimonial" allowtransparency="true" height="150" width="100%" style="border: none; min-width: min(100%, 430px);height:150px;" scrolling="no" data-name="pb-iframe-player" src="https://www.podbean.com/player-v2/?i=qhkmr-1a7a182-pb&from=pb6admin&share=1&download=1&rtl=0&fonts=Arial&skin=c73a3a&font-color=auto&logo_link=episode_page&btn-skin=956f46" loading="lazy"></iframe>
-          <!-- PODBEAN TESTIMONIAL: Delete pbph div below and paste your Podbean iframe here -->
-          <!-- <div class="pbph"><div class="pb-play" style="background:#1a7a48"><svg width="12" height="12" viewBox="0 0 24 24" fill="#fff"><polygon points="5 3 19 12 5 21 5 3"/></svg></div><div><div class="pb-lbl">Student Testimonial</div><div class="pb-name">GIS Graduate &mdash; Real Outcome Story</div><div class="pb-hint">Replace with your Podbean iframe embed code</div></div></div> -->
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- COURSES -->
-<section class="sec" id="courses">
-  <div class="sw">
-    <span class="slbl rev">Courses on Offer</span>
-    <h2 class="stitle rev" style="margin-bottom:.75rem">Full Courses. <b>Crash Courses.</b><br/>All Practical.</h2>
-    <p class="sbody rev d1" style="max-width:58ch;margin-bottom:2.75rem">Full courses include mentorship and cohort delivery. Crash courses are self-paced and budget-friendly. Content is delivered via Drive with conditional access activated on enrollment.</p>
-    <div class="div-line rev"><div class="div-line-bar"></div><span>Full Courses</span><div class="div-line-bar"></div></div>
-    <div class="cgrid" style="margin-bottom:2.5rem">
-      <div class="ccard rev"><div class="cimg"><div class="cimg-bg"></div><svg style="position:relative;z-index:1;opacity:.3" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/><path d="M13 8h3"/><path d="M13 12h3"/></svg><span class="ctag">Special</span></div><div class="cbody"><div class="ccat">GIS &amp; Remote Sensing</div><div class="ctitle">Make Money using GIS and Remote Sensing Tools</div><div class="cfoot"><div class="cdur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 2 Months + Mentorship</div><div class="cprice-w"><span style="color: #2d9e5f;" class="cprice">Ksh 9,500</span></div></div></div></div>
-      <div class="ccard rev d1"><div class="cimg"><div class="cimg-bg"></div><svg style="position:relative;z-index:1;opacity:.3" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div><div class="cbody"><div class="ccat">Digital Marketing</div><div class="ctitle">Master Practical Digital Marketing + Automation using AI the Kenyan Way</div><div class="cfoot"><div class="cdur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 2 Months + Mentorship</div><div class="cprice-w"><span style="color: #2d9e5f;" class="cprice">Ksh 8,800</span></div></div></div></div>
-      <div class="ccard rev d2"><div class="cimg"><div class="cimg-bg"></div><svg style="position:relative;z-index:1;opacity:.3" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg><span class="ctag new">New</span></div><div class="cbody"><div class="ccat">Computer Hardware</div><div class="ctitle">Become a Laptop Technician in 9 Weeks through Guided Practicals</div><div class="cfoot"><div class="cdur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 3 Months</div><div class="cprice-w"><span style="color: #2d9e5f;" class="cprice">Ksh 10,500</span></div></div></div></div>
-      <div class="ccard rev d3"><div class="cimg"><div class="cimg-bg"></div><svg style="position:relative;z-index:1;opacity:.3" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><span class="ctag">Special</span></div><div class="cbody"><div class="ccat">Full Course</div><div class="ctitle">Become A React Web Master in 5 Weeks</div><div class="cfoot"><div class="cdur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 5 Weeks</div><div class="cprice-w"><span style="color: #2d9e5f;" class="cprice">Ksh 9,000</span></div></div></div></div>
-      <div class="ccard rev d4"><div class="cimg"><div class="cimg-bg"></div><svg style="position:relative;z-index:1;opacity:.3" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><span class="ctag">Special</span></div><div class="cbody"><div class="ccat">Full Course</div><div class="ctitle">Python Programming Bootcamp</div><div class="cfoot"><div class="cdur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 2 Months</div><div class="cprice-w"><span style="color: #2d9e5f;" class="cprice">Ksh 10,000</span></div></div></div></div>
-            <!-- <div class="ccard rev d4"><div class="cimg"><div class="cimg-bg"></div><svg style="position:relative;z-index:1;opacity:.3" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg><span class="ctag">Special</span></div><div class="cbody"><div class="ccat">Full Course</div><div class="ctitle">Python Programming Bootcamp</div><div class="cfoot"><div class="cdur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 2 Months</div><div class="cprice-w"><span class="cprice-orig">KES 12,000</span><span class="cprice">KES 10,000</span></div></div></div></div> -->
-      <div class="ccard rev d5"><div class="cimg"><div class="cimg-bg"></div><svg style="position:relative;z-index:1;opacity:.3" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/><line x1="12" y1="3" x2="12" y2="21"/><line x1="3" y1="12" x2="21" y2="12"/></svg></div><div class="cbody"><div class="ccat">Engineering &amp; Computation</div><div class="ctitle">MATLAB for Engineers &amp; Data Scientists — Applied Computing</div><div class="cfoot"><div class="cdur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 2 Months</div><div class="cprice-w"><span class="cprice enq">Ksh 9,500</span></div></div></div></div>
-    </div>
-    <div class="div-line rev"><div class="div-line-bar"></div><span>Crash Courses &mdash; Self-Paced &middot; Budget-Friendly</span><div class="div-line-bar"></div></div>
-    <div class="cgrid">
-      <div class="ccard rev"><div class="cimg"><div class="cimg-bg"></div><svg style="position:relative;z-index:1;opacity:.2" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 3v18"/></svg><span class="ctag crash">Crash Course</span></div><div class="cbody"><div class="ccat">Content Creation</div><div class="ctitle">Master Digital Marketing Content Creation (Adobe Suite) in 30 Days</div><div class="cfoot"><div class="cdur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 30 Days</div><div class="cprice-w"><span class="cprice enq">Budget-based</span></div></div></div></div>
-      <div class="ccard rev d1"><div class="cimg"><div class="cimg-bg"></div><svg style="position:relative;z-index:1;opacity:.2" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="ctag crash">Crash Course</span></div><div class="cbody"><div class="ccat">Digital Marketing</div><div class="ctitle">Master Digital Marketing Operations + AI Automation in 30 Days</div><div class="cfoot"><div class="cdur"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 30 Days</div><div class="cprice-w"><span class="cprice enq">Budget-based</span></div></div></div></div>
-      <div class="ccard rev d2"><div class="cimg"><div class="cimg-bg"></div><svg style="position:relative;z-index:1;opacity:.2" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg><span class="ctag crash" style="background:#1a7a48">Coming Soon</span></div><div class="cbody"><div class="ccat">Data Analytics</div><div class="ctitle">Build Confidence in Making Tough Financial Decisions using R Statistical Software</div><div class="cfoot"><div class="cdur">90 days</div><div class="cprice-w"><span class="cprice enq">Budget-Based</span></div></div></div></div>
-      <div class="ccard rev d3"><div class="cimg"><div class="cimg-bg"></div><svg style="position:relative;z-index:1;opacity:.2" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="1.5" stroke-linecap="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg><span class="ctag crash" style="background:#1a7a48">Coming Soon</span></div><div class="cbody"><div class="ccat">3D Design &amp; Animation</div><div class="ctitle">Tell Convincing Stories through 3D Design and Animation</div><div class="cfoot"><div class="cdur">90 Days</div><div class="cprice-w"><span class="cprice enq">Budget-Based</span></div></div></div></div>
-    </div>
-    <div style="text-align:center;margin-top:2.5rem" class="rev"><a href="#eoi" class="btn-dark">Request for Training &rarr;</a></div>
-  </div>
-</section>
-
-<!-- OFFER -->
-<section class="sec alt" id="offer">
-  <div class="sw">
-    <span class="slbl rev">The Full Offer that Every Full Course Enrollment Includes:</span>
-    <h2 class="stitle rev" style="margin-bottom:.75rem">You are not just buying a course.<br/><b>You are buying a head start.</b></h2>
-    <p class="sbody rev d1" style="max-width:60ch;margin-bottom:3rem">Every full course enrollment includes all eight of the following. Not just the lessons.</p>
-    <div class="ogrid">
-      <div class="oc rev"><div class="oc-n">01</div><div class="obadge">Included</div><div class="oc-t">60 Days Practical Bootcamp + 1 Month ZERO Cost Mentorship</div><div class="oc-d">Structured daily learning with a real mentor checking your progress for a full month after completion at no extra charge.</div></div>
-      <div class="oc rev d1"><div class="oc-n">02</div><div class="obadge">Included</div><div class="oc-t">ZERO Cost CV Revamp via Tumakazi Jobtech Internal Tools</div><div class="oc-d">Your CV professionally restructured and optimised completely for free. A KES 2,500+ value.</div></div>
-      <div class="oc rev d2"><div class="oc-n">03</div><div class="obadge">Included</div><div class="oc-t">Flexible Module-Based Learning</div><div class="oc-d">We teach kama mtoi wa 5 years starting from absolute ground up. Module-by-module, manageable around your schedule.</div></div>
-      <div class="oc rev d3"><div class="oc-n">04</div><div class="obadge" style="background:rgba(212,43,43,.14);color:var(--red-dk)">Limited Time</div><div class="oc-t">16% Off Gift Card — KES 2,000 Value (Code: ANNIVERSARY)</div><div class="oc-d">Use coupon <strong>ANNIVERSARY</strong> at checkout to redeem KES 2,000 off your cohort training fees.</div></div>
-      <div class="oc rev d4"><div class="oc-n">05</div><div class="obadge">Referral Bonus</div><div class="oc-t">4.5% Per-Beshte Bonus — KSh 450 per Referral (Max 2)</div><div class="oc-d">Refer a friend and earn KSh 450 per beshte toward your bootcamp fees. Limited to two referrals.</div></div>
-      <div class="oc rev d5"><div class="oc-n">06</div><div class="obadge">Career</div><div class="oc-t">Onboarding to Tumakazi Jobtech Post-Training</div><div class="oc-d">After completing your course you are onboarded to tumakazi.com and actively supported in finding and closing your first gig.</div></div>
-      <div class="oc rev"><div class="oc-n">07</div><div class="obadge">Subsidised</div><div class="oc-t">Lead Generation Assistance at 40% Off Subsidised Prices</div><div class="oc-d">We help you find clients interested in your gig at 40% below market price for lead generation services.</div></div>
-      <div class="oc rev d1"><div class="oc-n">08</div><div class="obadge">Points</div><div class="oc-t">100 Learning Points (50 Enrollment + 50 Registration)</div><div class="oc-d">Earn 100 learning points redeemable toward future training offers and course discounts on the platform.</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- EOI FORM -->
-<section class="eoi-sec" id="eoi">
-  <div class="eoi-inner">
-    <div>
-      <span class="slbl lt rev">Expression of Interest</span>
-      <h2 class="stitle lt rev" style="margin-bottom:.75rem">Not ready to pay yet? <b>That is fine.</b></h2>
-      <p class="sbody lt rev d1" style="margin-bottom:1.5rem">Fill in the form and we will reach out with the full course schedule, payment options and a personalised recommendation. No commitment. No spam. Just useful information.</p>
-      <ul style="list-style:none;margin-bottom:1.75rem" class="rev d2">
-        <li style="display:flex;align-items:center;gap:.7rem;font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:.65rem;font-weight:300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>We respond within 24 hours via WhatsApp or email</li>
-        <li style="display:flex;align-items:center;gap:.7rem;font-size:.8rem;color:rgba(255,255,255,.5);margin-bottom:.65rem;font-weight:300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>You receive the next cohort dates and course content breakdown</li>
-        <li style="display:flex;align-items:center;gap:.7rem;font-size:.8rem;color:rgba(255,255,255,.5);font-weight:300"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>Zero obligation to enroll, just a conversation about your goals</li>
-      </ul>
-      <div class="eoi-note rev d3"><p><strong>Why express interest now?</strong> Cohort slots are limited. Expressing interest puts you ahead in the queue and gives you time to arrange M-Pesa installments if needed.</p></div>
-    </div>
-    <div class="rev d1">
-      <div class="eoi-frame">
-        <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSf1FLfQ0CQ0qB-7UqNtrlpGv80b_fuNup_sWgbeyn20qi0DbQ/viewform?embedded=true" width="100%" height="480" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
-        <!--
-          HOW TO EMBED YOUR GOOGLE FORM (EOI):
-          1. Go to forms.google.com and create your form
-             Suggested fields: Full Name, Phone/WhatsApp, Email, Course Interested In, How did you hear about us?
-          2. Click the SEND button (top right)
-          3. Click the < > embed tab
-          4. Copy the full <iframe> code shown
-          5. DELETE the placeholder div below and PASTE your <iframe> here
-          6. In your iframe, set: width="100%" height="680" frameborder="0"
-
-          Example result:
-          <iframe src="https://docs.google.com/forms/d/e/YOUR_FORM_ID/viewform?embedded=true"
-            width="100%" height="680" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-        -->
-        <!-- <div style="padding:2.5rem;text-align:center;background:#fff;min-height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1.25rem">
-          <div style="width:48px;height:48px;background:var(--red-bg);border-radius:4px;display:flex;align-items:center;justify-content:center"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2" stroke-linecap="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
-          <div><p style="font-family:'Bebas Neue',Impact,sans-serif;font-size:1.2rem;letter-spacing:.03em;color:var(--ink);margin-bottom:.5rem">Google EOI Form Goes Here</p><p style="font-size:.78rem;color:var(--ink3);max-width:32ch;margin:0 auto;line-height:1.6;font-weight:300">Create your Expression of Interest form on Google Forms and paste the iframe embed code here</p></div>
-          <a href="https://forms.google.com" target="_blank" class="btn-red" style="font-size:.74rem">Create Google Form &rarr;</a>
-        </div> -->
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- PROCESS -->
-<section class="sec" id="process">
-  <div class="sw">
-    <span class="slbl rev">How It Works</span>
-    <h2 class="stitle rev" style="margin-bottom:3.5rem">Four steps from <b>student to skilled.</b></h2>
-    <div class="steps">
-      <div class="step rev"><div class="step-n">01</div><div class="step-t">Choose Your Course</div><div class="step-d">Browse full and crash courses. Pick the one matching your goal. Not sure? Express interest and we will advise on the right fit.</div></div>
-      <div class="step rev d1"><div class="step-n">02</div><div class="step-t">Enroll and Pay via M-Pesa</div><div class="step-d">Simple enrollment. Pay via M-Pesa. Installments available. Use code ANNIVERSARY for 16% off. Cohort place confirmed immediately.</div></div>
-      <div class="step rev d2"><div class="step-n">03</div><div class="step-t">Access Content via Drive</div><div class="step-d">Course materials delivered via Drive with conditional access unlocked on enrollment. Live cohort sessions for full courses. Self-paced for crash courses.</div></div>
-      <div class="step rev d3"><div class="step-n">04</div><div class="step-t">Get Your First Gig</div><div class="step-d">We onboard you to Tumakazi Jobtech, revamp your CV and actively help you find your first paying client. Your first gig is not a solo mission.</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- GUARANTEE -->
-<div class="guar">
-  <div class="gi rev"><div class="gi-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><div class="gi-t">Practical or Nothing</div><div class="gi-d">If a lesson cannot be applied to a real task within the Kenyan market, it is not in our curriculum. Every module is reviewed for practical relevance before going live.</div></div>
-  <div class="gi rev d1"><div class="gi-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div><div class="gi-t">Post-Training Support</div><div class="gi-d">One month of zero-cost mentorship included in every full course. We do not consider your education complete until you have delivered your first piece of work for a real client.</div></div>
-  <div class="gi rev d2"><div class="gi-icon"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div><div class="gi-t">No Hidden Fees</div><div class="gi-d">No auto-renewals, no surprise charges. Crash courses are self-paced. Full courses run in cohorts with clear dates. What you see is exactly what you pay.</div></div>
-</div>
-
-<!-- FAQ -->
-<section class="sec alt" id="faq">
-  <div class="sw g2" style="gap:5rem">
-    <div>
-      <span class="slbl rev">Common Questions</span>
-      <h2 class="stitle rev">Before you decide,<br/><b>let us answer this.</b></h2>
-      <p class="sbody rev d1" style="margin-top:1rem">If your question is not here, send a WhatsApp and we will respond within the hour.</p>
-      <div style="margin-top:2rem" class="rev d2"><a href="https://wa.me/254756818457" class="btn-red" target="_blank">WhatsApp Us &rarr;</a></div>
-    </div>
-    <div class="faq-list rev d1">
-      <div class="faq-item"><div class="faq-q">Do I need prior tech experience?<div class="faq-arr"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-a">No. We teach from absolute ground zero. If you can use a smartphone, you have enough starting knowledge for any of our courses.</div></div>
-      <div class="faq-item"><div class="faq-q">How is course content delivered?<div class="faq-arr"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-a">Course materials are hosted on Drive with conditional access unlocked on enrollment confirmation. Full courses have live cohort sessions. Crash courses are fully self-paced.</div></div>
-      <div class="faq-item"><div class="faq-q">How do I pay?<div class="faq-arr"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-a">Payment is via M-Pesa. Details provided at enrollment. Installment arrangements are available. Reach out via WhatsApp if you need a payment plan.</div></div>
-      <div class="faq-item"><div class="faq-q">What is Tumakazi Jobtech?<div class="faq-arr"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-a">Tumakazi Jobtech (tumakazi.com) is our partner freelance platform. After completing your course you are onboarded and actively supported in finding gigs that match your new skill set.</div></div>
-      <div class="faq-item"><div class="faq-q">Is the ANNIVERSARY coupon still valid?<div class="faq-arr"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-a">Yes. Code ANNIVERSARY gives you a KES 2,000 gift card value which contributes 16% off your cohort training fees. Apply at checkout before it expires.</div></div>
-      <div class="faq-item"><div class="faq-q">How do I verify a SKG certificate?<div class="faq-arr"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="3" stroke-linecap="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></div></div><div class="faq-a">Every SKG certificate carries a unique code. Employers can enter that code into the Certificate Verification section on this page to instantly confirm its authenticity.</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- CERT VERIFIER -->
-<section class="cert-sec" id="cert-verification">
-  <div class="cert-inner">
-    <span class="slbl" style="margin-bottom:.5rem">Certificate Verification</span>
-    <h2 class="stitle" style="font-size:clamp(1.6rem,3vw,2.4rem)">Verify Certificate Issued from<br/><b>Skill Kwa Ground</b></h2>
-    <p class="sbody" style="margin-top:.75rem;max-width:44ch;margin-left:auto;margin-right:auto">Enter the unique code printed on your SKG certificate to confirm its authenticity instantly.</p>
-    <div class="cert-form">
-      <!-- <input class="cert-input" id="cert-input" type="text" placeholder="Enter certificate code (e.g. SKG-2025-001)"/> -->
-      <!-- <button class="btn-red" onclick="verifyCert()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Verify Certificate</button> -->
-      <a href="certificate-verification.html"><button class="btn-red" onclick="verifyCert()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>Verify Certificate</button></a>
-    </div>
-    <div class="cert-res" id="cert-res"></div>
-    <p style="font-size:.7rem;color:var(--ink4);margin-top:1rem;font-style:italic">Employers: enter the code from a candidate's certificate to verify it was issued by Skill Kwa Ground.</p>
-  </div>
-</section>
-
-<!-- BLOG -->
-<section class="sec" id="blog">
-  <div class="sw">
-    <span class="slbl rev">From the SKG Blog</span>
-    <h2 class="stitle rev" style="margin-bottom:.75rem">Skills, insights <b>and ground truth.</b></h2>
-    <p class="sbody rev d1" style="max-width:56ch;margin-bottom:3rem">Practical career advice, skill breakdowns and market intelligence written for Kenyan campus students and graduates.</p>
-         <div style="width: 100%;"> <iframe src="https://skillkwaground.blogspot.com" width="100%" height="600" frameborder="0"></iframe></div>
-    <div class="bgrid">
-      <!-- <div class="bcard rev"><div class="bthumb"><div class="bthumb-txt">GIS</div><span class="bcat">GIS Skills</span></div><div class="bbody"><div class="bdate">April 2026</div><div class="btitle">5 Real Ways Kenyan Graduates Are Making Money with GIS Right Now</div><div class="bexc">Remote sensing and mapping are no longer niche — here are the specific gigs, clients, and income streams GIS-skilled graduates are tapping into across East Africa.</div><a href="https://skillkwaground.blogspot.com/" target="_blank" class="bread">Read Article <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div></div>
-      <div class="bcard rev d1"><div class="bthumb"><div class="bthumb-txt">AI</div><span class="bcat">Digital Marketing</span></div><div class="bbody"><div class="bdate">March 2026</div><div class="btitle">How to Use AI Tools to Run a Digital Marketing Agency from Campus</div><div class="bexc">You do not need an office, a team, or capital. You need three tools, one skill, and a method for finding your first three clients. This article walks through it.</div><a href="https://skillkwaground.blogspot.com/" target="_blank" class="bread">Read Article <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div></div>
-      <div class="bcard rev d2"><div class="bthumb"><div class="bthumb-txt">DEV</div><span class="bcat">Web Development</span></div><div class="bbody"><div class="bdate">March 2026</div><div class="btitle">React vs Django — Which Should a Kenyan Campus Student Learn First?</div><div class="bexc">Both are in demand. Both pay well. The answer depends entirely on what kind of work you want to do — and how fast you need to start earning.</div><a href="https://skillkwaground.blogspot.com/" target="_blank" class="bread">Read Article <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a></div></div> -->
-
-      <!-- <div class="badd rev d3" onclick="alert('Add a new blog post by copying the bcard structure above.')"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="16"/><line x1="8" y1="12" x2="16" y2="12"/></svg><strong style="font-weight:700;font-size:.85rem">Add Your Next Blog Post</strong><span>Copy the bcard structure and paste a new article here when you publish</span></div> -->
-    </div>
-  </div>
-</section>
-
-<!-- CTA BAND -->
-<div class="cta-band" id="enroll">
-  <div class="sw">
-    <h2 class="rev">THE SKILL IS <b>OUT THERE.</b><br/>GO GRAB IT.</h2>
-    <p class="rev d1">Every day you wait is a day someone else with your same potential is picking up the skill, closing the gig and building the career. Enroll today by using the code <strong style="color:var(--red-lt)">ANNIVERSARY</strong> for 16% off.</p>
-    <div class="cta-btns rev d2">
-      <a href="#eoi" class="btn-red btn-shimmer" style="font-size:.82rem;padding:1rem 2.25rem"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>Enroll on Skill Kwa Ground &rarr;</a>
-      <a href="#eoi" class="btn-white">Express Interest First</a>
-      <a href="https://wa.me/254756818457" target="_blank" class="btn-outline" style="color:#fff;border-color:rgba(255,255,255,.2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>Ask on WhatsApp</a>
-    </div>
-  </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-  <div class="foot-inner">
-    <div class="foot-top">
-      <div>
-        <div class="foot-logo">SKILL KWA <b>GROUND</b></div>
-        <p class="foot-tag">Equipping practical, everyday tech skills to Kenyan campus and recent high school graduates. Ground level. Real skills. Real outcomes.</p>
-        <div class="foot-soc">
-          <a href="#" class="fsoc" title="YouTube"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
-          <a href="#" target="_blank" class="fsoc" title="LinkedIn"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
-          <a href="https://wa.me/254756818457" target="_blank" class="fsoc" title="WhatsApp"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></a>
-        </div>
-      </div>
-      <div class="foot-col"><h5>Courses</h5><a href="#courses">GIS &amp; Remote Sensing</a><a href="#courses">Digital Marketing + AI</a><a href="#courses">React Web Mastery</a><a href="#courses">Python Bootcamp</a><a href="#courses">MATLAB Training</a><a href="#courses">Laptop Technician</a></div>
-      <div class="foot-col"><h5>Platform</h5><a href="#offer">What You Get</a><a href="#process">How It Works</a><a href="#faq">FAQ</a><a href="news-and-commentary.html">Blog</a><a href="https://tumakazi.com" target="_blank">Tumakazi Jobtech</a><a href="#cert-verification">Verify Certificate</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms-and-conditions.html">Terms and Conditions</a></div>
-      <div class="foot-col"><h5>Connect</h5><a href="https://wa.me/254756818457" target="_blank">WhatsApp</a><a href="mailto:projectalsight@mail.com">Email</a><a href="#eoi">Express Interest</a><a href="#enroll">Enroll Now</a><a href="installment-page.html">Installment Link</a><a href="course-introductions.html">Course Introductions</a></div>
-    </div>
-    <div class="foot-bot"><span>&copy; 2026 Skill Kwa Ground &middot; All rights reserved</span><span>Practical skills. Real careers. Ground level.</span></div>
-  </div>
-</footer>
-
-<a href="#top" class="stt" id="stt"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></a>
 
 <script>
-/* SCROLL REVEAL — show by default, enhance if JS works */
-(function(){
-  var items = document.querySelectorAll('.rev');
-  if('IntersectionObserver' in window){
-    items.forEach(function(el){ el.classList.add('hide'); });
-    var obs = new IntersectionObserver(function(entries){
-      entries.forEach(function(e){
-        if(e.isIntersecting){ e.target.classList.remove('hide'); e.target.classList.add('show'); obs.unobserve(e.target); }
-      });
-    },{threshold:0.07,rootMargin:'0px 0px -20px 0px'});
-    items.forEach(function(el){ obs.observe(el); });
-  }
-})();
-
-/* NAV SHRINK */
-var nav = document.getElementById('nav');
-var stt = document.getElementById('stt');
-window.addEventListener('scroll', function(){
-  nav.classList.toggle('sm', window.scrollY > 60);
-  stt.classList.toggle('vis', window.scrollY > 400);
-},{passive:true});
-
-/* MOBILE NAV */
-function toggleNav(){
-  var mn=document.getElementById('mob-nav'), bg=document.getElementById('burger');
-  mn.classList.toggle('open'); bg.classList.toggle('open');
-  document.body.style.overflow = mn.classList.contains('open') ? 'hidden' : '';
-}
-function closeNav(){
-  document.getElementById('mob-nav').classList.remove('open');
-  document.getElementById('burger').classList.remove('open');
-  document.body.style.overflow='';
-}
-
-/* COUNTDOWN — 48h from first visit, stored in sessionStorage */
-(function(){
-  var key='skg_end', end=sessionStorage.getItem(key);
-  if(!end){ end=Date.now()+48*60*60*1000; sessionStorage.setItem(key,end); }
-  end=parseInt(end);
-  function tick(){
-    var d=end-Date.now();
-    if(d<=0){ document.getElementById('cdisplay').textContent='CLOSED'; return; }
-    var h=Math.floor(d/3600000), m=Math.floor((d%3600000)/60000), s=Math.floor((d%60000)/1000);
-    document.getElementById('cdisplay').textContent=
-      String(h).padStart(2,'0')+':'+String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
-  }
-  tick(); setInterval(tick,1000);
-})();
-
-/* FAKE VIEWER COUNT */
-(function(){
-  var el=document.getElementById('vcnt'); if(!el) return;
-  var n=12+Math.floor(Math.random()*8); el.textContent=n;
-  setInterval(function(){ n=Math.max(8,Math.min(24,n+(Math.random()<.5?1:-1))); el.textContent=n; },7000);
-})();
-
-/* LIVE TOAST NOTIFICATIONS */
-(function(){
-  var msgs=['Brian.M enrolled in GIS Skills','Faith G. expressed interest in Full Stack Dev','Boniface M. enrolled in Digital Marketing','Griffins O. joined 3D Animation'];
-  var toast=document.getElementById('live-toast'), msg=document.getElementById('toast-msg'), i=0;
-  function show(){ msg.textContent=msgs[i%msgs.length]; i++; toast.classList.add('show'); setTimeout(function(){ toast.classList.remove('show'); },4500); }
-  setTimeout(show,8000); setInterval(show,22000);
-})();
-
-/* FAQ ACCORDION */
-document.querySelectorAll('.faq-q').forEach(function(q){
-  q.addEventListener('click',function(){
-    var item=q.parentElement, was=item.classList.contains('open');
-    document.querySelectorAll('.faq-item').forEach(function(i){ i.classList.remove('open'); });
-    if(!was) item.classList.add('open');
-  });
+document.addEventListener('DOMContentLoaded', function() {
+  const submitBtn = document.getElementById('newsletterBtn');
+  submitBtn.addEventListener('click', submitNewsletter);
 });
 
-/* CERTIFICATE VERIFIER
-   IMPLEMENTATION GUIDE:
-   Option A — Google Sheets (free, no backend):
-     1. Create a Google Sheet with columns: Code | Name | Course | Date
-     2. Publish as CSV (File > Share > Publish to web > CSV)
-     3. Replace the validCodes object below with a fetch to your published sheet URL
-     4. Parse the CSV and check if the entered code exists
-
-   Option B — Google Apps Script web app (recommended):
-     1. In your Google Sheet, go to Extensions > Apps Script
-     2. Create a web app that accepts GET ?code=XXX and returns JSON
-     3. Replace verifyCert() body with: fetch('YOUR_APPS_SCRIPT_URL?code='+code).then(r=>r.json()).then(...)
-
-   Option C — Simple demo (current, replace with real data):
-*/
-
-var validCodes = { 
- 'SKG-2025-001': 'Joshua M. — GIS & Remote Sensing — Completed January 2025',
- 'SKG-2025-002': 'Amina K. — Digital Marketing + AI — Completed March 2025',
- 'SKG-2025-003': 'Brian O. — React Web Mastery — Completed April 2025'
- };
-function verifyCert(){
-  var code=document.getElementById('cert-input').value.trim().toUpperCase();
-  var res=document.getElementById('cert-res');
-  if(!code){ res.style.display='none'; return; }
-  if(validCodes[code]){ res.className='cert-res ok'; res.innerHTML='<strong>Certificate Verified.</strong> '+validCodes[code]; }
-  else { res.className='cert-res fail'; res.innerHTML='<strong>Not found.</strong> This code does not match any certificate in our records. Please check the code or contact us on WhatsApp.'; }
-  res.style.display='block';
+function showMessage(container, text, type) {
+  let icon = '';
+  if (type === 'loading') icon = '<div class="loading-spinner status-icon"></div>';
+  else if (type === 'success') icon = '<svg class="success-check status-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>';
+  else if (type === 'error') icon = '<svg class="error-icon status-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"/></svg>';
+  container.innerHTML = `${icon}<span>${text}</span>`;
 }
-document.getElementById('cert-input').addEventListener('keydown',function(e){ if(e.key==='Enter') verifyCert(); });
+
+async function submitNewsletter() {
+  const name = document.getElementById('nl-name').value.trim();
+  const email = document.getElementById('nl-email').value.trim();
+  const phone = document.getElementById('nl-phone').value.trim();
+  const course = document.getElementById('nl-course').value;
+  const privacyChecked = document.getElementById('nl-privacy').checked;
+  const messageDiv = document.getElementById('nl-message');
+  const btn = document.getElementById('newsletterBtn');
+
+  // Validations
+  if (!name) { showMessage(messageDiv, 'Please enter your full name.', 'error'); return; }
+  if (!email || !email.includes('@')) { showMessage(messageDiv, 'Valid email required.', 'error'); return; }
+  if (!phone) { showMessage(messageDiv, 'Phone number required.', 'error'); return; }
+  if (!course) { showMessage(messageDiv, 'Select a training option.', 'error'); return; }
+  if (!privacyChecked) { showMessage(messageDiv, 'You must agree to the Privacy Policy.', 'error'); return; }
+
+  // Disable button, show loading
+  const originalText = btn.innerText;
+  btn.disabled = true;
+  btn.innerText = 'subscribing...';
+  showMessage(messageDiv, 'Kindly Wait...', 'loading');
+
+  const formData = {
+    name, email, phone, course,
+    timestamp: new Date().toISOString()
+  };
+
+  // REPLACE THIS WITH YOUR APPS SCRIPT WEB APP URL
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzonqLvPQpMCmwy4aaIZHq9I_g5cqW83yBnJX1AOegcmMpppkzNe4-0JpkD5ltGCpUZdQ/exec';
+
+  try {
+    const response = await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',  // Important: prevents CORS errors, but you won't read response body
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+    // With 'no-cors', we cannot read response.json() - it will be opaque.
+    // So we assume success if no error thrown.
+    showMessage(messageDiv, 'Hurray! Thanks for subscribing to SKILL KWA GROUND. You are now in the Loop.', 'success');
+    // Clear form
+    document.getElementById('nl-name').value = '';
+    document.getElementById('nl-email').value = '';
+    document.getElementById('nl-phone').value = '';
+    document.getElementById('nl-course').value = '';
+    document.getElementById('nl-privacy').checked = false;
+  } catch (err) {
+    console.error('Fetch error:', err);
+    showMessage(messageDiv, 'Network error. Please check your connection.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.innerText = originalText;
+  }
+}
 </script>
+
+  
 </body>
 </html>

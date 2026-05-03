@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book a Free Call – SKG</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: #f8fafc;
+      color: #1e293b;
+      padding: 2rem 1rem;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    /* Header */
+    .header {
+      margin-bottom: 1.5rem;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+    .logo img {
+      height: 50px;
+      width: auto;
+    }
+    .logo span {
+      font-weight: 700;
+      font-size: 1.3rem;
+      color: #1e293b;
+    }
+
+    /* Main Card */
+    .booking-card {
+      background: white;
+      border-radius: 32px;
+      box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25);
+      overflow: hidden;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    /* Info Panel */
+    .info-panel {
+      background: linear-gradient(145deg, #873902, #873902);
+      color: white;
+      padding: 2rem;
+      flex: 1.2;
+      min-width: 260px;
+    }
+    .info-panel h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+    .info-panel h1 span {
+      color: #aad803;
+    }
+    .info-panel p {
+      opacity: 0.85;
+      margin: 1rem 0;
+      line-height: 1.5;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(255,255,255,0.15);
+      border-radius: 40px;
+      padding: 0.5rem 1rem;
+      margin-top: 1rem;
+    }
+
+    /* Calendar Panel */
+    .calendar-panel {
+      flex: 2.5;
+      padding: 2rem;
+      background: white;
+    }
+
+    /* Month Navigation */
+    .month-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+    .month-nav button {
+      background: #f1f5f9;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      font-size: 1.2rem;
+    }
+    .month-nav button:hover {
+      background: #e2e8f0;
+    }
+    .month-year {
+      font-weight: 700;
+      font-size: 1.2rem;
+    }
+
+    /* Calendar Grid */
+    .weekdays {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      text-align: center;
+      font-weight: 600;
+      color: #64748b;
+      margin-bottom: 0.5rem;
+    }
+    .calendar-days {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px;
+    }
+    .day {
+      aspect-ratio: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .day:hover:not(.disabled) {
+      background: #f97316;
+      color: white;
+    }
+    .day.selected {
+      background: #f97316;
+      color: white;
+    }
+    .day.disabled {
+      color: #cbd5e1;
+      cursor: not-allowed;
+    }
+    .day.other-month {
+      color: #cbd5e1;
+    }
+
+    /* Time Slots */
+    .time-section {
+      margin-top: 2rem;
+      border-top: 1px solid #e2e8f0;
+      padding-top: 1.5rem;
+      display: none;
+    }
+    .time-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1rem 0;
+    }
+    .time-slot {
+      background: #f1f5f9;
+      padding: 0.6rem 1.2rem;
+      border-radius: 40px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .time-slot:hover {
+      background: #f97316;
+      color: white;
+    }
+    .time-slot.selected {
+      background: #f97316;
+      color: white;
+    }
+
+    /* Buttons */
+    .btn {
+      background: #f97316;
+      color: white;
+      border: none;
+      padding: 0.9rem;
+      font-size: 1rem;
+      font-weight: 700;
+      border-radius: 60px;
+      width: 100%;
+      cursor: pointer;
+      margin-top: 1.5rem;
+    }
+    .btn:disabled {
+      background: #cbd5e1;
+      cursor: not-allowed;
+    }
+
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+    .modal-content {
+      background: white;
+      max-width: 500px;
+      width: 90%;
+      border-radius: 32px;
+      padding: 2rem;
+    }
+    .modal-content input, .modal-content textarea {
+      width: 100%;
+      padding: 0.8rem;
+      margin: 0.5rem 0 1rem;
+      border: 1px solid #e2e8f0;
+      border-radius: 20px;
+    }
+    .modal-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .modal-buttons button {
+      flex: 1;
+      padding: 0.7rem;
+      border-radius: 40px;
+      border: none;
+      cursor: pointer;
+    }
+    .cancel-btn {
+      background: #e2e8f0;
+    }
+    .confirm-btn {
+      background: #f97316;
+      color: white;
+    }
+    .status {
+      text-align: center;
+      margin-top: 1rem;
+      font-size: 0.85rem;
+    }
+    .spinner {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 2px solid #fff;
+      border-top-color: transparent;
+      border-radius: 50%;
+      animation: spin 0.6s linear infinite;
+    }
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    .footer {
+      margin-top: 2rem;
+      text-align: center;
+      padding-top: 1.5rem;
+      border-top: 1px solid #e2e8f0;
+    }
+    .footer a {
+      color: #64748b;
+      text-decoration: none;
+      margin: 0 1rem;
+    }
+    @media (max-width: 800px) {
+      .booking-card { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+      <!-- ── ANTI-COPY ── -->
+<script>
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    const kb = (e.ctrlKey || e.metaKey) && ['c','u','s','a','p','x'].includes(e.key.toLowerCase());
+    const dt = e.key === 'F12' || ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase()));
+    if (kb || dt) e.preventDefault();
+  });
+  document.addEventListener('dragstart', e => e.preventDefault());
+  document.addEventListener('selectstart', e => e.preventDefault());
+  (function devDetect() {
+    const threshold = 160;
+    setInterval(() => {
+      if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+        document.body.innerHTML = '<div style="height:100vh;display:flex;align-items:center;justify-content:center;font-family:sans-serif;font-size:0.85rem;color:#6b6560;">Please refresh the page to continue.</div>';
+      }
+    }, 1200);
+  })();
+</script>
+
+
+<div class="container">
+  <!-- Header with Logo -->
+  <div class="header" style="display: flex; justify-content: center; align-items: center; text-align: center;">
+    <a href="/" class="logo">
+      <img style="height: 75px;border-radius: 20px;" src="Assets/skg-logo-wb.png" alt="SKG Logo" onerror="this.style.display='none'">
+    </a>
+  </div>
+
+  <!-- Main Booking Card -->
+  <div class="booking-card">
+    <div class="info-panel">
+      <h1>A <span>30min</span> Call is enough</h1>
+      <p>To talk about your goals and see if we're a fit.</p>
+      <div class="badge">⏱️ 30 minutes · Free</div>
+      <p style="margin-top: 1.5rem; font-size:0.8rem;">We promise to share a confirmation email with you within 24 hours.</p>
+    </div>
+
+    <div class="calendar-panel">
+      <div class="month-nav">
+        <button id="prevMonth">←</button>
+        <span id="monthYear" class="month-year"></span>
+        <button id="nextMonth">→</button>
+      </div>
+      <div class="weekdays">
+        <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+      </div>
+      <div id="calendarDays" class="calendar-days"></div>
+
+      <div id="timeSection" class="time-section">
+        <strong>Select a time slot</strong>
+        <div id="timeGrid" class="time-grid"></div>
+        <button id="continueBtn" class="btn" disabled>Continue →</button>
+      </div>
+      <div id="calendarStatus" class="status"></div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <a href="index.html">← Back to Home</a>
+    <a href="express-intrest.html">Express Interest</a>
+    <a href="privacy-policy.html" target="_blank">Privacy Policy</a>
+    <p style="margin-top: 1rem; color: #94a3b8;">© 2026 SKG. All rights reserved.</p>
+  </div>
+</div>
+
+<!-- Modal for user details -->
+<div id="bookingModal" class="modal">
+  <div class="modal-content">
+    <h3>Complete your booking</h3>
+    <label>Full name *</label>
+    <input type="text" id="modalName" placeholder="How should we call you?">
+    <label>Email Address *</label>
+    <input type="email" id="modalEmail" placeholder="Where should we send the confirmation details? ">
+    <label>Phone *</label>
+    <input type="tel" id="modalPhone" placeholder="How do we reach out to you via call?">
+    <label>Notes</label>
+    <textarea id="modalNotes" rows="2" placeholder="Any questions or goals?"></textarea>
+    <div style="margin: 1rem 0;">
+      <input type="checkbox" id="modalPrivacy"> 
+      <label>I consent to share my information to be processed for handling this call according to SKG's <a href="privacy-policy.html" target="_blank">Privacy Policy.</a> *</label>
+    </div>
+    <div class="modal-buttons">
+      <button class="cancel-btn" id="cancelModal">Cancel</button>
+      <button class="confirm-btn" id="confirmBooking">Confirm Booking</button>
+    </div>
+    <div id="modalStatus" class="status"></div>
+  </div>
+</div>
+
+<script>
+  // ========================
+  // CONFIGURATION
+  // ========================
+  // 🔴 REPLACE THIS WITH YOUR ACTUAL APPS SCRIPT URL
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw35K2dEEygehIjZwKXEsCVNcd0W-KDRyBQOMvQXUmhW1hEcYtnVT7iUl_6UsVSkSEIeQ/exec';
+  
+  // Date helpers
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+  const maxDate = new Date();
+  maxDate.setDate(today.getDate() + 30);
+
+  let currentDate = new Date();
+  let selectedDate = null;
+  let selectedTime = null;
+
+  const monthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+  function daysInMonth(year, month) {
+    return new Date(year, month + 1, 0).getDate();
+  }
+
+  function renderCalendar() {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+    const firstDayOfMonth = new Date(year, month, 1).getDay();
+    // Adjust to Monday-based index (Monday = 0)
+    let startOffset = firstDayOfMonth === 0 ? 6 : firstDayOfMonth - 1;
+    const totalDays = daysInMonth(year, month);
+    
+    const prevMonthDate = new Date(year, month, 0);
+    const prevMonthDays = daysInMonth(prevMonthDate.getFullYear(), prevMonthDate.getMonth());
+    
+    const container = document.getElementById('calendarDays');
+    container.innerHTML = '';
+    
+    // Previous month days
+    for (let i = startOffset - 1; i >= 0; i--) {
+      const day = prevMonthDays - i;
+      const dayDiv = document.createElement('div');
+      dayDiv.className = 'day other-month disabled';
+      dayDiv.textContent = day;
+      container.appendChild(dayDiv);
+    }
+    
+    // Current month days
+    for (let d = 1; d <= totalDays; d++) {
+      const cellDate = new Date(year, month, d);
+      const isPast = cellDate < today;
+      const isBeyond = cellDate > maxDate;
+      const disabled = isPast || isBeyond;
+      
+      const dayDiv = document.createElement('div');
+      dayDiv.className = `day ${disabled ? 'disabled' : ''}`;
+      if (!disabled && selectedDate && selectedDate.toDateString() === cellDate.toDateString()) {
+        dayDiv.classList.add('selected');
+      }
+      dayDiv.textContent = d;
+      if (!disabled) {
+        dayDiv.addEventListener('click', () => selectDate(cellDate));
+      }
+      container.appendChild(dayDiv);
+    }
+    
+    // Next month filler
+    const totalCells = 42;
+    const currentCells = startOffset + totalDays;
+    const remaining = totalCells - currentCells;
+    for (let i = 1; i <= remaining; i++) {
+      const dayDiv = document.createElement('div');
+      dayDiv.className = 'day other-month disabled';
+      dayDiv.textContent = i;
+      container.appendChild(dayDiv);
+    }
+    
+    document.getElementById('monthYear').innerText = `${monthNames[month]} ${year}`;
+  }
+
+  function selectDate(date) {
+    selectedDate = date;
+    selectedTime = null;
+    renderCalendar();
+    generateTimeSlots();
+    document.getElementById('timeSection').style.display = 'block';
+    document.getElementById('continueBtn').disabled = true;
+  }
+
+  function generateTimeSlots() {
+    const container = document.getElementById('timeGrid');
+    container.innerHTML = '';
+    const times = [];
+    for (let h = 9; h <= 17; h++) {
+      times.push(`${h.toString().padStart(2,'0')}:00`);
+      if (h !== 17) times.push(`${h.toString().padStart(2,'0')}:30`);
+    }
+    times.forEach(time => {
+      const slot = document.createElement('div');
+      slot.className = 'time-slot';
+      slot.textContent = time;
+      slot.addEventListener('click', () => {
+        document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
+        slot.classList.add('selected');
+        selectedTime = time;
+        document.getElementById('continueBtn').disabled = false;
+      });
+      container.appendChild(slot);
+    });
+  }
+
+  // Month navigation
+  document.getElementById('prevMonth').addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    selectedDate = null;
+    selectedTime = null;
+    renderCalendar();
+    document.getElementById('timeSection').style.display = 'none';
+    document.getElementById('continueBtn').disabled = true;
+  });
+  document.getElementById('nextMonth').addEventListener('click', () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    selectedDate = null;
+    selectedTime = null;
+    renderCalendar();
+    document.getElementById('timeSection').style.display = 'none';
+    document.getElementById('continueBtn').disabled = true;
+  });
+
+  // Open modal
+  document.getElementById('continueBtn').addEventListener('click', () => {
+    if (!selectedDate || !selectedTime) {
+      document.getElementById('calendarStatus').innerHTML = '<span style="color:#e74c3c;">Please select a date and time.</span>';
+      return;
+    }
+    document.getElementById('bookingModal').style.display = 'flex';
+    document.getElementById('modalStatus').innerHTML = '';
+  });
+
+  // Close modal
+  document.getElementById('cancelModal').addEventListener('click', () => {
+    document.getElementById('bookingModal').style.display = 'none';
+  });
+  window.addEventListener('click', (e) => {
+    if (e.target === document.getElementById('bookingModal')) {
+      document.getElementById('bookingModal').style.display = 'none';
+    }
+  });
+
+// Submit booking
+document.getElementById('confirmBooking').addEventListener('click', async () => {
+  const name = document.getElementById('modalName').value.trim();
+  const email = document.getElementById('modalEmail').value.trim();
+  const phone = document.getElementById('modalPhone').value.trim();
+  const notes = document.getElementById('modalNotes').value.trim();
+  const privacy = document.getElementById('modalPrivacy').checked;
+  const statusDiv = document.getElementById('modalStatus');
+  const confirmBtn = document.getElementById('confirmBooking');
+  
+  // Validation
+  if (!name) { statusDiv.innerHTML = '<span style="color:#e74c3c;">Name is required.</span>'; return; }
+  if (!email || !email.includes('@')) { statusDiv.innerHTML = '<span style="color:#e74c3c;">Valid email is required.</span>'; return; }
+  if (!phone) { statusDiv.innerHTML = '<span style="color:#e74c3c;">Phone number is required.</span>'; return; }
+  if (!privacy) { statusDiv.innerHTML = '<span style="color:#e74c3c;">You must accept the Privacy Policy.</span>'; return; }
+  
+  const datetime = `${selectedDate.getFullYear()}-${String(selectedDate.getMonth()+1).padStart(2,'0')}-${String(selectedDate.getDate()).padStart(2,'0')} ${selectedTime}:00`;
+  
+  const payload = {
+    type: 'call_booking',
+    name, email, phone, datetime, notes,
+    timestamp: new Date().toISOString()
+  };
+  
+  confirmBtn.disabled = true;
+  confirmBtn.innerHTML = '<span class="spinner"></span> Submitting...';
+  statusDiv.innerHTML = '<span style="color:#3b82f6;">Sending request...</span>';
+  
+  try {
+    // 🔑 KEY FIX: use mode: 'no-cors' to avoid CORS preflight
+    await fetch(SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',           // <-- this is the fix
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+    
+    // With no-cors, we can't read the response, so we assume success
+    statusDiv.innerHTML = '<span style="color:#10b981;">✓ Booking request sent! Check your email for confirmation.</span>';
+    
+    setTimeout(() => {
+      document.getElementById('bookingModal').style.display = 'none';
+      // Reset form
+      selectedDate = null;
+      selectedTime = null;
+      renderCalendar();
+      document.getElementById('timeSection').style.display = 'none';
+      document.getElementById('modalName').value = '';
+      document.getElementById('modalEmail').value = '';
+      document.getElementById('modalPhone').value = '';
+      document.getElementById('modalNotes').value = '';
+      document.getElementById('modalPrivacy').checked = false;
+    }, 2000);
+    
+  } catch (err) {
+    console.error('Fetch error:', err);
+    statusDiv.innerHTML = '<span style="color:#e74c3c;">Network error. Please try again.</span>';
+  } finally {
+    confirmBtn.disabled = false;
+    confirmBtn.innerHTML = 'Confirm Booking';
+  }
+});
+  
+  // Initialize
+  renderCalendar();
+</script>
+</body>
+</html>

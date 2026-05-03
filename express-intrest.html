@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <link rel="icon" type="image/x-icon" href="Assets/skg.png">
+  <title>Express Interest – Level Up Your Career</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+      background: #fefcf5;
+      color: #15120a;
+      line-height: 1.5;
+      padding: 2rem 1rem;
+    }
+    .container {
+      max-width: 780px;
+      margin: 0 auto;
+      background: white;
+      border-radius: 32px;
+      box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+    }
+    .form-header {
+      background: linear-gradient(135deg, #15120a 0%, #2c2416 100%);
+      padding: 2rem;
+      text-align: center;
+      color: white;
+    }
+    .form-header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+    .form-header h1 span { color: #ff6b4a; }
+    .form-header p { opacity: 0.85; max-width: 550px; margin: 0 auto; }
+    .form-body { padding: 2rem; }
+    .form-group { margin-bottom: 1.5rem; }
+    label { display: block; font-weight: 600; margin-bottom: 0.5rem; color: #1e1a10; }
+    .required-star { color: #e03a3a; margin-left: 2px; }
+    input, select, textarea {
+      width: 100%;
+      padding: 0.85rem 1rem;
+      font-size: 1rem;
+      border: 1px solid #e2e0d4;
+      border-radius: 20px;
+      background: #fff;
+      transition: 0.2s;
+      font-family: inherit;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #ff6b4a;
+      box-shadow: 0 0 0 3px rgba(255, 107, 74, 0.2);
+    }
+    .checkbox-group {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+    .checkbox-group input { width: 20px; height: 20px; margin-top: 2px; flex-shrink: 0; }
+    .checkbox-group label { font-weight: normal; margin-bottom: 0; }
+    button {
+      background: #ff6b4a;
+      color: white;
+      border: none;
+      padding: 1rem 1.8rem;
+      font-size: 1.1rem;
+      font-weight: 700;
+      border-radius: 40px;
+      width: 100%;
+      cursor: pointer;
+      transition: 0.2s;
+      box-shadow: 0 5px 12px rgba(255, 107, 74, 0.3);
+    }
+    button:hover { background: #e55a3b; transform: translateY(-1px); }
+    button:disabled { background: #bdbcaa; cursor: not-allowed; transform: none; }
+    .status-msg { margin-top: 1rem; font-size: 0.9rem; text-align: center; min-height: 3rem; }
+    .status-icon { display: inline-flex; align-items: center; margin-right: 8px; vertical-align: middle; }
+    .loading-spinner { width: 20px; height: 20px; border: 2px solid #ddd; border-top-color: #ff6b4a; border-radius: 50%; animation: spin 0.6s linear infinite; display: inline-block; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .success-check, .error-icon { width: 20px; height: 20px; display: inline-block; }
+    .success-check { color: #2ecc71; }
+    .error-icon { color: #e74c3c; }
+    hr { margin: 1.5rem 0; border: none; border-top: 1px solid #eee6dc; }
+    .back-link { text-align: center; margin-top: 1.5rem; }
+    .back-link a { color: #ff6b4a; text-decoration: none; font-weight: 500; }
+    .back-link a:hover { text-decoration: underline; }
+    .conditional-field { margin-top: 0.75rem; }
+    .goal-fields { display: flex; flex-direction: column; gap: 1rem; margin-top: 0.5rem; }
+    @media (max-width: 550px) { .form-header { padding: 1.5rem; } .form-body { padding: 1.5rem; } }
+        header {
+      display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 0;
+    }    
+    .logo {
+      font-size: 1.8rem; font-weight: 700; color: var(--charcoal); text-decoration: none; letter-spacing: -0.5px;
+    }
+        .logo span { color: var(--red); font-family: 'Caveat', cursive; font-size: 2.2rem; margin-left: 3px; }
+  </style>
+</head>
+<body>
+    <!-- ── ANTI-COPY ── -->
+<script>
+  document.addEventListener('contextmenu', e => e.preventDefault());
+  document.addEventListener('keydown', e => {
+    const kb = (e.ctrlKey || e.metaKey) && ['c','u','s','a','p','x'].includes(e.key.toLowerCase());
+    const dt = e.key === 'F12' || ((e.ctrlKey || e.metaKey) && e.shiftKey && ['i','j','c'].includes(e.key.toLowerCase()));
+    if (kb || dt) e.preventDefault();
+  });
+  document.addEventListener('dragstart', e => e.preventDefault());
+  document.addEventListener('selectstart', e => e.preventDefault());
+  (function devDetect() {
+    const threshold = 160;
+    setInterval(() => {
+      if (window.outerWidth - window.innerWidth > threshold || window.outerHeight - window.innerHeight > threshold) {
+        document.body.innerHTML = '<div style="height:100vh;display:flex;align-items:center;justify-content:center;font-family:sans-serif;font-size:0.85rem;color:#6b6560;">Please refresh the page to continue.</div>';
+      }
+    }, 1200);
+  })();
+</script>
+        <!-- HEADER -->
+    <header style="display: flex; justify-content: center; align-items: center; text-align: center;">
+      <a href="#" class="logo">SKILL<span>KWA</span>GROUND</a>
+      <!-- <a href="#cta" class="btn btn-outline">Get Started Today</a> -->
+    </header>
+<div class="container">
+  <div class="form-header">
+    <h1>Express Your <span>Interest</span></h1>
+    <p>Feel Free to Tell us which program fits your ambitions. <br> WE ARE HERE TO LISTEN.</p>
+  </div>
+  <div class="form-body">
+    <form id="interestForm">
+      <!-- Basic fields -->
+      <div class="form-group">
+        <label>Full Name <span class="required-star">*</span></label>
+        <input type="text" id="name" required placeholder="Enter your Full Name">
+      </div>
+      <div class="form-group">
+        <label>Email Address <span class="required-star">*</span></label>
+        <input type="email" id="email" required placeholder="Enter your Email Address">
+      </div>
+      <div class="form-group">
+        <label>Phone Number <span class="required-star">*</span></label>
+        <input type="tel" id="phone" required placeholder="Enter your Phone Number">
+      </div>
+
+      <!-- Course selection -->
+      <div class="form-group">
+        <label>Which training are you interested in? <span class="required-star">*</span></label>
+        <select id="course" required>
+          <option value="">- Select here -</option>
+          <option>AI Automation & Workflows</option>
+          <option>Business Strategy</option>
+          <option>Content Marketing</option>
+          <option value="other">A Custom Course (Other)</option>
+        </select>
+      </div>
+
+      <!-- Conditional: other training description -->
+      <div id="otherCourseGroup" class="form-group conditional-field" style="display: none;">
+        <label>Please describe what you'd like to learn <span class="required-star">*</span></label>
+        <textarea id="otherCourseDesc" rows="2" placeholder="e.g., Advanced data analytics, public speaking, product management..."></textarea>
+      </div>
+
+      <!-- Preferred start date (max 2 months from now) -->
+      <div class="form-group">
+        <label>Preferred start date <span class="required-star">*</span></label>
+        <input type="date" id="startDate" required>
+        <small style="color:#666; display:block; margin-top:6px;">Should be within the next 2 months.</small>
+      </div>
+
+      <!-- 3 SMART Goals -->
+      <div class="form-group">
+        <label>Share 3 SMART Goals you'd like to achieve <span class="required-star">*</span></label>
+        <p style="font-style: italic; color: #666; font-size: 11px;">Should be Specific, Measurable, Achievable, Relevant & Time-bound</p>
+        <div class="goal-fields">
+          <input type="text" id="goal1" placeholder="Goal 1" required>
+          <input type="text" id="goal2" placeholder="Goal 2" required>
+          <input type="text" id="goal3" placeholder="Goal 3" required>
+        </div>
+      </div>
+
+      <div class="checkbox-group">
+        <input type="checkbox" id="privacy" required>
+        <label for="privacy">I agree to SKG's <a href="privacy-policy.html" target="_blank" style="color:#ff6b4a;">Privacy Policy</a> and consent to being contacted about this program. <span class="required-star">*</span></label>
+      </div>
+
+      <button type="button" id="submitBtn">Secure My Spot →</button>
+      <div id="formStatus" class="status-msg"></div>
+    </form>
+    <div class="back-link"><a href="index.html">← Back to home</a></div>
+  </div>
+</div>
+
+<script>
+  // Toggle "other course" textarea
+  const courseSelect = document.getElementById('course');
+  const otherGroup = document.getElementById('otherCourseGroup');
+  const otherDesc = document.getElementById('otherCourseDesc');
+
+  courseSelect.addEventListener('change', () => {
+    if (courseSelect.value === 'other') {
+      otherGroup.style.display = 'block';
+      otherDesc.required = true;
+    } else {
+      otherGroup.style.display = 'none';
+      otherDesc.required = false;
+      otherDesc.value = '';
+    }
+  });
+
+  // Set date constraints: min = today, max = today + 2 months
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, '0');
+  const dd = String(today.getDate()).padStart(2, '0');
+  const minDate = `${yyyy}-${mm}-${dd}`;
+
+  const maxDateObj = new Date();
+  maxDateObj.setMonth(maxDateObj.getMonth() + 2);
+  const maxY = maxDateObj.getFullYear();
+  const maxM = String(maxDateObj.getMonth() + 1).padStart(2, '0');
+  const maxD = String(maxDateObj.getDate()).padStart(2, '0');
+  const maxDate = `${maxY}-${maxM}-${maxD}`;
+
+  const dateInput = document.getElementById('startDate');
+  dateInput.min = minDate;
+  dateInput.max = maxDate;
+
+  // Helper: showMessage with SVG icons
+  function showMessage(container, text, type) {
+    let icon = '';
+    if (type === 'loading') icon = '<div class="loading-spinner status-icon"></div>';
+    else if (type === 'success') icon = '<svg class="success-check status-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>';
+    else if (type === 'error') icon = '<svg class="error-icon status-icon" viewBox="0 0 20 20" fill="currentColor"><path d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z"/></svg>';
+    container.innerHTML = `${icon}<span>${text}</span>`;
+  }
+
+  document.getElementById('submitBtn').addEventListener('click', async () => {
+    const name = document.getElementById('name').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const phone = document.getElementById('phone').value.trim();
+    const course = courseSelect.value;
+    const otherDescVal = otherDesc.value.trim();
+    const startDate = dateInput.value;
+    const goal1 = document.getElementById('goal1').value.trim();
+    const goal2 = document.getElementById('goal2').value.trim();
+    const goal3 = document.getElementById('goal3').value.trim();
+    const privacy = document.getElementById('privacy').checked;
+    const statusDiv = document.getElementById('formStatus');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Validations
+    if (!name) { showMessage(statusDiv, 'Full name is required.', 'error'); return; }
+    if (!email || !email.includes('@')) { showMessage(statusDiv, 'Valid email is required.', 'error'); return; }
+    if (!phone) { showMessage(statusDiv, 'Phone number is required.', 'error'); return; }
+    if (!course) { showMessage(statusDiv, 'Please select a training program.', 'error'); return; }
+    if (course === 'other' && !otherDescVal) { showMessage(statusDiv, 'Please describe what you would like to learn.', 'error'); return; }
+    if (!startDate) { showMessage(statusDiv, 'Preferred start date is required.', 'error'); return; }
+    // Validate date range again (browser does, but double-check)
+    const selectedDate = new Date(startDate);
+    const now = new Date();
+    now.setHours(0,0,0,0);
+    const twoMonthsLater = new Date();
+    twoMonthsLater.setMonth(twoMonthsLater.getMonth() + 2);
+    if (selectedDate < now || selectedDate > twoMonthsLater) {
+      showMessage(statusDiv, 'Start date must be within the next 2 months.', 'error');
+      return;
+    }
+    if (!goal1 || !goal2 || !goal3) { showMessage(statusDiv, 'Please fill in all 3 SMART goals.', 'error'); return; }
+    if (!privacy) { showMessage(statusDiv, 'You must agree to the Privacy Policy.', 'error'); return; }
+
+    // Disable button
+    const originalText = submitBtn.innerText;
+    submitBtn.disabled = true;
+    submitBtn.innerText = 'Submitting ...';
+    showMessage(statusDiv, 'Sending your interest...', 'loading');
+
+    const formData = {
+      name, email, phone, course, otherCourseDesc: (course === 'other') ? otherDescVal : '',
+      startDate, goal1, goal2, goal3,
+      timestamp: new Date().toISOString(),
+      type: 'interest_expression'
+    };
+
+    // REPLACE THIS URL
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxm-iG3GN0iviFyP__isVOj7nRofS9YwRgkF25JiYWnwCtyQMUVMFBvGp7YSyuXDWgujQ/exec';
+
+    try {
+      await fetch(SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData)
+      });
+      showMessage(statusDiv, '✅ Thanks! We’ll reach out within 48 hours.', 'success');
+      // Clear form
+      document.getElementById('name').value = '';
+      document.getElementById('email').value = '';
+      document.getElementById('phone').value = '';
+      courseSelect.value = '';
+      otherGroup.style.display = 'none';
+      otherDesc.value = '';
+      dateInput.value = '';
+      document.getElementById('goal1').value = '';
+      document.getElementById('goal2').value = '';
+      document.getElementById('goal3').value = '';
+      document.getElementById('privacy').checked = false;
+    } catch (err) {
+      console.error(err);
+      showMessage(statusDiv, 'Network error. Please refresh and try again.', 'error');
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.innerText = originalText;
+    }
+  });
+</script>
+</body>
+</html>
