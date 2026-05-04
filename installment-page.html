@@ -553,7 +553,7 @@
         
         <div class="page-title">
             <h3><i class="fas fa-hand-holding-heart" style="color: var(--primary); margin-right: 8px;"></i>Remit your Installment</h3>
-            <p>Enter payable amount according to your service</p>
+            <p>Enter your payable amount according to service subscription</p>
         </div>
         
         <!-- Error/Success Messages -->
@@ -574,16 +574,16 @@
                     placeholder="0"
                     min="1"
                     step="1"
-                    value="1000"
+                    value="2500"
                 >
             </div>
             
             <!-- Quick Amount Buttons -->
             <div class="quick-amounts">
                 <div class="quick-amount" onclick="setAmount(1500)">RPL Certification</div>
-                <div class="quick-amount" onclick="setAmount(4000)">Standard Training</div>
-                <div class="quick-amount" onclick="setAmount(12000)">Premium Training</div>
-                <div class="quick-amount" onclick="setAmount(5000)">RPL Mentorship</div>
+                <div class="quick-amount" onclick="setAmount(5000)">Standard Training</div>
+                <div class="quick-amount" onclick="setAmount(10500)">Premium Training</div>
+                <div class="quick-amount" onclick="setAmount(7000)">RPL Mentorship</div>
             </div>
         </div>
         
@@ -646,10 +646,10 @@
             
             <!-- Optional Message -->
             <div class="form-group">
-                <label><i class="fas fa-message"></i> Message (Optional)</label>
+                <label><i class="fas fa-message"></i> Message (optional) </label>
                 <div class="input-wrapper">
                     <i class="fas fa-pen"></i>
-                    <textarea id="message" placeholder="Any additional notes..."></textarea>
+                    <textarea id="message" placeholder="share any special message that you might have..."></textarea>
                 </div>
             </div>
             
@@ -665,14 +665,14 @@
                         <i class="fas fa-mobile-alt"></i>
                         <span>M-PESA</span>
                     </div>
-                    <div class="method-option" onclick="selectPaymentMethod('bank')">
+                    <!-- <div class="method-option" onclick="selectPaymentMethod('bank')">
                         <i class="fas fa-university"></i>
                         <span>Bank</span>
                     </div>
                     <div class="method-option" onclick="selectPaymentMethod('ussd')">
                         <i class="fas fa-hashtag"></i>
                         <span>USSD</span>
-                    </div>
+                    </div> -->
                 </div>
             </div>
             
@@ -860,8 +860,8 @@
             return false;
         }
         
-        if (amount < 950) {
-            showError('Please enter a valid amount (minimum KES 950)');
+        if (amount < 500) {
+            showError('Please enter a valid amount (minimum KES 500)');
             return false;
         }
         
