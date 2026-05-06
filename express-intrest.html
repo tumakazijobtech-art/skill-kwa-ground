@@ -157,7 +157,7 @@
       <!-- Conditional: other training description -->
       <div id="otherCourseGroup" class="form-group conditional-field" style="display: none;">
         <label>Please describe what you'd like to learn <span class="required-star">*</span></label>
-        <textarea id="otherCourseDesc" rows="2" placeholder="e.g., Advanced data analytics, public speaking, product management..."></textarea>
+        <textarea id="otherCourseDesc" rows="2" placeholder="Can be., Advanced data analytics, public speaking, product management etc..."></textarea>
       </div>
 
       <!-- Preferred start date (max 2 months from now) -->
@@ -282,7 +282,7 @@
     };
 
     // REPLACE THIS URL
-    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxm-iG3GN0iviFyP__isVOj7nRofS9YwRgkF25JiYWnwCtyQMUVMFBvGp7YSyuXDWgujQ/exec';
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw5oPjWtHvnFGwRZKFvk4PxvaKUAAGuLS4YM5REeJH8gCNwSqnNOsplB15JHKOHhJaK/exec';
 
     try {
       await fetch(SCRIPT_URL, {
@@ -291,7 +291,7 @@
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
-      showMessage(statusDiv, '✅ Kudos for expressing interest in Pursuing your Training with SKILL KWA GROUND. We Promise to Reach out to you within 48 hours.', 'success');
+      showMessage(statusDiv, 'Kudos for expressing interest in Pursuing your Training with SKILL KWA GROUND. We Promise to Reach out to you within 48 hours.', 'success');
       // Clear form
       document.getElementById('name').value = '';
       document.getElementById('email').value = '';
